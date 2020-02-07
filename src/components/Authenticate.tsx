@@ -47,39 +47,13 @@ function getAuthUrl({
 export const Authenticate = () => {
   // export const Authenticate = (props: AuthenticateProps) => {
   const [state, setUrlState] = useState('');
-  //   const [authUrl, setAuthUrl] = useState();
   const [authWindow, setAuthWindow] = useState();
-  //   const [authWindow, setAuthWindow] = useState({ close: () => {} });
 
   const generateTokens = () => {
     // const scope = ['account', 'read'];
-    // const scope = ['identity', 'read'];
-    // const permanent = false; // or true - not sure yet
-    // const redirectUri = window.location.origin + window.location.pathname;
-
-    // const authUrl = getAuthUrl({
-    //   CLIENT_ID,
-    //   scope,
-    //   redirectUri,
-    //   permanent,
-    //   state,
-    //   ENDPOINT_DOMAIN
-    // });
-    // console.log(authUrl);
     const scope = ['identity', 'read'];
     const permanent = false; // or true - not sure yet
     const redirectUri = window.location.origin + window.location.pathname;
-
-    // setAuthUrl(
-    //   getAuthUrl({
-    //     clientId: CLIENT_ID,
-    //     scope,
-    //     redirectUri,
-    //     permanent,
-    //     state,
-    //     endpointDomain: ENDPOINT_DOMAIN
-    //   })
-    // );
 
     setAuthWindow(
       window.open(
@@ -93,22 +67,6 @@ export const Authenticate = () => {
         })
       )
     );
-    // setAuthWindow(window.open(authUrl));
-    // console.log('AUTHURL', authUrl);
-
-    // const messageListener = (event: any) => {
-    //   if (
-    //     event.origin !== window.location.origin ||
-    //     event.data.state !== state
-    //   ) {
-    //     return;
-    //   }
-    //   //   window.removeEventListener('message', messageListener);
-    //   authWindow.close();
-    // };
-
-    // window.addEventListener('message', messageListener);
-    // setWindow(window.open(authUrl));
   };
 
   useEffect(() => {
@@ -120,16 +78,7 @@ export const Authenticate = () => {
         window.location.origin
       );
     }
-  }, []);
 
-  useEffect(() => {
-    // console.log(
-    //   btoa(
-    //     [...window.crypto.getRandomValues(new Uint8Array(32))]
-    //       .map(num => String.fromCharCode(num))
-    //       .join('')
-    //   )
-    // );
     setUrlState(
       btoa(
         [...window.crypto.getRandomValues(new Uint8Array(32))]
@@ -137,54 +86,21 @@ export const Authenticate = () => {
           .join('')
       )
     );
-    console.log('set', state);
-    // const scope = ['identity', 'read'];
-    // const permanent = false; // or true - not sure yet
-    // const redirectUri = window.location.origin + window.location.pathname;
-
-    // setAuthUrl(
-    //   getAuthUrl({
-    //     clientId: CLIENT_ID,
-    //     scope,
-    //     redirectUri,
-    //     permanent,
-    //     state,
-    //     endpointDomain: ENDPOINT_DOMAIN
-    //   })
-    // );
-
-    return () => {
-      // cleanup
-    };
   }, []);
 
   const callback = useCallback(
     (event: any) => {
-      console.log('callback', state);
-      console.log(event.data);
       if (
-        event.origin !== window.location.origin ||
-        event.data.state !== state
+        event.origin === window.location.origin &&
+        event.data.state === state
       ) {
-        return;
+        authWindow.close();
       }
-      console.log('here');
-      //   window.removeEventListener('message', messageListener);
-      authWindow.close();
     },
     [state, authWindow]
   );
 
   useGlobalMessage(callback);
-
-  //   useGlobalMessage((event: any) => {
-  //     console.log(event);
-  //     if (event.origin !== window.location.origin || event.data.state !== state) {
-  //       return;
-  //     }
-  //     //   window.removeEventListener('message', messageListener);
-  //     authWindow.close();
-  //   });
 
   return (
     <div>
