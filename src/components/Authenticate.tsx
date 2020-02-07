@@ -2,22 +2,22 @@
 import { useEffect, useState, useCallback } from 'react';
 import Button from '../components/Button';
 import btoa from 'btoa';
-import { ENDPOINT_DOMAIN, CLIENT_ID } from '../constants/constants';
+import {
+  ENDPOINT_DOMAIN,
+  CLIENT_ID,
+  REDDIT_SCOPE
+} from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
+import { AuthURLParams } from '../types/types';
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
 //   font-size: 2em;
 // `;
 
-function getAuthUrl({
-  clientId,
-  scope,
-  redirectUri,
-  permanent,
-  state,
-  endpointDomain
-}: any) {
-  console.log('LE STAE', state);
+function getAuthUrl({ clientId, scope, state, endpointDomain }: AuthURLParams) {
+  const permanent = false; // user will have to reauthenticate after an hour
+  const redirectUri = window.location.origin + window.location.pathname;
+
   if (
     !(
       Array.isArray(scope) &&
@@ -50,20 +50,13 @@ export const Authenticate = () => {
   const [authWindow, setAuthWindow] = useState();
 
   const generateTokens = () => {
-    // const scope = ['account', 'read'];
-    const scope = ['identity', 'read'];
-    const permanent = false; // or true - not sure yet
-    const redirectUri = window.location.origin + window.location.pathname;
-
     setAuthWindow(
       window.open(
         getAuthUrl({
           clientId: CLIENT_ID,
-          scope,
-          redirectUri,
-          permanent,
-          state,
-          endpointDomain: ENDPOINT_DOMAIN
+          endpointDomain: ENDPOINT_DOMAIN,
+          scope: REDDIT_SCOPE,
+          state
         })
       )
     );
@@ -71,8 +64,11 @@ export const Authenticate = () => {
 
   useEffect(() => {
     const searchParams = new URL(window.location.toString()).searchParams;
+    /*
+        Once the user has selected 'allow' from reddit, the opened window will
+        send the code and state back to the original site (dispatches back to the MessageEvent)
+    */
     if (window.opener && searchParams.has('code')) {
-      console.log('POST');
       window.opener.postMessage(
         { code: searchParams.get('code'), state: searchParams.get('state') },
         window.location.origin
@@ -88,8 +84,8 @@ export const Authenticate = () => {
     );
   }, []);
 
-  const callback = useCallback(
-    (event: any) => {
+  const closeAuthWindowOnSuccess = useCallback(
+    event => {
       if (
         event.origin === window.location.origin &&
         event.data.state === state
@@ -100,7 +96,7 @@ export const Authenticate = () => {
     [state, authWindow]
   );
 
-  useGlobalMessage(callback);
+  useGlobalMessage(closeAuthWindowOnSuccess);
 
   return (
     <div>
