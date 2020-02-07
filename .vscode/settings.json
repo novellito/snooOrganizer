@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    "**/.webpack": true,
+    "**/.next": true,
+    "**/lib": true,
+    "**/node_modules": true,
+    "jest.config.js": true,
+    ".babelrc": true,
+    "next.config.js": true,
+    "next-env.d.ts": true,
+    "setupTests.js": true,
+    "tsconfig.json": true
+  }
+}
+
+//search.exclude
