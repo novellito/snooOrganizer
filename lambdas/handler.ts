@@ -7,6 +7,7 @@ export const hello: APIGatewayProxyHandler = async (event: any, _context) => {
   //event.body --> has key
   const body = JSON.parse(event.body);
 
+  // ! TODO: Implement error handling
   const { accessToken } = await snoowrap.fromAuthCode({
     code: body.code,
     clientId: process.env.CLIENT_ID,
@@ -21,13 +22,14 @@ export const hello: APIGatewayProxyHandler = async (event: any, _context) => {
     accessToken
   });
 
-  const elem = await r.getMe().getSavedContent();
-  console.log(elem);
+  const savedContent = await r.getMe().getSavedContent();
+  console.log(savedContent);
+  // r.getSubmission('ejwnwg').unsave();
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
-        savedPosts: elem
+        savedPosts: savedContent
         // savedPosts: elem
       },
       null,
