@@ -9,12 +9,18 @@ import {
 } from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
+import axios from 'axios';
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
 //   font-size: 2em;
 // `;
 
-function getAuthUrl({ clientId, scope, state, endpointDomain }: AuthURLParams) {
+function getAuthUrl({
+  clientId,
+  scope,
+  state,
+  endpointDomain
+}: AuthURLParams): string {
   const permanent = false; // user will have to reauthenticate after an hour
   const redirectUri = window.location.origin + window.location.pathname;
 
@@ -85,11 +91,20 @@ export const Authenticate = () => {
   }, []);
 
   const closeAuthWindowOnSuccess = useCallback(
-    event => {
+    async event => {
       if (
         event.origin === window.location.origin &&
         event.data.state === state
       ) {
+        try {
+          const { data } = await axios.post('/api/hello', {
+            code: event.data.code
+          });
+          console.log('data', data);
+        } catch (err) {
+          return err;
+        }
+        console.log(event.data);
         authWindow.close();
       }
     },
