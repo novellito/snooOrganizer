@@ -29,10 +29,9 @@ provider:
     REDIRECT_URI: ${env:REDIRECT_URI}
 
 functions:
-  hello:
+  userContent:
     handler: handler.getUserSavedContent
     events:
       - http:
           method: post
-          # method: get
-          path: hello
+          path: userContent

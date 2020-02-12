@@ -97,7 +97,7 @@ export const Authenticate = () => {
         event.data.state === state
       ) {
         try {
-          const { data } = await axios.post('/api/hello', {
+          const { data } = await axios.post('/api/userContent', {
             code: event.data.code
           });
           console.log('data', data);
