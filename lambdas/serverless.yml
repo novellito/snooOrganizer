@@ -30,7 +30,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.getUserSavedContent
     events:
       - http:
           method: post
