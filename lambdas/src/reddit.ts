@@ -7,25 +7,26 @@ const clientCredsAndUserAgent = {
   userAgent: 'SnooOrganizer v1.0 (by /u/Dbossez)'
 };
 
-export const getAccessToken = async (code: string) => {
-  const { accessToken } = await snoowrap.fromAuthCode({
-    code,
-    ...clientCredsAndUserAgent,
-    redirectUri: process.env.REDIRECT_URI
-  });
-  return accessToken;
-};
+export default {
+  getAccessToken: async (code: string) => {
+    const { accessToken } = await snoowrap.fromAuthCode({
+      code,
+      ...clientCredsAndUserAgent,
+      redirectUri: process.env.REDIRECT_URI
+    });
+    return accessToken;
+  },
+  getSavedContent: async (accessToken: string) => {
+    const snoowrapObj = new snoowrap({
+      ...clientCredsAndUserAgent,
+      accessToken
+    });
 
-export const getSavedContent = async (accessToken: string) => {
-  const snoowrapObj = new snoowrap({
-    ...clientCredsAndUserAgent,
-    accessToken
-  });
+    const savedContent = await snoowrapObj.getMe().getSavedContent();
 
-  const savedContent = await snoowrapObj.getMe().getSavedContent();
-
-  return {
-    statusCode: 200,
-    body: JSONStringify(savedContent)
-  };
+    return {
+      statusCode: 200,
+      body: JSONStringify(savedContent)
+    };
+  }
 };
