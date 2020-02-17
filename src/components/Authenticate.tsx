@@ -54,6 +54,8 @@ export const Authenticate = () => {
   // export const Authenticate = (props: AuthenticateProps) => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();
+  const [id, setId] = useState('');
+  const [accessToken, setAccessToken] = useState('');
 
   const generateTokens = () => {
     setAuthWindow(
@@ -100,23 +102,38 @@ export const Authenticate = () => {
           const { data } = await axios.post('/api/userContent', {
             code: event.data.code
           });
-          console.log('data', data);
+
+          console.log('data', data.content.savedContent);
+          setId(data.content.savedContent[0].id);
+          setAccessToken(data.content.accessToken);
+          //   console.log(event.data.content);
+          authWindow.close();
         } catch (err) {
           return err;
         }
-        console.log(event.data);
-        authWindow.close();
       }
     },
-    [state, authWindow]
+    [state, authWindow, id, accessToken]
+    // [state, authWindow]
   );
 
   useGlobalMessage(closeAuthWindowOnSuccess);
+
+  const unsave = async () => {
+    console.log('here', accessToken, id);
+    const foo = await axios.post('/api/unsaveContent', {
+      accessToken,
+      id
+    });
+
+    console.log('FOO', foo);
+  };
 
   return (
     <div>
       hello!
       <Button click={() => generateTokens()} text="Login"></Button>
+      <Button click={() => unsave()} text="unsave"></Button>
     </div>
   );
 };

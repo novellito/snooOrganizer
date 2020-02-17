@@ -35,3 +35,9 @@ functions:
       - http:
           method: post
           path: userContent
+  unsaveContent:
+    handler: handler.unsaveContent
+    events:
+      - http:
+          method: post
+          path: unsaveContent

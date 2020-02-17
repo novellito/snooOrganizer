@@ -6,6 +6,7 @@ export const getUserSavedContent: APIGatewayProxyHandler = async (
   event: any,
   _context
 ) => {
+  // ! still need to implement error handling
   const { code } = JSON.parse(event.body);
   const accessToken = await reddit.getAccessToken(code);
   return reddit.getSavedContent(accessToken);
@@ -15,7 +16,6 @@ export const unsaveContent: APIGatewayProxyHandler = async (
   event: any,
   _context
 ) => {
-  const { code } = JSON.parse(event.body);
-  const accessToken = await reddit.getAccessToken(code);
-  return reddit.getSavedContent(accessToken);
+  const { id, accessToken } = JSON.parse(event.body);
+  return reddit.unsaveContent(id, accessToken);
 };

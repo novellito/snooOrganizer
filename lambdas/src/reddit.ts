@@ -26,7 +26,29 @@ export default {
 
     return {
       statusCode: 200,
-      body: JSONStringify(savedContent)
+      body: JSONStringify({ savedContent, accessToken })
     };
+  },
+  unsaveContent: async (contentId: string, accessToken: string) => {
+    const snoowrapObj = new snoowrap({
+      ...clientCredsAndUserAgent,
+      accessToken
+    });
+
+    return snoowrapObj
+      .getSubmission(contentId)
+      .unsave()
+      .then(res => {
+        return {
+          statusCode: 200,
+          body: JSONStringify({ msg: 'unsave successful!', res })
+        };
+      })
+      .catch(err => {
+        return {
+          statusCode: 500,
+          body: JSONStringify({ msg: 'something went wrong!', err })
+        };
+      });
   }
 };
