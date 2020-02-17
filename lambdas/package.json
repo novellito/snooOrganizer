@@ -4,7 +4,7 @@
   "description": "Serverless webpack example using Typescript",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "snoowrap": "^1.20.1",
@@ -13,7 +13,9 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
     "@types/node": "^10.12.18",
+    "babel-jest": "^25.1.0",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
+    "jest": "^25.1.0",
     "serverless-dotenv-plugin": "^2.3.1",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^5.12.1",
