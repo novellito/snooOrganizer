@@ -9,25 +9,34 @@ const clientCredsAndUserAgent = {
 
 export default {
   getAccessToken: async (code: string) => {
-    const { accessToken } = await snoowrap.fromAuthCode({
-      code,
-      ...clientCredsAndUserAgent,
-      redirectUri: process.env.REDIRECT_URI
-    });
-    return accessToken;
+    try {
+      const { accessToken } = await snoowrap.fromAuthCode({
+        code,
+        ...clientCredsAndUserAgent,
+        redirectUri: process.env.REDIRECT_URI
+      });
+      return accessToken;
+    } catch (err) {
+      return err;
+    }
   },
   getSavedContent: async (accessToken: string) => {
     const snoowrapObj = new snoowrap({
       ...clientCredsAndUserAgent,
       accessToken
     });
-
-    const savedContent = await snoowrapObj.getMe().getSavedContent();
-
-    return {
-      statusCode: 200,
-      body: JSONStringify({ savedContent, accessToken })
-    };
+    try {
+      const savedContent = await snoowrapObj.getMe().getSavedContent();
+      return {
+        statusCode: 200,
+        body: JSONStringify({ savedContent, accessToken })
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSONStringify({ msg: 'something went wrong!', err })
+      };
+    }
   },
   unsaveContent: async (contentId: string, accessToken: string) => {
     const snoowrapObj = new snoowrap({
