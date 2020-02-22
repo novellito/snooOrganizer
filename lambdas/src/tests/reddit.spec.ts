@@ -52,3 +52,30 @@ describe('getSavedContent()', () => {
     expect(response.statusCode).toBe(500);
   });
 });
+
+describe('unsaveContent()', () => {
+  it('should unsave the provided content', async () => {
+    jest.spyOn(Snoowrap.prototype as any, 'getSubmission').mockReturnValue({
+      unsave: () =>
+        Promise.resolve({
+          id: 'unsave123'
+        })
+    });
+
+    const response = await Reddit.unsaveContent('unsave123', 'accessToken');
+    const { content } = JSON.parse(response.body);
+
+    expect(response.statusCode).toBe(200);
+    expect(content.res.id).toBe('unsave123');
+  });
+
+  it('should return a 500 status code on an error', async () => {
+    jest.spyOn(Snoowrap.prototype as any, 'getSubmission').mockReturnValue({
+      unsave: () => Promise.reject('err')
+    });
+
+    const response = await Reddit.getSavedContent('abc123');
+
+    expect(response.statusCode).toBe(500);
+  });
+});
