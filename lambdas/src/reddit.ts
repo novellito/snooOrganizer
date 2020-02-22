@@ -1,7 +1,7 @@
 import snoowrap from 'snoowrap';
 import { JSONStringify } from '../utils/utils';
 
-const clientCredsAndUserAgent = {
+export const clientCredsAndUserAgent = {
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   userAgent: 'SnooOrganizer v1.0 (by /u/Dbossez)'

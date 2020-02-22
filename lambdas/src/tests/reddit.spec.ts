@@ -1,16 +1,54 @@
-import Reddit from '../reddit';
-import snoowrap from 'snoowrap';
+import Reddit, { clientCredsAndUserAgent } from '../reddit';
+import Snoowrap from 'snoowrap';
 
-describe('reddit test suite', () => {
+let mock;
+beforeEach(() => {
+  mock = jest.spyOn(Snoowrap, 'fromAuthCode');
+});
+describe('getAccessToken()', () => {
   it('should return the access token', async () => {
-    const mock = jest.spyOn(snoowrap, 'fromAuthCode');
-    mock.mockImplementation((): any => {
-      return {
-        accessTsoken: '123'
-      };
+    mock.mockImplementation((): any => ({
+      accessToken: 'theAccessToken123'
+    }));
+    const token = await Reddit.getAccessToken('123');
+    expect(token).toEqual('theAccessToken123');
+    expect(Snoowrap.fromAuthCode).toHaveBeenCalledWith({
+      code: '123',
+      ...clientCredsAndUserAgent,
+      redirectUri: process.env.REDIRECT_URI
     });
-    // expect(mock).toHaveBeenCalled();
-    const foo = await Reddit.getAccessToken('123');
-    console.log(foo);
+  });
+  it('should return undefined when there is no access token', async () => {
+    mock.mockImplementation((): any => ({}));
+    const token = await Reddit.getAccessToken('123');
+    expect(token).toBeUndefined();
+  });
+});
+
+describe('getSavedContent()', () => {
+  it('should return the saved content', async () => {
+    jest.spyOn(Snoowrap.prototype as any, 'getMe').mockReturnValue({
+      getSavedContent: () => ({
+        username: 'dbossez'
+      })
+    });
+    const response = await Reddit.getSavedContent('abc123');
+    const { content } = JSON.parse(response.body);
+
+    expect(response.statusCode).toBe(200);
+    expect(content.savedContent.username).toBe('dbossez');
+    expect(content.accessToken).toBe('abc123');
+  });
+
+  it('should return a 500 status code on an error', async () => {
+    jest.spyOn(Snoowrap.prototype as any, 'getMe').mockReturnValue({
+      getSavedContent: () => {
+        throw new Error('error');
+      }
+    });
+
+    const response = await Reddit.getSavedContent('abc123');
+
+    expect(response.statusCode).toBe(500);
   });
 });

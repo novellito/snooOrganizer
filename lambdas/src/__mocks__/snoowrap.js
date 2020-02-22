@@ -1,3 +1,6 @@
-const snoowrap = jest.genMockFromModule('snoowrap');
+const Snoowrap = jest.genMockFromModule('snoowrap');
+Snoowrap.getMe = () => ({
+  getSavedContent: jest.fn()
+});
 
-export default snoowrap;
+export default Snoowrap;
