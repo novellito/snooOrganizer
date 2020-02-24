@@ -10,6 +10,7 @@ import {
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import axios from 'axios';
+import { IUserInfo } from '../interfaces/interfaces';
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
 //   font-size: 2em;
@@ -44,6 +45,11 @@ function getAuthUrl({
         &duration=${permanent ? 'permanent' : 'temporary'}
         &scope=${encodeURIComponent(scope.join(' '))}
       `.replace(/\s/g, '');
+}
+
+async function fetchUserContent(code: string): Promise<IUserInfo> {
+  const { data } = await axios.post('/api/userContent', { code });
+  return data.content;
 }
 
 // interface AuthenticateProps {
@@ -99,16 +105,14 @@ export const Authenticate = () => {
         event.data.state === state
       ) {
         try {
-          const { data } = await axios.post('/api/userContent', {
-            code: event.data.code
-          });
+          const res = await fetchUserContent(event.data.code);
+          console.log('data', res.savedContent);
 
-          console.log('data', data.content.savedContent);
-          setId(data.content.savedContent[0].id);
-          setAccessToken(data.content.accessToken);
-          //   console.log(event.data.content);
+          setId(res.savedContent[0].id);
+          setAccessToken(res.accessToken);
           authWindow.close();
         } catch (err) {
+          console.log(err);
           return err;
         }
       }
