@@ -11,7 +11,8 @@ import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import axios from 'axios';
 import { IUserInfo } from '../interfaces/interfaces';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import Router from 'next/router';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -59,7 +60,6 @@ export const Authenticate = () => {
   const [authWindow, setAuthWindow] = useState();
   const [accessToken, setAccessToken] = useState('');
   const dispatch = useDispatch();
-  const savedContent = useSelector(({ user }: any) => user.savedContent);
 
   const generateTokens = () => {
     setAuthWindow(
@@ -107,10 +107,9 @@ export const Authenticate = () => {
           console.log('data', res.savedContent);
 
           dispatch({ type: 'SET_SAVED_CONTENT', payload: res.savedContent });
-
-          // setId(res.savedContent[0].id);
           setAccessToken(res.accessToken); // ? probably store this in local store
           authWindow.close();
+          Router.push('/dashboard');
         } catch (err) {
           console.log(err);
           return err;
@@ -137,10 +136,6 @@ export const Authenticate = () => {
   return (
     <div>
       hello!
-      {/* {savedContent} */}
-      {savedContent.map((elem: any) => (
-        <div key={elem.id}>{elem.subreddit}</div>
-      ))}
       <Button click={() => generateTokens()} text="Login"></Button>
       {/* <Button click={() => unsave()} text="unsave"></Button> */}
     </div>
