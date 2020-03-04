@@ -11,6 +11,8 @@ import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import axios from 'axios';
 import { IUserInfo } from '../interfaces/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
 //   font-size: 2em;
@@ -52,16 +54,12 @@ async function fetchUserContent(code: string): Promise<IUserInfo> {
   return data.content;
 }
 
-// interface AuthenticateProps {
-//   text?: string;
-//   click?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-// }
 export const Authenticate = () => {
-  // export const Authenticate = (props: AuthenticateProps) => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();
-  const [id, setId] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const dispatch = useDispatch();
+  const savedContent = useSelector(({ user }: any) => user.savedContent);
 
   const generateTokens = () => {
     setAuthWindow(
@@ -108,8 +106,10 @@ export const Authenticate = () => {
           const res = await fetchUserContent(event.data.code);
           console.log('data', res.savedContent);
 
-          setId(res.savedContent[0].id);
-          setAccessToken(res.accessToken);
+          dispatch({ type: 'SET_SAVED_CONTENT', payload: res.savedContent });
+
+          // setId(res.savedContent[0].id);
+          setAccessToken(res.accessToken); // ? probably store this in local store
           authWindow.close();
         } catch (err) {
           console.log(err);
@@ -117,27 +117,32 @@ export const Authenticate = () => {
         }
       }
     },
-    [state, authWindow, id, accessToken]
+    [state, authWindow, accessToken]
+    // [state, authWindow, id, accessToken]
     // [state, authWindow]
   );
 
   useGlobalMessage(closeAuthWindowOnSuccess);
 
-  const unsave = async () => {
-    console.log('here', accessToken, id);
-    const foo = await axios.post('/api/unsaveContent', {
-      accessToken,
-      id
-    });
+  // const unsave = async () => {
+  //   console.log('here', accessToken, id);
+  //   const foo = await axios.post('/api/unsaveContent', {
+  //     accessToken,
+  //     id
+  //   });
 
-    console.log('FOO', foo);
-  };
+  //   console.log('FOO', foo);
+  // };
 
   return (
     <div>
       hello!
+      {/* {savedContent} */}
+      {savedContent.map((elem: any) => (
+        <div key={elem.id}>{elem.subreddit}</div>
+      ))}
       <Button click={() => generateTokens()} text="Login"></Button>
-      <Button click={() => unsave()} text="unsave"></Button>
+      {/* <Button click={() => unsave()} text="unsave"></Button> */}
     </div>
   );
 };
