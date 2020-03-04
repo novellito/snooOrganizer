@@ -26,10 +26,15 @@ export default {
       accessToken
     });
     try {
-      const savedContent = await snoowrapObj.getMe().getSavedContent();
+      let username: string;
+      const savedContent = await snoowrapObj.getMe().then(user => {
+        username = user.name;
+        return user.getSavedContent();
+      });
+
       return {
         statusCode: 200,
-        body: JSONStringify({ savedContent, accessToken })
+        body: JSONStringify({ savedContent, accessToken, username })
       };
     } catch (err) {
       return {
