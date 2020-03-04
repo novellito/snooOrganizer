@@ -27,10 +27,15 @@ export default {
     });
     try {
       let username: string;
-      const savedContent = await snoowrapObj.getMe().then(user => {
-        username = user.name;
-        return user.getSavedContent();
-      });
+      const savedContent = await snoowrapObj
+        .getMe()
+        .then(user => {
+          username = user.name;
+          return user.getSavedContent();
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
       return {
         statusCode: 200,

@@ -27,16 +27,17 @@ describe('getAccessToken()', () => {
 
 describe('getSavedContent()', () => {
   it('should return the saved content', async () => {
-    jest.spyOn(Snoowrap.prototype as any, 'getMe').mockReturnValue({
-      getSavedContent: () => ({
-        username: 'dbossez'
+    jest.spyOn(Snoowrap.prototype as any, 'getMe').mockResolvedValue(
+      Promise.resolve({
+        name: 'dbossez',
+        getSavedContent: () => {}
       })
-    });
+    );
     const response = await Reddit.getSavedContent('abc123');
     const { content } = JSON.parse(response.body);
 
     expect(response.statusCode).toBe(200);
-    expect(content.savedContent.username).toBe('dbossez');
+    expect(content.username).toBe('dbossez');
     expect(content.accessToken).toBe('abc123');
   });
 
