@@ -107,13 +107,15 @@ export const Authenticate = () => {
         try {
           setLoading(true);
           authWindow.close();
-          const res = await fetchUserContent(event.data.code);
-
+          const {
+            savedContent,
+            accessToken,
+            username
+          } = await fetchUserContent(event.data.code);
           setLoading(false);
-          dispatch({ type: 'SET_SAVED_CONTENT', payload: res.savedContent });
-          setAccessToken(res.accessToken); // ? probably store this in local store
-          // authWindow.close();
-          Router.push('/dashboard/[user]', `/dashboard/${res.username}`);
+          dispatch({ type: 'SET_SAVED_CONTENT', payload: savedContent });
+          setAccessToken(accessToken); // ? probably store this in local store
+          Router.push('/dashboard/[user]', `/dashboard/${username}`);
         } catch (err) {
           console.log(err);
           return err;
@@ -121,28 +123,25 @@ export const Authenticate = () => {
       }
     },
     [state, authWindow, accessToken]
-    // [state, authWindow, id, accessToken]
-    // [state, authWindow]
   );
 
   useGlobalMessage(closeAuthWindowOnSuccess);
 
+  // ! Code to be used later
   // const unsave = async () => {
   //   console.log('here', accessToken, id);
   //   const foo = await axios.post('/api/unsaveContent', {
   //     accessToken,
   //     id
   //   });
-
   //   console.log('FOO', foo);
+  // <Button click={() => unsave()} text="unsave"></Button>
   // };
 
   return (
     <div>
-      hello!
       {isLoading ? <h1>isLoading</h1> : <></>}
       <Button click={() => generateTokens()} text="Login"></Button>
-      {/* <Button click={() => unsave()} text="unsave"></Button> */}
     </div>
   );
 };
