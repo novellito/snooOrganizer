@@ -60,6 +60,7 @@ export const Authenticate = () => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();
   const [accessToken, setAccessToken] = useState('');
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const generateTokens = () => {
@@ -104,12 +105,14 @@ export const Authenticate = () => {
         event.data.state === state
       ) {
         try {
+          setLoading(true);
+          authWindow.close();
           const res = await fetchUserContent(event.data.code);
-          console.log('data', res.savedContent);
 
+          setLoading(false);
           dispatch({ type: 'SET_SAVED_CONTENT', payload: res.savedContent });
           setAccessToken(res.accessToken); // ? probably store this in local store
-          authWindow.close();
+          // authWindow.close();
           Router.push('/dashboard/[user]', `/dashboard/${res.username}`);
         } catch (err) {
           console.log(err);
@@ -137,6 +140,7 @@ export const Authenticate = () => {
   return (
     <div>
       hello!
+      {isLoading ? <h1>isLoading</h1> : <></>}
       <Button click={() => generateTokens()} text="Login"></Button>
       {/* <Button click={() => unsave()} text="unsave"></Button> */}
     </div>

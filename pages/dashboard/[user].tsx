@@ -8,6 +8,7 @@ export const Dashboard = () => {
   return (
     <div>
       welcome to dashboard
+      {/* move this logic to a component */}
       {savedContent.map((elem: any) => (
         <div key={elem.id}>{elem.subreddit}</div>
       ))}
