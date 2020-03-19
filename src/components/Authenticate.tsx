@@ -12,7 +12,7 @@ import { AuthURLParams } from '../types/types';
 import axios from 'axios';
 import { IUserInfo } from '../interfaces/interfaces';
 import { useDispatch } from 'react-redux';
-// import Router from 'next/router';
+import Router from 'next/router';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -110,7 +110,7 @@ export const Authenticate = () => {
           dispatch({ type: 'SET_SAVED_CONTENT', payload: res.savedContent });
           setAccessToken(res.accessToken); // ? probably store this in local store
           authWindow.close();
-          // Router.push('/dashboard');
+          Router.push('/dashboard/[user]', `/dashboard/${res.username}`);
         } catch (err) {
           console.log(err);
           return err;

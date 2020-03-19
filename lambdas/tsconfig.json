@@ -3,7 +3,6 @@
     "lib": ["es2017"],
     "removeComments": true,
     "moduleResolution": "node",
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es2017",

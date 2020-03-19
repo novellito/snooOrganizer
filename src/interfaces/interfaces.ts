@@ -1,6 +1,7 @@
 export interface IUserInfo {
   savedContent: Array<ISavedContent>;
   accessToken: string;
+  username: string;
 }
 
 interface ISavedContent {
