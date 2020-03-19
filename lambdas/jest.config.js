@@ -7,5 +7,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest'
-  }
+  },
+  testEnvironment: 'node'
 };
