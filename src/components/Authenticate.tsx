@@ -5,7 +5,7 @@ import btoa from 'btoa';
 import {
   ENDPOINT_DOMAIN,
   CLIENT_ID,
-  REDDIT_SCOPE
+  REDDIT_SCOPE,
 } from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
@@ -19,20 +19,20 @@ import Router from 'next/router';
 //   font-size: 2em;
 // `;
 
-function getAuthUrl({
+export function getAuthUrl({
   clientId,
   scope,
   state,
-  endpointDomain
+  endpointDomain,
 }: AuthURLParams): string {
   const permanent = false; // user will have to reauthenticate after an hour
   const redirectUri = window.location.origin + window.location.pathname;
-
+  console.log(state);
   if (
     !(
       Array.isArray(scope) &&
       scope.length &&
-      scope.every(scopeValue => scopeValue && typeof scopeValue === 'string')
+      scope.every((scopeValue) => scopeValue && typeof scopeValue === 'string')
     )
   ) {
     throw new TypeError(
@@ -50,7 +50,7 @@ function getAuthUrl({
       `.replace(/\s/g, '');
 }
 
-async function fetchUserContent(code: string): Promise<IUserInfo> {
+export async function fetchUserContent(code: string): Promise<IUserInfo> {
   const { data } = await axios.post('/api/userContent', { code });
   console.log(data);
   return data.content;
@@ -59,18 +59,17 @@ async function fetchUserContent(code: string): Promise<IUserInfo> {
 export const Authenticate = () => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();
-  const [accessToken, setAccessToken] = useState('');
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const generateTokens = () => {
+  const generateAuthWindow = () => {
     setAuthWindow(
       window.open(
         getAuthUrl({
           clientId: CLIENT_ID,
           endpointDomain: ENDPOINT_DOMAIN,
           scope: REDDIT_SCOPE,
-          state
+          state,
         })
       )
     );
@@ -89,17 +88,18 @@ export const Authenticate = () => {
       );
     }
 
+    // The state url param helps us determine which window the user is in
     setUrlState(
       btoa(
         [...window.crypto.getRandomValues(new Uint8Array(32))]
-          .map(num => String.fromCharCode(num))
+          .map((num) => String.fromCharCode(num))
           .join('')
       )
     );
   }, []);
 
   const closeAuthWindowOnSuccess = useCallback(
-    async event => {
+    async (event) => {
       if (
         event.origin === window.location.origin &&
         event.data.state === state
@@ -110,11 +110,11 @@ export const Authenticate = () => {
           const {
             savedContent,
             accessToken,
-            username
+            username,
           } = await fetchUserContent(event.data.code);
           setLoading(false);
           dispatch({ type: 'SET_SAVED_CONTENT', payload: savedContent });
-          setAccessToken(accessToken); // ? probably store this in local store
+          localStorage.setItem('accessToken', accessToken);
           Router.push('/dashboard/[user]', `/dashboard/${username}`);
         } catch (err) {
           console.log(err);
@@ -122,7 +122,7 @@ export const Authenticate = () => {
         }
       }
     },
-    [state, authWindow, accessToken]
+    [state, authWindow]
   );
 
   useGlobalMessage(closeAuthWindowOnSuccess);
@@ -141,7 +141,7 @@ export const Authenticate = () => {
   return (
     <div>
       {isLoading ? <h1>isLoading</h1> : <></>}
-      <Button click={() => generateTokens()} text="Login"></Button>
+      <Button click={() => generateAuthWindow()} text="Login"></Button>
     </div>
   );
 };
