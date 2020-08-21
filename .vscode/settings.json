@@ -10,7 +10,8 @@
     "next-env.d.ts": true,
     "setupTests.js": true,
     "tsconfig.json": true
-  }
+  },
+  "prettier.trailingComma": "none"
 }
 
 //search.exclude

@@ -114,6 +114,7 @@ export const Authenticate = () => {
           } = await fetchUserContent(event.data.code);
           setLoading(false);
           dispatch({ type: 'SET_SAVED_CONTENT', payload: savedContent });
+          dispatch({ type: 'LOGIN'});
           localStorage.setItem('accessToken', accessToken);
           Router.push('/dashboard/[user]', `/dashboard/${username}`);
         } catch (err) {
