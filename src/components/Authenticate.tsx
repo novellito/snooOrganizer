@@ -5,7 +5,7 @@ import btoa from 'btoa';
 import {
   ENDPOINT_DOMAIN,
   CLIENT_ID,
-  REDDIT_SCOPE,
+  REDDIT_SCOPE
 } from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
@@ -23,7 +23,7 @@ export function getAuthUrl({
   clientId,
   scope,
   state,
-  endpointDomain,
+  endpointDomain
 }: AuthURLParams): string {
   const permanent = false; // user will have to reauthenticate after an hour
   const redirectUri = window.location.origin + window.location.pathname;
@@ -69,7 +69,7 @@ export const Authenticate = () => {
           clientId: CLIENT_ID,
           endpointDomain: ENDPOINT_DOMAIN,
           scope: REDDIT_SCOPE,
-          state,
+          state
         })
       )
     );
@@ -110,11 +110,11 @@ export const Authenticate = () => {
           const {
             savedContent,
             accessToken,
-            username,
+            username
           } = await fetchUserContent(event.data.code);
           setLoading(false);
           dispatch({ type: 'SET_SAVED_CONTENT', payload: savedContent });
-          dispatch({ type: 'LOGIN'});
+          dispatch({ type: 'LOGIN' });
           localStorage.setItem('accessToken', accessToken);
           Router.push('/dashboard/[user]', `/dashboard/${username}`);
         } catch (err) {
@@ -142,7 +142,8 @@ export const Authenticate = () => {
   return (
     <div>
       {isLoading ? <h1>isLoading</h1> : <></>}
-      <Button click={() => generateAuthWindow()} text="Login"></Button>
+      <Button click={() => {}} text="Login" bgColor="primary"></Button>
+      {/* <Button click={() => generateAuthWindow()} text="Login"></Button> */}
     </div>
   );
 };
