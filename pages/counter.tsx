@@ -10,11 +10,11 @@ export const Counter = () => {
       <h1>
         Count: <span>{count}</span>
       </h1>
-      <Button text="ADD" click={() => dispatch({ type: 'ADD' })}></Button>
+      {/* <Button text="ADD" click={() => dispatch({ type: 'ADD' })}></Button>
       <Button
         text="SUBTRACT"
         click={() => dispatch({ type: 'SUBTRACT' })}
-      ></Button>
+      ></Button> */}
     </div>
   );
 };

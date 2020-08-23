@@ -14,8 +14,8 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
     background: hsl(0deg 0% 98%);
-    font-family: 'Open Sans', sans-serif;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Open Sans', sans-serif; /* for text body */
+    font-family: 'Rubik', sans-serif; /* for headers */
   }
 
 `;

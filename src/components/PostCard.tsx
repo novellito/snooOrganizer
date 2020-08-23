@@ -7,6 +7,7 @@ import {
   TEXT_PRIMARY,
   TEXT_HEADER
 } from '../constants/colors';
+import Button from './Button';
 
 const bgColorMap: any = {
   primary: PRIMARY,
@@ -33,8 +34,20 @@ const PostCardWrapper = styled.div`
     padding: 16px;
     height: 130px;
     overflow: hidden;
-    text-align: justify;
-    color: ${TEXT_HEADER};
+    p {
+      margin: 0;
+      &.userName {
+        color: ${TEXT_HEADER};
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+      &.postTitle {
+        font-family: 'Open Sans', sans-serif; /* for text body */
+        color: ${TEXT_PRIMARY};
+        font-size: 1.1em;
+        text-overflow: ellipsis;
+      }
+    }
   }
   .action {
     padding: 16px;
@@ -52,8 +65,17 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <PostCardWrapper {...props}>
       <div className="header">HEAD</div>
-      <div className="content">CONTENT</div>
-      <div className="action">action</div>
+      <div className="content">
+        {/* need max length */}
+        <p className="postTitle">
+          I teach React courses - here's my collection of over 600 slides on
+          various React topics (hosted on GitHub, licensed under CC-BY-SA)
+        </p>
+        <p className="userName">u/Dbossez</p>
+      </div>
+      <div className="action">
+        <Button click={() => {}} text="Unsave" bgColor="danger"></Button>
+      </div>
     </PostCardWrapper>
   );
 };
