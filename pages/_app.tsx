@@ -14,7 +14,10 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
     background: hsl(0deg 0% 98%);
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
   }
+
 `;
 
 interface AppPropsWithRedux extends AppProps {
