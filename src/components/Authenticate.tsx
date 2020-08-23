@@ -13,6 +13,7 @@ import axios from 'axios';
 import { IUserInfo } from '../interfaces/interfaces';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
+import PostCard from './PostCard';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -143,6 +144,7 @@ export const Authenticate = () => {
     <div>
       {isLoading ? <h1>isLoading</h1> : <></>}
       <Button click={() => {}} text="Login" bgColor="primary"></Button>
+      <PostCard></PostCard>
       {/* <Button click={() => generateAuthWindow()} text="Login"></Button> */}
     </div>
   );

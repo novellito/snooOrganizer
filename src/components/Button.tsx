@@ -49,6 +49,7 @@ const ButtonWrapper = styled.button`
   }
 `;
 
+// TODO: pass custom props for width/height
 interface ButtonProps {
   bgColor: string;
   text: string;

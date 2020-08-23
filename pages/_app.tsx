@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
   html {
     height: 100%;
+    background: hsl(0deg 0% 98%);
   }
 `;
 
