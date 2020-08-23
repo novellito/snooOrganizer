@@ -9,11 +9,10 @@ import {
 } from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
-import axios from 'axios';
-import { IUserInfo } from '../interfaces/interfaces';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import PostCard from './PostCard';
+import { fetchUserContent } from '../store/actions';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -49,12 +48,6 @@ export function getAuthUrl({
         &duration=${permanent ? 'permanent' : 'temporary'}
         &scope=${encodeURIComponent(scope.join(' '))}
       `.replace(/\s/g, '');
-}
-
-export async function fetchUserContent(code: string): Promise<IUserInfo> {
-  const { data } = await axios.post('/api/userContent', { code });
-  console.log(data);
-  return data.content;
 }
 
 export const Authenticate = () => {
@@ -108,16 +101,13 @@ export const Authenticate = () => {
         try {
           setLoading(true);
           authWindow.close();
-          const {
-            savedContent,
-            accessToken,
-            username
-          } = await fetchUserContent(event.data.code);
+          const { username } = await dispatch(
+            fetchUserContent(event.data.code)
+          );
           setLoading(false);
-          dispatch({ type: 'SET_SAVED_CONTENT', payload: savedContent });
-          dispatch({ type: 'LOGIN' });
-          localStorage.setItem('accessToken', accessToken);
-          Router.push('/dashboard/[user]', `/dashboard/${username}`);
+          if (username) {
+            Router.push('/dashboard/[user]', `/dashboard/${username}`);
+          }
         } catch (err) {
           console.log(err);
           return err;
@@ -143,9 +133,13 @@ export const Authenticate = () => {
   return (
     <div>
       {isLoading ? <h1>isLoading</h1> : <></>}
-      <Button click={() => {}} text="Login" bgColor="primary"></Button>
+      {/* <Button click={() => {}} text="Login" bgColor="primary"></Button> */}
       <PostCard></PostCard>
-      {/* <Button click={() => generateAuthWindow()} text="Login"></Button> */}
+      <Button
+        click={() => generateAuthWindow()}
+        text="Login"
+        bgColor="primary"
+      ></Button>
     </div>
   );
 };
