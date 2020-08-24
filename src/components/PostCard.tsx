@@ -36,7 +36,7 @@ const PostCardWrapper = styled.div`
     border-top-right-radius: inherit;
   }
   .content {
-    padding: 16px;
+    padding: 16px 16px 0;
     overflow: hidden;
     min-height: 130px;
 
@@ -80,8 +80,7 @@ const PostCardWrapper = styled.div`
     }
   }
   .action-bar {
-    padding: 16px;
-    background-color: #dfdfdf;
+    padding: 0 16px 16px;
     display: flex;
     align-items: center;
     a {
@@ -130,6 +129,7 @@ export const PostCard = (props: PostCardProps) => {
           click={() => {}}
           text="Unsave"
           bgColor="danger"
+          customClass="inverse"
           style={{ height: '30px', fontSize: '.9em' }}
         ></Button>
       </div>

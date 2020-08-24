@@ -47,20 +47,39 @@ const ButtonWrapper = styled.button`
       0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     transition: opacity 0.3s, transform;
   }
+
+  /*
+  leaving this for future reference that you can 
+  pass styles like this and use tempalte literals
+   ${({ bgColor }) =>
+     bgColor &&
+     `
+    color: ${bgColorMap[bgColor]}
+  `} */
+  &.inverse {
+    background-color: inherit;
+    color: ${(props: ButtonProps) => bgColorMap[props.bgColor]};
+    box-shadow: none;
+  }
+
   ${(props) => ({ ...props.style })}
 `;
 
-// TODO: pass custom props for width/height
 interface ButtonProps {
   bgColor: string;
   text: string;
   style?: object;
+  customClass?: string;
   click: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const Button = (props: ButtonProps) => {
   return (
-    <ButtonWrapper onClick={props.click} {...props}>
+    <ButtonWrapper
+      onClick={props.click}
+      {...props}
+      className={props.customClass}
+    >
       {props.text}
     </ButtonWrapper>
   );
