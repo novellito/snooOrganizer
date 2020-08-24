@@ -11,7 +11,7 @@ import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
-import PostCard from './PostCard';
+import PostCard from './PostCard/PostCard';
 import { fetchUserContent } from '../store/actions';
 
 // const AuthenticateWrapper = styled.button`
@@ -50,6 +50,7 @@ export function getAuthUrl({
       `.replace(/\s/g, '');
 }
 
+//TODO: Rename this file?
 export const Authenticate = () => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();

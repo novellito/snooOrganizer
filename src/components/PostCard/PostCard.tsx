@@ -7,8 +7,8 @@ import {
   TEXT_PRIMARY,
   TEXT_HEADER,
   SNOO_BLUE
-} from '../constants/colors';
-import Button from './Button';
+} from '../../constants/colors';
+import Button from '../Button';
 import ClampLines from 'react-clamp-lines';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
@@ -110,6 +110,7 @@ export const PostCard = (props: PostCardProps) => {
           <p className="username">u/Dbossez</p>
           <p className="post-time">3 months ago</p>
         </div>
+        {/* <p className="subreddit">r/mechanicalkeyboards</p> */}
         <ClampLines
           text={text}
           id="really-unique-id"
