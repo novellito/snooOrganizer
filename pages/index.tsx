@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import Authenticate from '../src/components/Authenticate';
+import LandingPage from '../src/components/LandingPage';
 
 const Hello = styled.h1`
   color: teal;
@@ -18,7 +18,7 @@ export const Index = () => {
         <meta name="description" content="a nextjs starter boilerplate" />
       </Head>
       <Hello>Hello World!</Hello>
-      <Authenticate />
+      <LandingPage />
       <Link href="/counter">
         <button>
           <FontAwesomeIcon icon={faThumbsUp} /> Go to counter

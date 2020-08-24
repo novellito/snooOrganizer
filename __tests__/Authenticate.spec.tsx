@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Authenticate, { getAuthUrl } from '../src/components/Authenticate';
+import Authenticate, { getAuthUrl } from '../src/components/LandingPage';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { rootReducer } from '../src/store/store';
@@ -9,8 +9,8 @@ import crypto from 'crypto';
 // @ts-ignore
 Object.defineProperty(global.self, 'crypto', {
   value: {
-    getRandomValues: (arr: any) => crypto.randomBytes(arr.length),
-  },
+    getRandomValues: (arr: any) => crypto.randomBytes(arr.length)
+  }
 });
 
 // examaple of how to use redux in test suite

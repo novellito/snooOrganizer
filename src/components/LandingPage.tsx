@@ -1,6 +1,6 @@
 // import styled from 'styled-components';
 import { useEffect, useState, useCallback } from 'react';
-import Button from '../components/Button';
+import Button from './Button';
 import btoa from 'btoa';
 import {
   ENDPOINT_DOMAIN,
@@ -50,8 +50,7 @@ export function getAuthUrl({
       `.replace(/\s/g, '');
 }
 
-//TODO: Rename this file?
-export const Authenticate = () => {
+export const LandingPage = () => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState();
   const [isLoading, setLoading] = useState(false);
@@ -145,4 +144,4 @@ export const Authenticate = () => {
   );
 };
 
-export default Authenticate;
+export default LandingPage;
