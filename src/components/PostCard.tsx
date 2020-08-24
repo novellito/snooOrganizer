@@ -8,6 +8,10 @@ import {
   TEXT_HEADER
 } from '../constants/colors';
 import Button from './Button';
+import ClampLines from 'react-clamp-lines';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 const bgColorMap: any = {
   primary: PRIMARY,
@@ -32,26 +36,56 @@ const PostCardWrapper = styled.div`
   }
   .content {
     padding: 16px;
-    height: 130px;
     overflow: hidden;
+    min-height: 130px;
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      .post-time {
+        margin-left: auto;
+        color: ${TEXT_PRIMARY};
+        font-size: 0.9em;
+      }
+    }
     p {
       margin: 0;
-      &.userName {
+      &.username {
         color: ${TEXT_HEADER};
         font-weight: bold;
         font-size: 1.3em;
       }
-      &.postTitle {
+    }
+
+    .clamp-lines {
+      p {
         font-family: 'Open Sans', sans-serif; /* for text body */
         color: ${TEXT_PRIMARY};
         font-size: 1.1em;
-        text-overflow: ellipsis;
+      }
+
+      .clamp-lines__button {
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        font-family: 'Open Sans', sans-serif; /* for text body */
+        color: hsl(200deg 100% 30%);
+        text-decoration: underline;
+        cursor: pointer;
+        outline: none;
+        margin-bottom: 15px;
       }
     }
   }
-  .action {
+  .action-bar {
     padding: 16px;
     background-color: #dfdfdf;
+    display: flex;
+    align-items: center;
+    button {
+      margin-left: auto;
+    }
   }
 `;
 interface PostCardProps {
@@ -62,18 +96,32 @@ interface PostCardProps {
 }
 
 export const PostCard = (props: PostCardProps) => {
+  const text =
+    "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
+  // const text = ' I teach React courses ';
   return (
     <PostCardWrapper {...props}>
       <div className="header">HEAD</div>
       <div className="content">
-        {/* need max length */}
-        <p className="postTitle">
-          I teach React courses - here's my collection of over 600 slides on
-          various React topics (hosted on GitHub, licensed under CC-BY-SA)
-        </p>
-        <p className="userName">u/Dbossez</p>
+        <div className="content-header">
+          <p className="username">u/Dbossez</p>
+          <p className="post-time">3 months ago</p>
+        </div>
+        <ClampLines
+          text={text}
+          id="really-unique-id"
+          ellipsis="..."
+          className="post-title" // consider removing class
+          innerElement="p"
+        />
       </div>
-      <div className="action">
+      <div className="action-bar">
+        <Link href="https://www.reddit.com/">
+          <a target="_blank">
+            <FontAwesomeIcon size="lg" icon={faExternalLinkAlt} />
+          </a>
+        </Link>
+
         <Button click={() => {}} text="Unsave" bgColor="danger"></Button>
       </div>
     </PostCardWrapper>
