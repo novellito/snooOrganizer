@@ -47,12 +47,14 @@ const ButtonWrapper = styled.button`
       0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     transition: opacity 0.3s, transform;
   }
+  ${(props) => ({ ...props.style })}
 `;
 
 // TODO: pass custom props for width/height
 interface ButtonProps {
   bgColor: string;
   text: string;
+  style?: object;
   click: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 

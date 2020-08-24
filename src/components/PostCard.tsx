@@ -5,7 +5,8 @@ import {
   SUCCESS,
   DANGER,
   TEXT_PRIMARY,
-  TEXT_HEADER
+  TEXT_HEADER,
+  SNOO_BLUE
 } from '../constants/colors';
 import Button from './Button';
 import ClampLines from 'react-clamp-lines';
@@ -70,7 +71,7 @@ const PostCardWrapper = styled.div`
         border: none;
         padding: 0 !important;
         font-family: 'Open Sans', sans-serif; /* for text body */
-        color: hsl(200deg 100% 30%);
+        color: ${SNOO_BLUE};
         text-decoration: underline;
         cursor: pointer;
         outline: none;
@@ -83,6 +84,9 @@ const PostCardWrapper = styled.div`
     background-color: #dfdfdf;
     display: flex;
     align-items: center;
+    a {
+      color: ${SNOO_BLUE};
+    }
     button {
       margin-left: auto;
     }
@@ -116,13 +120,18 @@ export const PostCard = (props: PostCardProps) => {
         />
       </div>
       <div className="action-bar">
-        <Link href="https://www.reddit.com/">
+        <Link href="//www.reddit.com/">
           <a target="_blank">
             <FontAwesomeIcon size="lg" icon={faExternalLinkAlt} />
           </a>
         </Link>
 
-        <Button click={() => {}} text="Unsave" bgColor="danger"></Button>
+        <Button
+          click={() => {}}
+          text="Unsave"
+          bgColor="danger"
+          style={{ height: '30px', fontSize: '.9em' }}
+        ></Button>
       </div>
     </PostCardWrapper>
   );
