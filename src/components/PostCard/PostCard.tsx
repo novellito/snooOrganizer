@@ -12,6 +12,7 @@ import Button from '../Button';
 import ClampLines from 'react-clamp-lines';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots } from '@fortawesome/free-regular-svg-icons';
 import Link from 'next/link';
 
 const bgColorMap: any = {
@@ -30,10 +31,19 @@ const PostCardWrapper = styled.div`
   transform-origin: left center;
 
   .header {
-    height: 155px;
+    height: 190px;
     background-color: #318fb5;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100%;
+      height: inherit;
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
   }
   .content {
     padding: 16px 16px 0;
@@ -91,25 +101,34 @@ const PostCardWrapper = styled.div`
     }
   }
 `;
-interface PostCardProps {
+interface IPostCardProps {
   //   username: string;
   //   title: string;
   //   subredit: string;
   //   postDate: string;
 }
 
-export const PostCard = (props: PostCardProps) => {
+export const PostCard = (props: IPostCardProps) => {
   const text =
     "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
   // const text = ' I teach React courses ';
   return (
     <PostCardWrapper {...props}>
-      <div className="header">HEAD</div>
+      <div className="header">
+        <img
+          src="https://external-preview.redd.it/-yaXtAnRhnSZ74SaZ9ADHVNjJUUyXeWnILzobuAWBXE.jpg?width=640&crop=smart&auto=webp&s=4c4fcfc7c2d8234b88dbf176b40492f1698af715"
+          alt=""
+        />
+        {/* <p>r/mechanicalkeyboards</p> */}
+        {/* <FontAwesomeIcon size="6x" icon={['far', 'coffee']} /> */}
+        {/* <FontAwesomeIcon size="7x" icon={faCommentDots} /> */}
+      </div>
       <div className="content">
         <div className="content-header">
           <p className="username">u/Dbossez</p>
           <p className="post-time">3 months ago</p>
         </div>
+        {/* show subreddit below if there is a thumbnail OR saved comment */}
         {/* <p className="subreddit">r/mechanicalkeyboards</p> */}
         <ClampLines
           text={text}
