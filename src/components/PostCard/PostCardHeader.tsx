@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import { PRIMARY, SECONDARY, SUCCESS, DANGER } from '../../constants/colors';
-import Button from '../Button';
-import ClampLines from 'react-clamp-lines';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots } from '@fortawesome/free-regular-svg-icons';
+import { getRandomColor } from '../../constants/colors';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const PostCardHeaderWrapper = styled.div`
   height: 190px;
-  background-color: #318fb5;
+  /* background-color: #FF4500; */
+  /* background-color: ${() => getRandomColor()}; */
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   display: flex;
@@ -38,11 +36,16 @@ interface IPostCardHeaderProps {
   //   title: string;
   //   subredit: string;
   //   postDate: string;
+  //   bgColor: string;
 }
 
 export const PostCardHeader = (props: IPostCardHeaderProps) => {
+  useEffect(() => {}, []);
   return (
-    <PostCardHeaderWrapper {...props}>
+    <PostCardHeaderWrapper
+      {...props}
+      style={{ backgroundColor: getRandomColor() }}
+    >
       <Link href="//www.reddit.com/">
         <a target="_blank">
           {/* <img
