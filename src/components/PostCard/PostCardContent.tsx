@@ -21,7 +21,7 @@ const PostCardContentWrapper = styled.div`
   }
   p {
     margin: 0;
-    &.subreddit {
+    &.header-text {
       color: ${TEXT_HEADER};
       font-weight: bold;
       font-size: 1.3em;
@@ -61,11 +61,11 @@ export const PostCardContent = (props: IPostCardProps) => {
   return (
     <PostCardContentWrapper {...props}>
       <div className="content-header">
-        {showSubreddit ? (
-          <p className="subreddit">{props.subreddit}</p>
-        ) : (
-          <p className="subreddit"> u/{props.author}</p>
-        )}
+        {
+          <p className="header-text">
+            {showSubreddit ? props.subreddit : `u/${props.author}`}
+          </p>
+        }
         <p className="post-time">
           <Moment fromNow>{props.createdTime}</Moment>
         </p>

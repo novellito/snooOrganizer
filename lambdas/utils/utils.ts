@@ -13,7 +13,7 @@ export const extractRelevantProps = (savedContents: any) => {
       author: savedContent.author.name,
       postId: savedContent.id,
       postTitle: savedContent.title,
-      url: savedContent.url || savedContent.link_url,
+      url: `https://www.reddit.com${savedContent.permalink}`,
       thumbnailUrl:
         savedContent.preview &&
         savedContent.preview.images[0].resolutions[3] &&
