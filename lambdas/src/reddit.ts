@@ -1,6 +1,5 @@
 import snoowrap from 'snoowrap';
-import { JSONStringify } from '../utils/utils';
-
+import { JSONStringify, extractRelevantProps } from '../utils/utils';
 export const clientCredsAndUserAgent = {
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
@@ -29,17 +28,21 @@ export default {
       let username: string;
       const savedContent = await snoowrapObj
         .getMe()
-        .then(user => {
+        .then((user) => {
           username = user.name;
           return user.getSavedContent();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-
       return {
         statusCode: 200,
-        body: JSONStringify({ savedContent, accessToken, username })
+        body: JSONStringify({
+          savedContent,
+          accessToken,
+          username,
+          postCardData: extractRelevantProps(savedContent)
+        })
       };
     } catch (err) {
       return {
@@ -57,13 +60,13 @@ export default {
     return snoowrapObj
       .getSubmission(contentId)
       .unsave()
-      .then(res => {
+      .then((res) => {
         return {
           statusCode: 200,
           body: JSONStringify({ msg: 'unsave successful!', res })
         };
       })
-      .catch(err => {
+      .catch((err) => {
         return {
           statusCode: 500,
           body: JSONStringify({ msg: 'something went wrong!', err })
