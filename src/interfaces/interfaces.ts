@@ -1,5 +1,5 @@
 export interface IUserInfo {
-  savedContent: Array<ISavedContent>;
+  postCardData: Array<ISavedContent>;
   accessToken: string;
   username: string;
 }

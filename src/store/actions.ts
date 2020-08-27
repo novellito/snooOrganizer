@@ -12,7 +12,7 @@ export const fetchUserContent = (code: any): any => {
     try {
       const { data } = await axios.post('/api/userContent', { code });
       console.log('data from action ', data);
-      dispatch(setSavedContent(data.content.savedContent));
+      dispatch(setSavedContent(data.content.postCardData));
       dispatch(setUserLoggedIn());
       return data.content;
     } catch (err) {

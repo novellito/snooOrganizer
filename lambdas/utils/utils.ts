@@ -14,7 +14,7 @@ export const extractRelevantProps = (savedContents: any) => {
       id: savedContent.id,
       title: savedContent.title,
       url: savedContent.url || savedContent.link_url,
-      thumbnail:
+      thumbnailUrl:
         savedContent.preview &&
         savedContent.preview.images[0].resolutions[3] &&
         savedContent.preview.images[0].resolutions[3].url,

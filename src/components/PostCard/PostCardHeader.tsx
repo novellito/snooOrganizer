@@ -32,11 +32,11 @@ const PostCardHeaderWrapper = styled.div`
   }
 `;
 interface IPostCardHeaderProps {
-  //   username: string;
-  //   title: string;
-  //   subredit: string;
-  //   postDate: string;
-  //   bgColor: string;
+  url: string;
+  thumbnailUrl?: string;
+  title?: string;
+  subreddit: string;
+  markDown?: string;
 }
 
 export const PostCardHeader = (props: IPostCardHeaderProps) => {
@@ -48,21 +48,29 @@ export const PostCardHeader = (props: IPostCardHeaderProps) => {
   useEffect(() => {
     setBGColor({ backgroundColor: getRandomColor() });
   }, []);
+
+  let headerToRender;
+
+  if (props.thumbnailUrl) {
+    headerToRender = <img src={props.thumbnailUrl} alt={props.title} />;
+  } else if (props.markDown) {
+    // or  commentBody
+    headerToRender = (
+      <FontAwesomeIcon
+        size="7x"
+        icon={faCommentDots}
+        style={{ color: 'white' }}
+      />
+    );
+  } else {
+    headerToRender = props.subreddit;
+  }
+
   return (
     <PostCardHeaderWrapper id="123" {...props} style={bGColor}>
-      <Link href="//www.reddit.com/">
-        <a target="_blank">
-          {/* <img
-            src="https://external-preview.redd.it/-yaXtAnRhnSZ74SaZ9ADHVNjJUUyXeWnILzobuAWBXE.jpg?width=640&crop=smart&auto=webp&s=4c4fcfc7c2d8234b88dbf176b40492f1698af715"
-            alt=""
-          /> */}
-          {/* r/mechanicalkeyboards */}
-          <FontAwesomeIcon
-            size="7x"
-            icon={faCommentDots}
-            style={{ color: 'white' }}
-          />
-        </a>
+      <Link href="">
+        {/* <Link href={props.url}> */}
+        <a target="_blank">{headerToRender}</a>
       </Link>
     </PostCardHeaderWrapper>
   );

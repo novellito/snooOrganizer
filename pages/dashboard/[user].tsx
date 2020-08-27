@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { withAuth } from '../../src/components/AuthHoc';
+import PostCard from '../../src/components/PostCard/PostCard';
 // import Button from '../src/components/Button';
 
 export const Dashboard: React.FC = () => {
@@ -9,10 +10,20 @@ export const Dashboard: React.FC = () => {
   return (
     <>
       welcome to dashboard
-      {/* move this logic to a component */}
       {savedContent.map((elem: any) => (
-        <div key={elem.id}>{elem.subreddit}</div>
+        <PostCard
+          key={elem.id}
+          url={elem.url}
+          thumbnailUrl={elem.thumbnailUrl}
+          title={elem.title}
+          subreddit={elem.subreddit}
+          markDown={elem.markDown}
+        ></PostCard>
+        // <div key={elem.id}>{elem.subreddit}</div>
       ))}
+      {/* {savedContent.map((elem: any) => (
+        <div key={elem.id}>{elem.subreddit}</div>
+      ))} */}
     </>
   );
 };

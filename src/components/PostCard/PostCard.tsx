@@ -13,16 +13,18 @@ const PostCardWrapper = styled.div`
   transform-origin: left center;
 `;
 interface IPostCardProps {
-  //   username: string;
-  //   title: string;
-  //   subredit: string;
-  //   postDate: string;
+  url: string;
+  thumbnailUrl?: string;
+  title: string;
+  subreddit: string;
+  markDown?: string;
 }
 
-export const PostCard = (props: IPostCardProps) => {
+export const PostCard = (props: any) => {
+  // export const PostCard = (props: IPostCardProps) => {
   return (
     <PostCardWrapper {...props}>
-      <PostCardHeader />
+      <PostCardHeader {...props} />
       <PostCardContent />
       <PostCardAction />
     </PostCardWrapper>
