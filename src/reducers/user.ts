@@ -1,5 +1,6 @@
 const initialState = {
-  savedContent: []
+  savedContent: [],
+  currentUser: null
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -12,6 +13,11 @@ const reducer = (state = initialState, action: any) => {
     case 'SET_USERNAME':
       return {
         ...state
+      };
+    case 'SET_USER':
+      return {
+        ...state,
+        currentUser: action.payload
       };
 
     default:

@@ -10,9 +10,9 @@ export const Dashboard: React.FC = () => {
     <>
       welcome to dashboard
       {/* move this logic to a component */}
-      {savedContent.map((elem: any) => (
+      {/* {savedContent.map((elem: any) => (
         <div key={elem.id}>{elem.subreddit}</div>
-      ))}
+      ))} */}
     </>
   );
 };

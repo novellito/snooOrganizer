@@ -9,11 +9,17 @@ import {
 } from '../constants/constants';
 import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import PostCard from './PostCard/PostCard';
 import { fetchUserContent } from '../store/actions';
-
+import axios from 'axios';
+import snoowrap from 'snoowrap';
+const clientCredsAndUserAgent = {
+  clientId: '',
+  clientSecret: '',
+  userAgent: ''
+};
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
 //   font-size: 2em;
@@ -27,6 +33,7 @@ export function getAuthUrl({
 }: AuthURLParams): string {
   const permanent = false; // user will have to reauthenticate after an hour
   const redirectUri = window.location.origin + window.location.pathname;
+  console.log(redirectUri);
   console.log(state);
   if (
     !(
@@ -55,18 +62,36 @@ export const LandingPage = () => {
   const [authWindow, setAuthWindow] = useState();
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const savedContent = useSelector(({ user }: any) => user.savedContent);
+  const currentUser = useSelector(({ user }: any) => user.currentUser);
 
   const generateAuthWindow = () => {
     setAuthWindow(
       window.open(
-        getAuthUrl({
+        snoowrap.getAuthUrl({
           clientId: CLIENT_ID,
           endpointDomain: ENDPOINT_DOMAIN,
           scope: REDDIT_SCOPE,
-          state
+          redirectUri: 'http://localhost:3000/',
+          state,
+          permanent: false
         })
+        // getAuthUrl({
+        //   clientId: CLIENT_ID,
+        //   endpointDomain: ENDPOINT_DOMAIN,
+        //   scope: REDDIT_SCOPE,
+        //   state
+        // })
       )
     );
+  };
+  const fetchMore = async () => {
+    const req = {
+      snoo: savedContent.snoo,
+      accessToken: savedContent.accessToken
+    };
+    const { data } = await axios.post('/api/fetchMoreContent', { req });
+    console.log(data);
   };
 
   useEffect(() => {
@@ -101,13 +126,25 @@ export const LandingPage = () => {
         try {
           setLoading(true);
           authWindow.close();
-          const { username } = await dispatch(
-            fetchUserContent(event.data.code)
-          );
+          const accessToken = await snoowrap.fromAuthCode({
+            code: event.data.code,
+            ...clientCredsAndUserAgent,
+            redirectUri: 'http://localhost:3000/'
+          });
+          // const { accessToken } = await snoowrap.fromAuthCode({
+          //   code: event.data.code,
+          //   ...clientCredsAndUserAgent,
+          //   redirectUri: 'http://localhost:3000/'
+          // });
+          console.log('RERERER', accessToken);
+
+          // const { username } = await dispatch(
+          //   fetchUserContent(event.data.code)
+          // );
           setLoading(false);
-          if (username) {
-            Router.push('/dashboard/[user]', `/dashboard/${username}`);
-          }
+          // if (username) {
+          //   Router.push('/dashboard/[user]', `/dashboard/${username}`);
+          // }
         } catch (err) {
           console.log(err);
           return err;
@@ -140,6 +177,7 @@ export const LandingPage = () => {
         text="Login"
         bgColor="primary"
       ></Button>
+      <Button click={() => fetchMore()} text="Fetch" bgColor="primary"></Button>
     </div>
   );
 };
