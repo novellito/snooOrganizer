@@ -9,3 +9,15 @@ interface ISavedContent {
   link_url: string;
   subreddit_name_prefixed: string;
 }
+
+export interface IPostCardProps {
+  url: string;
+  thumbnailUrl?: string;
+  title: string;
+  subreddit: string;
+  markDown?: string;
+  postId: string;
+  author: string;
+  createdTime: string;
+  commentBody: string;
+}

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { TEXT_PRIMARY, TEXT_HEADER, SNOO_BLUE } from '../../constants/colors';
 import ClampLines from 'react-clamp-lines';
+import { IPostCardProps } from '../../interfaces/interfaces';
+import Moment from 'react-moment';
 
 const PostCardContentWrapper = styled.div`
   padding: 16px 16px 0;
@@ -19,7 +21,7 @@ const PostCardContentWrapper = styled.div`
   }
   p {
     margin: 0;
-    &.username {
+    &.subreddit {
       color: ${TEXT_HEADER};
       font-weight: bold;
       font-size: 1.3em;
@@ -46,28 +48,29 @@ const PostCardContentWrapper = styled.div`
     }
   }
 `;
-interface IPostCardContentProps {
-  //   username: string;
-  //   title: string;
-  //   subredit: string;
-  //   postDate: string;
-}
 
-export const PostCardContent = (props: IPostCardContentProps) => {
+export const PostCardContent = (props: IPostCardProps) => {
   const text =
     "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
-  // const text = ' I teach React courses ';
+
+  let showSubreddit = props.thumbnailUrl || props.markDown;
+
   return (
     <PostCardContentWrapper {...props}>
       <div className="content-header">
-        <p className="username">u/Dbossez</p>
-        <p className="post-time">3 months ago</p>
+        {showSubreddit ? (
+          <p className="subreddit">{props.subreddit}</p>
+        ) : (
+          <p className="subreddit"> u/{props.author}</p>
+        )}
+        <p className="post-time">
+          <Moment fromNow>{props.createdTime}</Moment>
+        </p>
       </div>
-      {/* show subreddit below if there is a thumbnail OR saved comment */}
-      {/* <p className="subreddit">r/mechanicalkeyboards</p> */}
+      {showSubreddit ? `u/${props.author}` : <br />}
       <ClampLines
         text={text}
-        id="really-unique-id"
+        id={props.postId}
         ellipsis="..."
         className="post-title" // consider removing class
         innerElement="p"

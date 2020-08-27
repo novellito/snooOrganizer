@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { IPostCardProps } from '../../interfaces/interfaces';
 
 const PostCardHeaderWrapper = styled.div`
   height: 190px;
@@ -31,15 +32,8 @@ const PostCardHeaderWrapper = styled.div`
   a {
   }
 `;
-interface IPostCardHeaderProps {
-  url: string;
-  thumbnailUrl?: string;
-  title?: string;
-  subreddit: string;
-  markDown?: string;
-}
 
-export const PostCardHeader = (props: IPostCardHeaderProps) => {
+export const PostCardHeader = (props: IPostCardProps) => {
   // note we use combo of useState/Effect because we will get the following:
   // Warning: Text content did not match. Server: "x" Client: "y"
   // because we are using SSR

@@ -4,6 +4,7 @@ import Button from '../Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import { IPostCardProps } from '../../interfaces/interfaces';
 
 const PostCardActionWrapper = styled.div`
   padding: 0 16px 16px;
@@ -16,14 +17,8 @@ const PostCardActionWrapper = styled.div`
     margin-left: auto;
   }
 `;
-interface IPostCardActionProps {
-  //   username: string;
-  //   title: string;
-  //   subredit: string;
-  //   postDate: string;
-}
 
-export const PostCardAction = (props: IPostCardActionProps) => {
+export const PostCardAction = (props: IPostCardProps) => {
   return (
     <PostCardActionWrapper {...props}>
       <Link href="//www.reddit.com/">

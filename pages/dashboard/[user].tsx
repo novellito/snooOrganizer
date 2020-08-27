@@ -12,12 +12,16 @@ export const Dashboard: React.FC = () => {
       welcome to dashboard
       {savedContent.map((elem: any) => (
         <PostCard
-          key={elem.id}
+          key={elem.postId}
           url={elem.url}
           thumbnailUrl={elem.thumbnailUrl}
           title={elem.title}
           subreddit={elem.subreddit}
           markDown={elem.markDown}
+          postId={elem.postId}
+          author={elem.author}
+          createdTime={elem.createdTime}
+          commentBody={elem.commentBody}
         ></PostCard>
         // <div key={elem.id}>{elem.subreddit}</div>
       ))}
