@@ -26,6 +26,9 @@ const PostCardContentWrapper = styled.div`
       font-weight: bold;
       font-size: 1.3em;
     }
+    &.author {
+      margin-bottom: 5px;
+    }
   }
 
   .clamp-lines {
@@ -50,9 +53,9 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
-  const text =
-    "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
-
+  // const text =
+  //   "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
+  const text = props.postTitle ? props.postTitle : '';
   let showSubreddit = props.thumbnailUrl || props.markDown;
 
   return (
@@ -67,7 +70,7 @@ export const PostCardContent = (props: IPostCardProps) => {
           <Moment fromNow>{props.createdTime}</Moment>
         </p>
       </div>
-      {showSubreddit ? `u/${props.author}` : <br />}
+      <p className="author">{showSubreddit ? `u/${props.author}` : ''}</p>
       <ClampLines
         text={text}
         id={props.postId}

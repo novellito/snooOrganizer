@@ -15,7 +15,7 @@ export const Dashboard: React.FC = () => {
           key={elem.postId}
           url={elem.url}
           thumbnailUrl={elem.thumbnailUrl}
-          title={elem.title}
+          postTitle={elem.postTitle}
           subreddit={elem.subreddit}
           markDown={elem.markDown}
           postId={elem.postId}

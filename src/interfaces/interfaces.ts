@@ -13,7 +13,7 @@ interface ISavedContent {
 export interface IPostCardProps {
   url: string;
   thumbnailUrl?: string;
-  title: string;
+  postTitle: string;
   subreddit: string;
   markDown?: string;
   postId: string;

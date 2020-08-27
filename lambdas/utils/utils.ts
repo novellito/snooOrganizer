@@ -12,7 +12,7 @@ export const extractRelevantProps = (savedContents: any) => {
     return {
       author: savedContent.author.name,
       postId: savedContent.id,
-      title: savedContent.title,
+      postTitle: savedContent.title,
       url: savedContent.url || savedContent.link_url,
       thumbnailUrl:
         savedContent.preview &&
