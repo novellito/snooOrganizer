@@ -14,8 +14,7 @@ const PostCardWrapper = styled.div`
   transform-origin: left center;
 `;
 
-export const PostCard = (props: any) => {
-  // export const PostCard = (props: IPostCardProps) => {
+export const PostCard = (props: IPostCardProps) => {
   return (
     <PostCardWrapper {...props}>
       <PostCardHeader {...props} />

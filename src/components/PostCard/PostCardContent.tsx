@@ -83,14 +83,6 @@ export const PostCardContent = (props: IPostCardProps) => {
         className="post-title" // consider removing class
         innerElement="p"
       />
-      {/* {comment ? comment.firstChild : ''} */}
-      {/* <ClampLines
-        text={text}
-        id={props.postId}
-        ellipsis="..."
-        className="post-title" // consider removing class
-        innerElement={"p"}
-      /> */}
     </PostCardContentWrapper>
   );
 };

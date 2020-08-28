@@ -15,9 +15,8 @@ export interface IPostCardProps {
   thumbnailUrl?: string;
   postTitle: string;
   subreddit: string;
-  markDown?: string;
   postId: string;
   author: string;
   createdTime: string;
-  commentBody: string;
+  commentBody?: string | null | undefined;
 }
