@@ -11,7 +11,6 @@ import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
-import PostCard from './PostCard/PostCard';
 import { fetchUserContent } from '../store/actions';
 
 // const AuthenticateWrapper = styled.button`
@@ -27,7 +26,6 @@ export function getAuthUrl({
 }: AuthURLParams): string {
   const permanent = false; // user will have to reauthenticate after an hour
   const redirectUri = window.location.origin + window.location.pathname;
-  console.log(state);
   if (
     !(
       Array.isArray(scope) &&
@@ -134,7 +132,6 @@ export const LandingPage = () => {
     <div>
       {isLoading ? <h1>isLoading</h1> : <></>}
       {/* <Button click={() => {}} text="Login" bgColor="primary"></Button> */}
-      <PostCard></PostCard>
       <Button
         click={() => generateAuthWindow()}
         text="Login"

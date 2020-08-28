@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { SNOO_BLUE } from '../../constants/colors';
+import Link from 'next/link';
 import Button from '../Button';
+import { SNOO_BLUE } from '../../constants/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
 import { IPostCardProps } from '../../interfaces/interfaces';
 
 const PostCardActionWrapper = styled.div`
@@ -21,7 +21,7 @@ const PostCardActionWrapper = styled.div`
 export const PostCardAction = (props: IPostCardProps) => {
   return (
     <PostCardActionWrapper {...props}>
-      <Link href="//www.reddit.com/">
+      <Link href={(props.url && props.url.substr(6)) || ''}>
         <a target="_blank">
           <FontAwesomeIcon size="lg" icon={faExternalLinkAlt} />
         </a>

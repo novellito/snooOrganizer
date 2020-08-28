@@ -4,19 +4,15 @@ export interface IUserInfo {
   username: string;
 }
 
-interface ISavedContent {
-  id: string;
-  link_url: string;
-  subreddit_name_prefixed: string;
-}
+export interface ISavedContent extends IPostCardProps {}
 
 export interface IPostCardProps {
   url: string;
-  thumbnailUrl?: string;
   postTitle: string;
   subreddit: string;
   postId: string;
   author: string;
   createdTime: string;
+  thumbnailUrl?: string;
   commentBody?: string | null | undefined;
 }

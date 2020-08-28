@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { TEXT_PRIMARY, TEXT_HEADER, SNOO_BLUE } from '../../constants/colors';
 import ClampLines from 'react-clamp-lines';
-import { IPostCardProps } from '../../interfaces/interfaces';
 import Moment from 'react-moment';
+import { TEXT_PRIMARY, TEXT_HEADER, SNOO_BLUE } from '../../constants/colors';
+import { IPostCardProps } from '../../interfaces/interfaces';
 
 const PostCardContentWrapper = styled.div`
   padding: 16px 16px 0;
@@ -53,16 +53,11 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
-  const text = props.postTitle ? props.postTitle : '';
-  let showSubreddit = props.thumbnailUrl || props.markDown;
-  // remove first condition when we remove postcard from landing page
-  // TODO: clean this logic
+  let showSubreddit = props.thumbnailUrl;
   let author = props.author;
-  if (props.author && props.author.length > 18) {
+  if (props.author.length > 18) {
     author = props.author.substring(0, 15) + '...';
   }
-  const comment: string = props.commentBody ? props.commentBody : '';
-
   return (
     <PostCardContentWrapper {...props}>
       <div className="content-header">
@@ -77,10 +72,9 @@ export const PostCardContent = (props: IPostCardProps) => {
       </div>
       <p className="author">{showSubreddit ? `u/${props.author}` : ''}</p>
       <ClampLines
-        text={text || comment}
+        text={props.postTitle || props.commentBody || ''}
         id={props.postId}
         ellipsis="..."
-        className="post-title" // consider removing class
         innerElement="p"
       />
     </PostCardContentWrapper>

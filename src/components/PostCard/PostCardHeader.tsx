@@ -47,8 +47,7 @@ export const PostCardHeader = (props: IPostCardProps) => {
 
   if (props.thumbnailUrl) {
     headerToRender = <img src={props.thumbnailUrl} alt={props.postTitle} />;
-  } else if (props.markDown) {
-    // or  commentBody
+  } else if (props.commentBody) {
     headerToRender = (
       <FontAwesomeIcon
         size="7x"
@@ -62,7 +61,6 @@ export const PostCardHeader = (props: IPostCardProps) => {
 
   return (
     <PostCardHeaderWrapper {...props} style={bGColor}>
-      {/* <Link href=""> */}
       <Link href={(props.url && props.url.substr(6)) || ''}>
         <a target="_blank">{headerToRender}</a>
       </Link>

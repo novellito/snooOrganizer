@@ -13,6 +13,14 @@ const DashboardWrapper = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
   }
 `;
+
+const getCommentBody = (comment: string) => {
+  if (!comment) return null;
+
+  return new DOMParser().parseFromString(comment, 'text/xml').firstChild
+    ?.textContent;
+};
+
 export const Dashboard: React.FC = () => {
   const savedContent = useSelector(({ user }: any) => user.savedContent);
   //   const dispatch = useDispatch();
@@ -31,10 +39,7 @@ export const Dashboard: React.FC = () => {
             postId={elem.postId}
             author={elem.author}
             createdTime={elem.createdTime}
-            commentBody={
-              new DOMParser().parseFromString(elem.commentBody, 'text/xml')
-                .firstChild?.textContent
-            }
+            commentBody={getCommentBody(elem.commentBody)}
           ></PostCard>
         ))}
       </div>

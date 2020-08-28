@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { IUserInfo } from '../interfaces/interfaces';
+import { IUserInfo, ISavedContent } from '../interfaces/interfaces';
 import { Dispatch } from 'redux';
 
-const setSavedContent = (savedContent: any) => {
+const setSavedContent = (savedContent: ISavedContent) => {
   return { type: 'SET_SAVED_CONTENT', payload: savedContent };
 };
 const setUserLoggedIn = () => ({ type: 'LOGIN' });
 
-export const fetchUserContent = (code: any): any => {
+export const fetchUserContent = (code: string): any => {
   return async (dispatch: Dispatch): Promise<IUserInfo> => {
     try {
       const { data } = await axios.post('/api/userContent', { code });
