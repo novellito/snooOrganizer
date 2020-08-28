@@ -11,7 +11,7 @@ const DashboardWrapper = styled.div`
     align-items: center;
     justify-items: center;
     grid-row-gap: 20px;
-    grid-column-gap: -10px;
+    margin: 0 60px;
   }
 `;
 export const Dashboard: React.FC = () => {
@@ -33,7 +33,11 @@ export const Dashboard: React.FC = () => {
             postId={elem.postId}
             author={elem.author}
             createdTime={elem.createdTime}
-            commentBody={elem.commentBody}
+            commentBody={
+              //@ts-ignore
+              new DOMParser().parseFromString(elem.commentBody, 'text/xml')
+                .firstChild.textContent as string
+            }
           ></PostCard>
         ))}
       </div>

@@ -53,8 +53,6 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
-  // const text =
-  //   "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
   const text = props.postTitle ? props.postTitle : '';
   let showSubreddit = props.thumbnailUrl || props.markDown;
   // remove first condition when we remove postcard from landing page
@@ -63,6 +61,7 @@ export const PostCardContent = (props: IPostCardProps) => {
   if (props.author && props.author.length > 18) {
     author = props.author.substring(0, 15) + '...';
   }
+  const comment: string = props.commentBody ? props.commentBody : '';
 
   return (
     <PostCardContentWrapper {...props}>
@@ -78,12 +77,20 @@ export const PostCardContent = (props: IPostCardProps) => {
       </div>
       <p className="author">{showSubreddit ? `u/${props.author}` : ''}</p>
       <ClampLines
-        text={text}
+        text={text || comment}
         id={props.postId}
         ellipsis="..."
         className="post-title" // consider removing class
         innerElement="p"
       />
+      {/* {comment ? comment.firstChild : ''} */}
+      {/* <ClampLines
+        text={text}
+        id={props.postId}
+        ellipsis="..."
+        className="post-title" // consider removing class
+        innerElement={"p"}
+      /> */}
     </PostCardContentWrapper>
   );
 };
