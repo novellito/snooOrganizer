@@ -1,5 +1,9 @@
 import snoowrap from 'snoowrap';
 import { JSONStringify, extractRelevantProps } from '../utils/utils';
+import HttpResponse from '../utils/http_response';
+
+const HttpRes = new HttpResponse();
+
 export const clientCredsAndUserAgent = {
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
@@ -25,33 +29,28 @@ export default {
       accessToken
     });
     try {
-      let username: string;
-      const savedContent = await snoowrapObj
-        .getMe()
-        .then((user) => {
-          username = user.name;
-          return user.getSavedContent();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      return {
-        statusCode: 200,
-        body: JSONStringify({
-          savedContent,
+      // supress typescript message from snoowrap
+      // @ts-ignore
+      const user = await snoowrapObj.getMe();
+      const username = user.name;
+      const savedContent = await user.getSavedContent();
+
+      return HttpRes.successResponse(
+        JSONStringify({
+          savedContent, // used for debugging
           accessToken,
           username,
           postCardData: extractRelevantProps(savedContent)
         })
-      };
+      );
     } catch (err) {
-      return {
-        statusCode: 500,
-        body: JSONStringify({ msg: 'something went wrong!', err })
-      };
+      return HttpRes.internalServerError(
+        JSONStringify({ msg: 'something went wrong!', err })
+      );
     }
   },
   unsaveContent: async (contentId: string, accessToken: string) => {
+    // TODO: when you get to unsave check if this async call is needed
     const snoowrapObj = new snoowrap({
       ...clientCredsAndUserAgent,
       accessToken
@@ -61,16 +60,14 @@ export default {
       .getSubmission(contentId)
       .unsave()
       .then((res) => {
-        return {
-          statusCode: 200,
-          body: JSONStringify({ msg: 'unsave successful!', res })
-        };
+        return HttpRes.successResponse(
+          JSONStringify({ msg: 'unsave successful!', res })
+        );
       })
       .catch((err) => {
-        return {
-          statusCode: 500,
-          body: JSONStringify({ msg: 'something went wrong!', err })
-        };
+        return HttpRes.internalServerError(
+          JSONStringify({ msg: 'something went wrong!', err })
+        );
       });
   }
 };

@@ -10,8 +10,7 @@ const DashboardWrapper = styled.div`
     justify-items: center;
     grid-column-gap: 5px;
     grid-row-gap: 20px;
-    margin: 0 60px;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
   }
 `;
 export const Dashboard: React.FC = () => {
