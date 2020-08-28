@@ -18,6 +18,9 @@ const PostCardContentWrapper = styled.div`
       color: ${TEXT_PRIMARY};
       font-size: 0.9em;
     }
+    + p {
+      margin-bottom: 5px;
+    }
   }
   p {
     margin: 0;
@@ -25,9 +28,6 @@ const PostCardContentWrapper = styled.div`
       color: ${TEXT_HEADER};
       font-weight: bold;
       font-size: 1.3em;
-    }
-    &.author {
-      margin-bottom: 5px;
     }
   }
 
@@ -53,7 +53,7 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
-  let showSubreddit = props.thumbnailUrl;
+  const showSubreddit = props.thumbnailUrl;
   let author = props.author;
   if (props.author.length > 18) {
     author = props.author.substring(0, 15) + '...';
@@ -70,7 +70,7 @@ export const PostCardContent = (props: IPostCardProps) => {
           <Moment fromNow>{props.createdTime}</Moment>
         </p>
       </div>
-      <p className="author">{showSubreddit ? `u/${props.author}` : ''}</p>
+      <p>{showSubreddit ? `u/${props.author}` : ''}</p>
       <ClampLines
         text={props.postTitle || props.commentBody || ''}
         id={props.postId}
