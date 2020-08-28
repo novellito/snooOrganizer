@@ -57,13 +57,19 @@ export const PostCardContent = (props: IPostCardProps) => {
   //   "I teach React courses - here's my collection of over 600 slides on various React topics (hosted on GitHub, licensed under CC-BY-SA)";
   const text = props.postTitle ? props.postTitle : '';
   let showSubreddit = props.thumbnailUrl || props.markDown;
+  // remove first condition when we remove postcard from landing page
+  // TODO: clean this logic
+  let author = props.author;
+  if (props.author && props.author.length > 18) {
+    author = props.author.substring(0, 15) + '...';
+  }
 
   return (
     <PostCardContentWrapper {...props}>
       <div className="content-header">
         {
           <p className="header-text">
-            {showSubreddit ? props.subreddit : `u/${props.author}`}
+            {showSubreddit ? props.subreddit : `u/${author}`}
           </p>
         }
         <p className="post-time">
