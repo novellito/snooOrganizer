@@ -6,7 +6,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { IPostCardProps } from '../../interfaces/interfaces';
 import { useState } from 'react';
 import { unsaveContent } from '../../store/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const PostCardActionWrapper = styled.div`
   padding: 0 16px 20px;
   .unsave-selections {
@@ -22,7 +22,7 @@ const PostCardActionWrapper = styled.div`
 
 export const PostCardAction = (props: IPostCardProps) => {
   const [unsaveOpts, toggleUnsaveOpts] = useState(false);
-
+  const { unsaveState } = useSelector(({ user }: any) => user.postToUnsave);
   const dispatch = useDispatch();
 
   const handleUnsaveClick = () => {
@@ -75,6 +75,7 @@ export const PostCardAction = (props: IPostCardProps) => {
                 text="Unsave"
                 bgColor="danger"
                 customClass="inverse unsave"
+                disabled={unsaveState === 'unsaving' ? true : false}
                 style={{ height: '30px', fontSize: '.9em', float: 'right' }}
               ></Button>
             </>

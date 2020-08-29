@@ -7,18 +7,25 @@ import { IPostCardProps } from '../../interfaces/interfaces';
 export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
   const Wrapper = (props: any) => {
     const dispatch = useDispatch();
-    const postToUnsave = useSelector(({ user }: any) => user.postToUnsave);
+    const { unsaveState, id } = useSelector(
+      ({ user }: any) => user.postToUnsave
+    );
 
-    // console.log(props);
-    console.log(postToUnsave);
+    // TODO: add a loading spinner & save err image to header
+    const loadingHeader = unsaveState === 'unsaving' ? 'LOADER' : 'ERROR';
+    const loadingContent =
+      unsaveState === 'unsaving' ? (
+        <b>Unsaving...</b>
+      ) : (
+        <b>Something went wrong - Unsave Unsuccessful</b>
+      );
 
-    // ? maybe need to optimize using useMemo
     return (
       <>
-        {postToUnsave === props.postId ? (
+        {id === props.postId ? (
           <C
             {...props}
-            unsaveElem={{ header: 'LOADER', content: 'Unsaving...' }}
+            unsaveElem={{ header: loadingHeader, content: loadingContent }}
           />
         ) : (
           <C {...props} />

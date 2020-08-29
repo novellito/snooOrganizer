@@ -62,6 +62,10 @@ const ButtonWrapper = styled.button`
     box-shadow: none;
   }
 
+  &[disabled] {
+    color: grey;
+    cursor: not-allowed;
+  }
   ${(props) => ({ ...props.style })}
 `;
 
@@ -71,6 +75,7 @@ interface ButtonProps {
   style?: object;
   customClass?: string;
   click: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  disabled?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -79,6 +84,7 @@ export const Button = (props: ButtonProps) => {
       onClick={props.click}
       {...props}
       className={props.customClass}
+      disabled={props.disabled}
     >
       {props.text}
     </ButtonWrapper>

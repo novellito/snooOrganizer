@@ -1,6 +1,6 @@
 const initialState = {
   savedContent: [],
-  postToUnsave: null
+  postToUnsave: { id: null, unsaveState: null }
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -14,7 +14,16 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state
       };
-    case 'TOGGLE_UNSAVING':
+    case 'SET_USER_UNSAVING':
+      if (
+        action.payload.unsaveState === 'success' ||
+        action.payload.unsaveState === 'reset'
+      ) {
+        return {
+          ...state,
+          postToUnsave: { id: null, unsaveState: null }
+        };
+      }
       return {
         ...state,
         postToUnsave: action.payload
