@@ -2,8 +2,9 @@ import { useSelector } from 'react-redux';
 import { withAuth } from '../../src/components/AuthHoc';
 import PostCard from '../../src/components/PostCard/PostCard';
 import styled from 'styled-components';
+import FlipMove from 'react-flip-move';
 
-const DashboardWrapper = styled.div`
+const DashboardWrapper = styled.section`
   .cards {
     display: grid;
     align-items: center;
@@ -28,7 +29,7 @@ export const Dashboard: React.FC = () => {
   return (
     <DashboardWrapper>
       welcome to dashboard
-      <div className="cards">
+      <FlipMove className="cards">
         {savedContent.map((elem: any) => (
           <PostCard
             key={elem.postId}
@@ -42,7 +43,7 @@ export const Dashboard: React.FC = () => {
             commentBody={getCommentBody(elem.commentBody)}
           ></PostCard>
         ))}
-      </div>
+      </FlipMove>
     </DashboardWrapper>
   );
 };

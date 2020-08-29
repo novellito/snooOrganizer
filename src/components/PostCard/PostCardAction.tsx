@@ -22,7 +22,6 @@ const PostCardActionWrapper = styled.div`
 
 export const PostCardAction = (props: IPostCardProps) => {
   const [isUnsaving, setUnsaving] = useState(false);
-  const accessToken = useSelector(({ user }: any) => user.accessToken);
 
   const dispatch = useDispatch();
 
@@ -33,11 +32,11 @@ export const PostCardAction = (props: IPostCardProps) => {
   const handleUnsave = async () => {
     console.log(props);
     try {
-      const test = await dispatch(
-        unsaveContent({ id: props.postId, accessToken })
-      );
-      console.log(test);
-    } catch (err) {}
+      const unsaveResponse = await dispatch(unsaveContent(props.postId));
+      console.log(unsaveResponse);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const unsaveSelections = (
     <div className="unsave-selections">

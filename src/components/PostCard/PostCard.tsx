@@ -4,6 +4,7 @@ import PostCardAction from './PostCardAction';
 import PostCardContent from './PostCardContent';
 import PostCardHeader from './PostCardHeader';
 import { IPostCardProps } from '../../interfaces/interfaces';
+import React, { forwardRef } from 'react';
 
 const PostCardWrapper = styled.div`
   display: inline-block;
@@ -14,14 +15,16 @@ const PostCardWrapper = styled.div`
   transform-origin: left center;
 `;
 
-export const PostCard = (props: IPostCardProps) => {
-  return (
-    <PostCardWrapper {...props}>
-      <PostCardHeader {...props} />
-      <PostCardContent {...props} />
-      <PostCardAction {...props} />
-    </PostCardWrapper>
-  );
-};
-
+// stateful for react-flip-move
+class PostCard extends React.Component<IPostCardProps> {
+  render() {
+    return (
+      <PostCardWrapper {...this.props}>
+        <PostCardHeader {...this.props} />
+        <PostCardContent {...this.props} />
+        <PostCardAction {...this.props} />
+      </PostCardWrapper>
+    );
+  }
+}
 export default PostCard;

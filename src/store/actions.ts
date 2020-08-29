@@ -2,16 +2,13 @@ import axios from 'axios';
 import {
   IUserInfo,
   ISavedContent,
-  IUnsavePayload
+  IUnsavePayload,
+  IPostCardProps
 } from '../interfaces/interfaces';
 import { Dispatch } from 'redux';
 
-const setSavedContent = (savedContent: ISavedContent) => {
+export const setSavedContent = (savedContent: ISavedContent) => {
   return { type: 'SET_SAVED_CONTENT', payload: savedContent };
-};
-
-const setAccessToken = (accessToken: string) => {
-  return { type: 'SET_ACCESS_TOKEN', payload: accessToken };
 };
 
 const setUserLoggedIn = () => ({ type: 'LOGIN' });
@@ -24,7 +21,6 @@ export const login = (code: string): any => {
       console.log('data from action ', data);
       dispatch(setSavedContent(data.content.postCardData));
       localStorage.setItem('accessToken', data.content.accessToken);
-      dispatch(setAccessToken(data.content.accessToken));
       dispatch(setUserLoggedIn());
       return data.content;
     } catch (err) {
@@ -48,15 +44,18 @@ export const fetchUserContent = (): any => {
   };
 };
 
-export const unsaveContent = ({ id, accessToken }: IUnsavePayload) => {
-  return async (dispatch: Dispatch): Promise<object> => {
+export const unsaveContent = (id: string) => {
+  return async (dispatch: Dispatch, getState: any): Promise<object> => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
       const { data } = await axios.post('/api/unsaveContent', {
         id,
         accessToken
       });
-      console.log('data from action ', data);
-      // dispatch(setSavedContent(data.content.postCardData));
+      const newSavedContent = getState().user.savedContent.filter(
+        (elem: IPostCardProps) => elem.postId !== id
+      );
+      dispatch(setSavedContent(newSavedContent));
 
       return data.content;
     } catch (err) {

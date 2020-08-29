@@ -48,6 +48,7 @@ export default {
     }
   },
   unsaveContent: (contentId: string, accessToken: string) => {
+    console.log(contentId, accessToken);
     const snoowrapObj = new snoowrap({
       ...clientCredsAndUserAgent,
       accessToken
