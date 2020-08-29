@@ -114,19 +114,7 @@ export const LandingPage = () => {
     },
     [state, authWindow]
   );
-
   useGlobalMessage(closeAuthWindowOnSuccess);
-
-  // ! Code to be used later
-  // const unsave = async () => {
-  //   console.log('here', accessToken, id);
-  //   const foo = await axios.post('/api/unsaveContent', {
-  //     accessToken,
-  //     id
-  //   });
-  //   console.log('FOO', foo);
-  // <Button click={() => unsave()} text="unsave"></Button>
-  // };
 
   return (
     <div>

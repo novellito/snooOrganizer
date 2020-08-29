@@ -5,8 +5,8 @@ export default class HttpResponse {
     return this.httpResponse(payload, 200);
   }
 
-  internalServerError(err: string) {
-    return this.httpResponse(err, 500);
+  serverError(err: string, code: number) {
+    return this.httpResponse(err, code);
   }
 
   httpResponse(body: string, code = 200): APIGatewayProxyResult {

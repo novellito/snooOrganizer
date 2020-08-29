@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { IPostCardProps } from '../../interfaces/interfaces';
 import { useState } from 'react';
-
+import { unsaveContent } from '../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
 const PostCardActionWrapper = styled.div`
   padding: 0 16px 20px;
   .unsave-selections {
@@ -21,16 +22,26 @@ const PostCardActionWrapper = styled.div`
 
 export const PostCardAction = (props: IPostCardProps) => {
   const [isUnsaving, setUnsaving] = useState(false);
+  const accessToken = useSelector(({ user }: any) => user.accessToken);
+
+  const dispatch = useDispatch();
 
   const handleUnsaveClick = () => {
     setUnsaving(true);
   };
 
+  const handleUnsave = async () => {
+    console.log(props);
+    const test = await dispatch(
+      unsaveContent({ id: props.postId, accessToken })
+    );
+    console.log(test);
+  };
   const unsaveSelections = (
     <div className="unsave-selections">
       <p>Are you sure?</p>
       <Button
-        click={() => {}}
+        click={() => handleUnsave()}
         text="Yes"
         bgColor="danger"
         customClass="inverse"

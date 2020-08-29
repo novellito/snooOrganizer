@@ -16,3 +16,8 @@ export interface IPostCardProps {
   thumbnailUrl?: string;
   commentBody?: string | null | undefined;
 }
+
+export interface IUnsavePayload {
+  id: string;
+  accessToken: string;
+}

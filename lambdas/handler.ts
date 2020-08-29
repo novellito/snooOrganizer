@@ -16,6 +16,7 @@ export const unsaveContent: APIGatewayProxyHandler = async (
   _context
 ) => {
   const { id, accessToken } = JSON.parse(event.body);
+  console.log(id, accessToken);
   return reddit.unsaveContent(id, accessToken);
 };
 

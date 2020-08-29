@@ -44,9 +44,7 @@ export default {
         })
       );
     } catch (err) {
-      return HttpRes.internalServerError(
-        JSONStringify({ msg: 'something went wrong!', err })
-      );
+      return HttpRes.serverError('Access forbidden', err.statusCode);
     }
   },
   unsaveContent: async (contentId: string, accessToken: string) => {
@@ -65,9 +63,7 @@ export default {
         );
       })
       .catch((err) => {
-        return HttpRes.internalServerError(
-          JSONStringify({ msg: 'something went wrong!', err })
-        );
+        return HttpRes.serverError(err.message, err.statusCode);
       });
   }
 };

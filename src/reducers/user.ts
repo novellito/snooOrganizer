@@ -1,5 +1,6 @@
 const initialState = {
-  savedContent: []
+  savedContent: [],
+  accessToken: ''
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -12,6 +13,11 @@ const reducer = (state = initialState, action: any) => {
     case 'SET_USERNAME':
       return {
         ...state
+      };
+    case 'SET_ACCESS_TOKEN':
+      return {
+        ...state,
+        accessToken: action.payload
       };
 
     default:
