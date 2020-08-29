@@ -26,10 +26,6 @@ export const PostCardAction = (props: IPostCardProps) => {
   const { unsaveState } = useSelector(({ user }: any) => user.postToUnsave);
   const dispatch = useDispatch();
 
-  const handleUnsaveClick = () => {
-    toggleUnsaveOpts(true);
-  };
-
   const handleUnsave = () => {
     try {
       dispatch(unsaveContent(props.postId));
@@ -72,7 +68,7 @@ export const PostCardAction = (props: IPostCardProps) => {
                 </a>
               </Link>
               <Button
-                click={() => handleUnsaveClick()}
+                click={() => toggleUnsaveOpts(true)}
                 text="Unsave"
                 bgColor="danger"
                 customClass="inverse unsave"
