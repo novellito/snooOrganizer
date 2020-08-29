@@ -12,8 +12,8 @@ export const withAuth = (C: React.FC) => {
     useEffect(() => {
       const fetchContent = async () => {
         const userContent = await dispatch(fetchUserContent());
-
-        if (!userContent) {
+        if (userContent instanceof Error) {
+          localStorage.removeItem('accessToken');
           Router.push('/');
         }
       };
