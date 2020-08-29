@@ -11,7 +11,7 @@ export const extractRelevantProps = (savedContents: any) => {
   return savedContents.map((savedContent) => {
     return {
       author: savedContent.author.name,
-      postId: savedContent.id,
+      postId: savedContent.name,
       postTitle: savedContent.title,
       url: `https://www.reddit.com${savedContent.permalink}`,
       thumbnailUrl:

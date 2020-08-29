@@ -47,8 +47,7 @@ export default {
       return HttpRes.serverError('Access forbidden', err.statusCode);
     }
   },
-  unsaveContent: async (contentId: string, accessToken: string) => {
-    // TODO: when you get to unsave check if this async call is needed
+  unsaveContent: (contentId: string, accessToken: string) => {
     const snoowrapObj = new snoowrap({
       ...clientCredsAndUserAgent,
       accessToken
@@ -57,11 +56,11 @@ export default {
     return snoowrapObj
       .getSubmission(contentId)
       .unsave()
-      .then((res) => {
-        return HttpRes.successResponse(
+      .then((res) =>
+        HttpRes.successResponse(
           JSONStringify({ msg: 'unsave successful!', res })
-        );
-      })
+        )
+      )
       .catch((err) => {
         return HttpRes.serverError(err.message, err.statusCode);
       });
