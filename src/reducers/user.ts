@@ -1,5 +1,6 @@
 const initialState = {
-  savedContent: []
+  savedContent: [],
+  postToUnsave: null
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -12,6 +13,11 @@ const reducer = (state = initialState, action: any) => {
     case 'SET_USERNAME':
       return {
         ...state
+      };
+    case 'TOGGLE_UNSAVING':
+      return {
+        ...state,
+        postToUnsave: action.payload
       };
 
     default:

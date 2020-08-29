@@ -3,6 +3,7 @@ import ClampLines from 'react-clamp-lines';
 import Moment from 'react-moment';
 import { TEXT_PRIMARY, TEXT_HEADER, SNOO_BLUE } from '../../constants/colors';
 import { IPostCardProps } from '../../interfaces/interfaces';
+import { useSelector } from 'react-redux';
 
 const PostCardContentWrapper = styled.div`
   padding: 16px 16px 0;
@@ -53,6 +54,8 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
+  const postToUnsave = useSelector(({ user }: any) => user.postToUnsave);
+
   const showSubreddit = props.thumbnailUrl;
   let author = props.author;
   if (props.author.length > 18) {
@@ -60,23 +63,29 @@ export const PostCardContent = (props: IPostCardProps) => {
   }
   return (
     <PostCardContentWrapper {...props}>
-      <div className="content-header">
-        {
-          <p className="header-text">
-            {showSubreddit ? props.subreddit : `u/${author}`}
-          </p>
-        }
-        <p className="post-time">
-          <Moment fromNow>{props.createdTime}</Moment>
-        </p>
-      </div>
-      <p>{showSubreddit ? `u/${props.author}` : ''}</p>
-      <ClampLines
-        text={props.postTitle || props.commentBody || ''}
-        id={props.postId}
-        ellipsis="..."
-        innerElement="p"
-      />
+      {props.unsaveElem ? (
+        props.unsaveElem.content
+      ) : (
+        <>
+          <div className="content-header">
+            {
+              <p className="header-text">
+                {showSubreddit ? props.subreddit : `u/${author}`}
+              </p>
+            }
+            <p className="post-time">
+              <Moment fromNow>{props.createdTime}</Moment>
+            </p>
+          </div>
+          <p>{showSubreddit ? `u/${props.author}` : ''}</p>
+          <ClampLines
+            text={props.postTitle || props.commentBody || ''}
+            id={props.postId}
+            ellipsis="..."
+            innerElement="p"
+          />
+        </>
+      )}
     </PostCardContentWrapper>
   );
 };

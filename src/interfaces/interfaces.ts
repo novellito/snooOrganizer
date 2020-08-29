@@ -15,6 +15,7 @@ export interface IPostCardProps {
   createdTime: string;
   thumbnailUrl?: string;
   commentBody?: string | null | undefined;
+  unsaveElem: any;
 }
 
 export interface IUnsavePayload {

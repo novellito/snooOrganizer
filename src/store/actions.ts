@@ -13,6 +13,10 @@ export const setSavedContent = (savedContent: ISavedContent) => {
 
 const setUserLoggedIn = () => ({ type: 'LOGIN' });
 const setUserLoggedOut = () => ({ type: 'LOGOUT' });
+const toggleUserUnsaving = (id: string | null) => ({
+  type: 'TOGGLE_UNSAVING',
+  payload: id
+});
 
 export const login = (code: string): any => {
   return async (dispatch: Dispatch): Promise<IUserInfo> => {
@@ -47,6 +51,7 @@ export const fetchUserContent = (): any => {
 export const unsaveContent = (id: string) => {
   return async (dispatch: Dispatch, getState: any): Promise<object> => {
     try {
+      dispatch(toggleUserUnsaving(id));
       const accessToken = localStorage.getItem('accessToken');
       const { data } = await axios.post('/api/unsaveContent', {
         id,
@@ -59,6 +64,9 @@ export const unsaveContent = (id: string) => {
 
       return data.content;
     } catch (err) {
+      setTimeout(() => {
+        dispatch(toggleUserUnsaving(null));
+      }, 2000);
       return err;
     }
   };

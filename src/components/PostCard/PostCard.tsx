@@ -4,7 +4,8 @@ import PostCardAction from './PostCardAction';
 import PostCardContent from './PostCardContent';
 import PostCardHeader from './PostCardHeader';
 import { IPostCardProps } from '../../interfaces/interfaces';
-import React, { forwardRef } from 'react';
+import React from 'react';
+import { withUnsave } from './UnsaveHOC';
 
 const PostCardWrapper = styled.div`
   display: inline-block;
@@ -27,4 +28,4 @@ class PostCard extends React.Component<IPostCardProps> {
     );
   }
 }
-export default PostCard;
+export default withUnsave(PostCard);
