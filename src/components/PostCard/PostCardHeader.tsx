@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { getRandomColor } from '../../constants/colors';
 import Link from 'next/link';
+import { getRandomColor } from '../../constants/colors';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { IPostCardProps } from '../../interfaces/interfaces';
-import { useSelector } from 'react-redux';
 
 const PostCardHeaderWrapper = styled.div`
   height: 190px;
@@ -39,7 +38,6 @@ export const PostCardHeader = (props: IPostCardProps) => {
   // Warning: Text content did not match. Server: "x" Client: "y"
   // because we are using SSR
   const [bGColor, setBGColor] = useState();
-  const postToUnsave = useSelector(({ user }: any) => user.postToUnsave);
 
   useEffect(() => {
     setBGColor({ backgroundColor: getRandomColor() });

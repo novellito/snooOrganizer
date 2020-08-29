@@ -1,3 +1,5 @@
+import { UnsaveState } from '../constants/enums';
+
 const initialState = {
   savedContent: [],
   postToUnsave: { id: null, unsaveState: null }
@@ -16,8 +18,8 @@ const reducer = (state = initialState, action: any) => {
       };
     case 'SET_USER_UNSAVING':
       if (
-        action.payload.unsaveState === 'success' ||
-        action.payload.unsaveState === 'reset'
+        action.payload.unsaveState === UnsaveState.SUCCESS ||
+        action.payload.unsaveState === UnsaveState.RESET
       ) {
         return {
           ...state,

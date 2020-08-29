@@ -7,6 +7,7 @@ import { IPostCardProps } from '../../interfaces/interfaces';
 import { useState } from 'react';
 import { unsaveContent } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { UnsaveState } from '../../constants/enums';
 const PostCardActionWrapper = styled.div`
   padding: 0 16px 20px;
   .unsave-selections {
@@ -29,12 +30,9 @@ export const PostCardAction = (props: IPostCardProps) => {
     toggleUnsaveOpts(true);
   };
 
-  const handleUnsave = async () => {
-    console.log(props);
+  const handleUnsave = () => {
     try {
-      const unsaveResponse = await dispatch(unsaveContent(props.postId));
-      console.log(unsaveResponse);
-      // handle unsuccessful save here!
+      dispatch(unsaveContent(props.postId));
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +41,10 @@ export const PostCardAction = (props: IPostCardProps) => {
     <div className="unsave-selections">
       <p>Are you sure?</p>
       <Button
-        click={() => handleUnsave()}
+        click={() => {
+          toggleUnsaveOpts(false);
+          handleUnsave();
+        }}
         text="Yes"
         bgColor="danger"
         customClass="inverse"
@@ -75,7 +76,7 @@ export const PostCardAction = (props: IPostCardProps) => {
                 text="Unsave"
                 bgColor="danger"
                 customClass="inverse unsave"
-                disabled={unsaveState === 'unsaving' ? true : false}
+                disabled={unsaveState === UnsaveState.UNSAVING ? true : false}
                 style={{ height: '30px', fontSize: '.9em', float: 'right' }}
               ></Button>
             </>

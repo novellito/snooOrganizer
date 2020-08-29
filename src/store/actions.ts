@@ -2,10 +2,10 @@ import axios from 'axios';
 import {
   IUserInfo,
   ISavedContent,
-  IUnsavePayload,
   IPostCardProps
 } from '../interfaces/interfaces';
 import { Dispatch } from 'redux';
+import { UnsaveState } from '../constants/enums';
 
 export const setSavedContent = (savedContent: ISavedContent) => {
   return { type: 'SET_SAVED_CONTENT', payload: savedContent };
@@ -13,7 +13,7 @@ export const setSavedContent = (savedContent: ISavedContent) => {
 
 const setUserLoggedIn = () => ({ type: 'LOGIN' });
 const setUserLoggedOut = () => ({ type: 'LOGOUT' });
-const setUserUnsaving = (id: string | null, unsaveState: string) => ({
+const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
   type: 'SET_USER_UNSAVING',
   payload: { id, unsaveState }
 });
@@ -51,7 +51,7 @@ export const fetchUserContent = (): any => {
 export const unsaveContent = (id: string) => {
   return async (dispatch: Dispatch, getState: any): Promise<object> => {
     try {
-      dispatch(setUserUnsaving(id, 'unsaving'));
+      dispatch(setUserUnsaving(id, UnsaveState.UNSAVING));
       const accessToken = localStorage.getItem('accessToken');
       const { data } = await axios.post('/api/unsaveContent', {
         id,
@@ -61,16 +61,16 @@ export const unsaveContent = (id: string) => {
         (elem: IPostCardProps) => elem.postId !== id
       );
       dispatch(setSavedContent(newSavedContent));
-      dispatch(setUserUnsaving(id, 'success'));
+      dispatch(setUserUnsaving(id, UnsaveState.SUCCESS));
 
       return data.content;
     } catch (err) {
       setTimeout(() => {
-        dispatch(setUserUnsaving(id, 'error'));
+        dispatch(setUserUnsaving(id, UnsaveState.ERROR));
       }, 2000);
       setTimeout(() => {
-        dispatch(setUserUnsaving(id, 'reset'));
-      }, 4000);
+        dispatch(setUserUnsaving(id, UnsaveState.RESET));
+      }, 3500);
       return err;
     }
   };

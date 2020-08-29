@@ -1,12 +1,9 @@
 import * as React from 'react';
-import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { IPostCardProps } from '../../interfaces/interfaces';
 
 export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
   const Wrapper = (props: any) => {
-    const dispatch = useDispatch();
     const { unsaveState, id } = useSelector(
       ({ user }: any) => user.postToUnsave
     );
@@ -17,7 +14,7 @@ export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
       unsaveState === 'unsaving' ? (
         <b>Unsaving...</b>
       ) : (
-        <b>Something went wrong - Unsave Unsuccessful</b>
+        <b>Something went wrong - Changes were not saved!</b>
       );
 
     return (

@@ -17,8 +17,3 @@ export interface IPostCardProps {
   commentBody?: string | null | undefined;
   unsaveElem: any;
 }
-
-export interface IUnsavePayload {
-  id: string;
-  accessToken: string;
-}
