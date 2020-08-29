@@ -53,6 +53,8 @@ export default {
       accessToken
     });
 
+    // snoowrapObj.revokeAccessToken();
+
     return snoowrapObj
       .getSubmission(contentId)
       .unsave()

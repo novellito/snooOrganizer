@@ -32,10 +32,12 @@ export const PostCardAction = (props: IPostCardProps) => {
 
   const handleUnsave = async () => {
     console.log(props);
-    const test = await dispatch(
-      unsaveContent({ id: props.postId, accessToken })
-    );
-    console.log(test);
+    try {
+      const test = await dispatch(
+        unsaveContent({ id: props.postId, accessToken })
+      );
+      console.log(test);
+    } catch (err) {}
   };
   const unsaveSelections = (
     <div className="unsave-selections">
