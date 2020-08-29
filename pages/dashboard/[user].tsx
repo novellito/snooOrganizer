@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import FlipMove from 'react-flip-move';
 
 const DashboardWrapper = styled.section`
-  /* .cards { */
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  grid-column-gap: 5px;
-  grid-row-gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
-  /* } */
+  .cards {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-column-gap: 5px;
+    grid-row-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
+  }
 `;
 
 const getCommentBody = (comment: string) => {
@@ -29,21 +29,21 @@ export const Dashboard: React.FC = () => {
   return (
     <DashboardWrapper>
       welcome to dashboard
-      {/* <FlipMove className="cards"> */}
-      {savedContent.map((elem: any) => (
-        <PostCard
-          key={elem.postId}
-          url={elem.url}
-          thumbnailUrl={elem.thumbnailUrl}
-          postTitle={elem.postTitle}
-          subreddit={elem.subreddit}
-          postId={elem.postId}
-          author={elem.author}
-          createdTime={elem.createdTime}
-          commentBody={getCommentBody(elem.commentBody)}
-        ></PostCard>
-      ))}
-      {/* </FlipMove> */}
+      <FlipMove className="cards">
+        {savedContent.map((elem: any) => (
+          <PostCard
+            key={elem.postId}
+            url={elem.url}
+            thumbnailUrl={elem.thumbnailUrl}
+            postTitle={elem.postTitle}
+            subreddit={elem.subreddit}
+            postId={elem.postId}
+            author={elem.author}
+            createdTime={elem.createdTime}
+            commentBody={getCommentBody(elem.commentBody)}
+          ></PostCard>
+        ))}
+      </FlipMove>
     </DashboardWrapper>
   );
 };

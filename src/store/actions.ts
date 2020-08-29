@@ -62,6 +62,7 @@ export const unsaveContent = (id: string) => {
       );
       dispatch(setSavedContent(newSavedContent));
       dispatch(setUserUnsaving(id, UnsaveState.SUCCESS));
+      console.log('data from unsaving', data);
 
       return data.content;
     } catch (err) {

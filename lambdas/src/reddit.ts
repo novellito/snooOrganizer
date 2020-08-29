@@ -54,7 +54,7 @@ export default {
       accessToken
     });
 
-    return HttpRes.serverError('YEET', 500);
+    // return HttpRes.serverError('YEET', 500);
     // snoowrapObj.revokeAccessToken();
 
     return snoowrapObj
