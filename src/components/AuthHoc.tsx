@@ -1,16 +1,24 @@
 import * as React from 'react';
 import Router from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { fetchUserContent } from '../../src/store/actions';
 
 export const withAuth = (C: React.FC) => {
   const Wrapper = (props: any) => {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector(({ login }: any) => login.isLoggedIn);
+
     useEffect(() => {
-      if (!isLoggedIn) {
-        Router.push('/');
-      }
-    });
+      const fetchContent = async () => {
+        const userContent = await dispatch(fetchUserContent());
+
+        if (!userContent) {
+          Router.push('/');
+        }
+      };
+      fetchContent();
+    }, []);
 
     return <>{isLoggedIn && <C {...props} />}</>;
   };

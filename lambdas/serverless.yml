@@ -29,6 +29,12 @@ provider:
     REDIRECT_URI: ${env:REDIRECT_URI}
 
 functions:
+  login:
+    handler: handler.loginAndGetSavedContent
+    events:
+      - http:
+          method: post
+          path: login
   userContent:
     handler: handler.getUserSavedContent
     events:

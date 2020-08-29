@@ -11,7 +11,7 @@ import { useGlobalMessage } from '../hooks/useWindowEvent';
 import { AuthURLParams } from '../types/types';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
-import { fetchUserContent } from '../store/actions';
+import { login } from '../store/actions';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -99,9 +99,7 @@ export const LandingPage = () => {
         try {
           setLoading(true);
           authWindow.close();
-          const { username } = await dispatch(
-            fetchUserContent(event.data.code)
-          );
+          const { username } = await dispatch(login(event.data.code));
           setLoading(false);
           if (username) {
             Router.push('/dashboard/[user]', `/dashboard/${username}`);
