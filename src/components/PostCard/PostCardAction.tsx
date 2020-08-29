@@ -21,12 +21,12 @@ const PostCardActionWrapper = styled.div`
 `;
 
 export const PostCardAction = (props: IPostCardProps) => {
-  const [isUnsaving, setUnsaving] = useState(false);
+  const [unsaveOpts, toggleUnsaveOpts] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleUnsaveClick = () => {
-    setUnsaving(true);
+    toggleUnsaveOpts(true);
   };
 
   const handleUnsave = async () => {
@@ -34,6 +34,7 @@ export const PostCardAction = (props: IPostCardProps) => {
     try {
       const unsaveResponse = await dispatch(unsaveContent(props.postId));
       console.log(unsaveResponse);
+      // handle unsuccessful save here!
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +50,7 @@ export const PostCardAction = (props: IPostCardProps) => {
         style={{ height: '30px', fontSize: '.9em' }}
       ></Button>
       <Button
-        click={() => setUnsaving(false)}
+        click={() => toggleUnsaveOpts(false)}
         text="No"
         bgColor="primary"
         style={{ height: '30px', fontSize: '.9em' }}
@@ -59,8 +60,8 @@ export const PostCardAction = (props: IPostCardProps) => {
 
   return (
     <PostCardActionWrapper {...props}>
-      {isUnsaving ? unsaveSelections : null}
-      {!isUnsaving ? (
+      {unsaveOpts ? unsaveSelections : null}
+      {!unsaveOpts ? (
         <>
           <Link href={(props.url && props.url.substr(6)) || ''}>
             <a target="_blank">
