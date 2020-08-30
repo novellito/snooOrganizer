@@ -3,6 +3,7 @@ import { withAuth } from '../../src/components/AuthHoc';
 import PostCard from '../../src/components/PostCard/PostCard';
 import styled from 'styled-components';
 import FlipMove from 'react-flip-move';
+import AccordionElem from '../../src/components/Accordion';
 
 const DashboardWrapper = styled.section`
   .cards {
@@ -29,6 +30,7 @@ export const Dashboard: React.FC = () => {
   return (
     <DashboardWrapper>
       welcome to dashboard
+      <AccordionElem></AccordionElem>
       <FlipMove className="cards">
         {savedContent.map((elem: any) => (
           <PostCard
