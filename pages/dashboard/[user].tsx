@@ -30,7 +30,7 @@ export const Dashboard: React.FC = () => {
   return (
     <DashboardWrapper>
       welcome to dashboard
-      <AccordionElem></AccordionElem>
+      <AccordionElem />
       <FlipMove className="cards">
         {savedContent.map((elem: any) => (
           <PostCard

@@ -7,6 +7,9 @@ import {
   AccordionItemButton,
   AccordionItemPanel
 } from 'react-accessible-accordion';
+import { useSelector, useDispatch } from 'react-redux';
+import { FilterPill } from './FilterPill';
+import { ISavedContent } from '../interfaces/interfaces';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -64,6 +67,17 @@ interface AccordionProps {
 }
 
 export const AccordionElem = (props: AccordionProps) => {
+  const dispatch = useDispatch();
+  const originalSavedContent = useSelector(
+    ({ user }: any) => user.originalSavedContent
+  );
+  const subredditSet = new Set<string>();
+  originalSavedContent.forEach((sub: ISavedContent) =>
+    subredditSet.add(sub.subreddit)
+  );
+
+  const subreddits = [...subredditSet];
+
   return (
     <AccordionWrapper {...props} className={props.customClass}>
       <Accordion allowZeroExpanded preExpanded={['subreddit-filter-accordion']}>
@@ -72,11 +86,16 @@ export const AccordionElem = (props: AccordionProps) => {
             <AccordionItemButton>Filter By Subreddits</AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
-            <p>
-              Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat
-              occaecat ut occaecat consequat est minim minim esse tempor laborum
-              consequat esse adipisicing eu reprehenderit enim.
+            <p
+              onClick={() => {
+                dispatch({ type: 'RESET_FILTER' });
+              }}
+            >
+              All
             </p>
+            {subreddits.map((sub) => (
+              <FilterPill subreddit={sub} key={sub} />
+            ))}
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>

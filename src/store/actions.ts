@@ -18,6 +18,11 @@ const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
   payload: { id, unsaveState }
 });
 
+const filterContent = (filteredContent: ISavedContent) => ({
+  type: 'FILTER_CONTENT',
+  payload: filteredContent
+});
+
 export const login = (code: string): any => {
   return async (dispatch: Dispatch): Promise<IUserInfo> => {
     try {
@@ -74,5 +79,14 @@ export const unsaveContent = (id: string) => {
       }, 3500);
       return err;
     }
+  };
+};
+
+export const filterUserContent = (subreddit: string) => {
+  return async (dispatch: Dispatch, getState: any) => {
+    const filteredContent = getState().user.originalSavedContent.filter(
+      (elem: IPostCardProps) => elem.subreddit === subreddit
+    );
+    dispatch(filterContent(filteredContent));
   };
 };
