@@ -76,8 +76,6 @@ export const AccordionElem = (props: AccordionProps) => {
     subredditSet.add(sub.subreddit)
   );
 
-  const subreddits = [...subredditSet];
-
   return (
     <AccordionWrapper {...props} className={props.customClass}>
       <Accordion allowZeroExpanded preExpanded={['subreddit-filter-accordion']}>
@@ -93,7 +91,7 @@ export const AccordionElem = (props: AccordionProps) => {
             >
               All
             </p>
-            {subreddits.map((sub) => (
+            {[...subredditSet].map((sub) => (
               <FilterPill subreddit={sub} key={sub} />
             ))}
           </AccordionItemPanel>
