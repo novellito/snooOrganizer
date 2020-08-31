@@ -82,10 +82,17 @@ export const AccordionElem = (props: AccordionProps) => {
           <AccordionItemPanel>
             <p
               onClick={() => {
-                dispatch({ type: 'RESET_FILTER' });
+                dispatch({ type: 'TOGGLE_ALL', payload: true });
               }}
             >
-              All
+              Select All
+            </p>
+            <p
+              onClick={() => {
+                dispatch({ type: 'TOGGLE_ALL' });
+              }}
+            >
+              Deslect All
             </p>
             {[...subredditSet].map((sub) => (
               <FilterPill subreddit={sub} key={sub} />

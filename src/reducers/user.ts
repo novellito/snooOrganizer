@@ -12,11 +12,11 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         savedContent: action.payload
       };
-    case 'RESET_FILTER':
+    case 'TOGGLE_ALL':
       return {
         ...state,
         savedContent: state.savedContent.map((elem: any) => {
-          elem.isDisplayed = true;
+          elem.isDisplayed = action.payload ? true : false;
           return elem;
         })
       };
