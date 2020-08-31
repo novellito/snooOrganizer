@@ -84,9 +84,14 @@ export const unsaveContent = (id: string) => {
 
 export const filterUserContent = (subreddit: string) => {
   return async (dispatch: Dispatch, getState: any) => {
-    const filteredContent = getState().user.originalSavedContent.filter(
-      (elem: IPostCardProps) => elem.subreddit === subreddit
+    const subredditsToToggle = getState().user.originalSavedContent.map(
+      (elem: IPostCardProps) => {
+        if (elem.subreddit === subreddit) {
+          elem.isDisplayed = !elem.isDisplayed;
+        }
+        return elem;
+      }
     );
-    dispatch(filterContent(filteredContent));
+    dispatch(filterContent(subredditsToToggle));
   };
 };

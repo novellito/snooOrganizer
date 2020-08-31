@@ -16,4 +16,5 @@ export interface IPostCardProps {
   thumbnailUrl?: string;
   commentBody?: string | null | undefined;
   unsaveElem: any;
+  isDisplayed: boolean;
 }

@@ -32,19 +32,22 @@ export const Dashboard: React.FC = () => {
       welcome to dashboard
       <AccordionElem />
       <FlipMove className="cards">
-        {savedContent.map((elem: any) => (
-          <PostCard
-            key={elem.postId}
-            url={elem.url}
-            thumbnailUrl={elem.thumbnailUrl}
-            postTitle={elem.postTitle}
-            subreddit={elem.subreddit}
-            postId={elem.postId}
-            author={elem.author}
-            createdTime={elem.createdTime}
-            commentBody={getCommentBody(elem.commentBody)}
-          ></PostCard>
-        ))}
+        {savedContent.map(
+          (elem: any) =>
+            elem.isDisplayed && (
+              <PostCard
+                key={elem.postId}
+                url={elem.url}
+                thumbnailUrl={elem.thumbnailUrl}
+                postTitle={elem.postTitle}
+                subreddit={elem.subreddit}
+                postId={elem.postId}
+                author={elem.author}
+                createdTime={elem.createdTime}
+                commentBody={getCommentBody(elem.commentBody)}
+              ></PostCard>
+            )
+        )}
       </FlipMove>
     </DashboardWrapper>
   );

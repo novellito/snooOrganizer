@@ -26,7 +26,10 @@ const reducer = (state = initialState, action: any) => {
     case 'RESET_FILTER':
       return {
         ...state,
-        savedContent: state.originalSavedContent
+        savedContent: state.savedContent.map((elem: any) => {
+          elem.isDisplayed = true;
+          return elem;
+        })
       };
     case 'SET_USER_UNSAVING':
       if (

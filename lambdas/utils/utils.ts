@@ -20,7 +20,8 @@ export const extractRelevantProps = (savedContents: any) => {
         savedContent.preview.images[0].resolutions[3].url,
       subreddit: savedContent.subreddit_name_prefixed,
       createdTime: new Date(savedContent.created * 1000),
-      commentBody: savedContent.body_html
+      commentBody: savedContent.body_html,
+      isDisplayed: true
     };
   });
 };
