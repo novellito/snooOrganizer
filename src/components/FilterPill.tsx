@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { filterUserContent } from '../store/actions';
+import { filterToggleUserContent } from '../store/actions';
 
 interface FilterPillProps {
   //   bgColor: string;
@@ -18,7 +18,7 @@ export const FilterPill = (props: FilterPillProps) => {
   const dispatch = useDispatch();
 
   const handleClick = (subreddit: string) => {
-    dispatch(filterUserContent(subreddit));
+    dispatch(filterToggleUserContent(subreddit));
   };
   return (
     <FilterPillWrapper onClick={() => handleClick(props.subreddit)}>

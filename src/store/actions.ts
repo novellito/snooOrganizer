@@ -11,16 +11,11 @@ export const setSavedContent = (savedContent: ISavedContent) => {
   return { type: 'SET_SAVED_CONTENT', payload: savedContent };
 };
 
-const setUserLoggedIn = () => ({ type: 'LOGIN' });
 const setUserLoggedOut = () => ({ type: 'LOGOUT' });
+const setUserLoggedIn = () => ({ type: 'LOGIN' });
 const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
   type: 'SET_USER_UNSAVING',
   payload: { id, unsaveState }
-});
-
-const filterContent = (filteredContent: ISavedContent) => ({
-  type: 'FILTER_CONTENT',
-  payload: filteredContent
 });
 
 export const login = (code: string): any => {
@@ -82,9 +77,9 @@ export const unsaveContent = (id: string) => {
   };
 };
 
-export const filterUserContent = (subreddit: string) => {
+export const filterToggleUserContent = (subreddit: string) => {
   return async (dispatch: Dispatch, getState: any) => {
-    const subredditsToToggle = getState().user.originalSavedContent.map(
+    const subredditsToToggle = getState().user.savedContent.map(
       (elem: IPostCardProps) => {
         if (elem.subreddit === subreddit) {
           elem.isDisplayed = !elem.isDisplayed;
@@ -92,6 +87,6 @@ export const filterUserContent = (subreddit: string) => {
         return elem;
       }
     );
-    dispatch(filterContent(subredditsToToggle));
+    dispatch(setSavedContent(subredditsToToggle));
   };
 };

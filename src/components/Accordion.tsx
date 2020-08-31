@@ -68,13 +68,9 @@ interface AccordionProps {
 
 export const AccordionElem = (props: AccordionProps) => {
   const dispatch = useDispatch();
-  const originalSavedContent = useSelector(
-    ({ user }: any) => user.originalSavedContent
-  );
+  const savedContent = useSelector(({ user }: any) => user.savedContent);
   const subredditSet = new Set<string>();
-  originalSavedContent.forEach((sub: ISavedContent) =>
-    subredditSet.add(sub.subreddit)
-  );
+  savedContent.forEach((sub: ISavedContent) => subredditSet.add(sub.subreddit));
 
   return (
     <AccordionWrapper {...props} className={props.customClass}>

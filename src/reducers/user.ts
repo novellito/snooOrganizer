@@ -2,23 +2,12 @@ import { UnsaveState } from '../constants/enums';
 
 const initialState = {
   savedContent: [],
-  originalSavedContent: [],
   postToUnsave: { id: null, unsaveState: null }
 };
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case 'SET_SAVED_CONTENT':
-      return {
-        ...state,
-        savedContent: action.payload,
-        originalSavedContent: action.payload
-      };
-    case 'SET_USERNAME':
-      return {
-        ...state
-      };
-    case 'FILTER_CONTENT':
       return {
         ...state,
         savedContent: action.payload
