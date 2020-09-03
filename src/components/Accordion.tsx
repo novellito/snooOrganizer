@@ -9,7 +9,6 @@ import {
 } from 'react-accessible-accordion';
 import { useSelector, useDispatch } from 'react-redux';
 import { FilterPill } from './FilterPill';
-import { ISavedContent } from '../interfaces/interfaces';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -68,9 +67,7 @@ interface AccordionProps {
 
 export const AccordionElem = (props: AccordionProps) => {
   const dispatch = useDispatch();
-  const savedContent = useSelector(({ user }: any) => user.savedContent);
-  const subredditSet = new Set<string>();
-  savedContent.forEach((sub: ISavedContent) => subredditSet.add(sub.subreddit));
+  const userSubreddits = useSelector(({ user }: any) => user.userSubreddits);
 
   return (
     <AccordionWrapper {...props} className={props.customClass}>
@@ -83,6 +80,10 @@ export const AccordionElem = (props: AccordionProps) => {
             <p
               onClick={() => {
                 dispatch({ type: 'TOGGLE_ALL', payload: true });
+                dispatch({
+                  type: 'IDK',
+                  payload: 'select all'
+                });
               }}
             >
               Select All
@@ -90,12 +91,16 @@ export const AccordionElem = (props: AccordionProps) => {
             <p
               onClick={() => {
                 dispatch({ type: 'TOGGLE_ALL' });
+                dispatch({
+                  type: 'IDK',
+                  payload: 'deselect all'
+                });
               }}
             >
               Deslect All
             </p>
-            {[...subredditSet].map((sub) => (
-              <FilterPill subreddit={sub} key={sub} />
+            {userSubreddits.map((sub) => (
+              <FilterPill subreddit={sub.subreddit} key={sub.subreddit} />
             ))}
           </AccordionItemPanel>
         </AccordionItem>

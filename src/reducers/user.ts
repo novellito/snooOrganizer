@@ -2,7 +2,9 @@ import { UnsaveState } from '../constants/enums';
 
 const initialState = {
   savedContent: [],
-  postToUnsave: { id: null, unsaveState: null }
+  userSubreddits: [],
+  postToUnsave: { id: null, unsaveState: null },
+  selectedSubreddit: null
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -12,6 +14,42 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         savedContent: action.payload
       };
+    case 'SET_SUBREDDITS':
+      return {
+        ...state,
+        userSubreddits: action.payload
+      };
+    case 'IDK':
+      if (action.payload === 'select all') {
+        return {
+          ...state,
+          userSubreddits: state.userSubreddits.map((elem: any) => {
+            elem.isDisplayed = true;
+            return elem;
+          })
+        };
+      } else if (action.payload === 'deselect all') {
+        return {
+          ...state,
+          userSubreddits: state.userSubreddits.map((elem: any) => {
+            elem.isDisplayed = false;
+            return elem;
+          })
+        };
+      } else {
+        var clonedArray = JSON.parse(JSON.stringify(state.userSubreddits));
+
+        var foundIndex = state.userSubreddits.findIndex(
+          (x) => x.subreddit == action.payload
+        );
+        clonedArray[foundIndex].isDisplayed = !state.userSubreddits[foundIndex]
+          .isDisplayed;
+
+        return {
+          ...state,
+          userSubreddits: clonedArray
+        };
+      }
     case 'TOGGLE_ALL':
       return {
         ...state,

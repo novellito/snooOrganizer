@@ -11,6 +11,23 @@ export const setSavedContent = (savedContent: ISavedContent) => {
   return { type: 'SET_SAVED_CONTENT', payload: savedContent };
 };
 
+export const setUserSubreddits = <ISavedContent extends []>(
+  savedContent: ISavedContent,
+  filterBy = null
+) => {
+  const subredditSet = new Set<string>();
+  savedContent.forEach((sub: any) => subredditSet.add(sub.subreddit));
+  const subredditSetFormatted = [...subredditSet].map((subreddit: any) => ({
+    subreddit,
+    isDisplayed: subreddit !== filterBy
+  }));
+  console.log(subredditSetFormatted);
+  return {
+    type: 'SET_SUBREDDITS',
+    payload: subredditSetFormatted
+  };
+};
+
 const setUserLoggedOut = () => ({ type: 'LOGOUT' });
 const setUserLoggedIn = () => ({ type: 'LOGIN' });
 const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
@@ -23,8 +40,9 @@ export const login = (code: string): any => {
     try {
       const { data } = await axios.post('/api/login', { code });
       console.log('data from action ', data);
-      dispatch(setSavedContent(data.content.postCardData));
       localStorage.setItem('accessToken', data.content.accessToken);
+      dispatch(setSavedContent(data.content.postCardData));
+      dispatch(setUserSubreddits(data.content.postCardData));
       dispatch(setUserLoggedIn());
       return data.content;
     } catch (err) {
@@ -40,6 +58,7 @@ export const fetchUserContent = (): any => {
       const { data } = await axios.post('/api/userContent', { accessToken });
       console.log('data from fetching! ', data);
       dispatch(setSavedContent(data.content.postCardData));
+      dispatch(setUserSubreddits(data.content.postCardData));
       dispatch(setUserLoggedIn());
       return data.content;
     } catch (err) {
@@ -88,5 +107,6 @@ export const filterToggleUserContent = (subreddit: string) => {
       }
     );
     dispatch(setSavedContent(subredditsToToggle));
+    dispatch({ type: 'IDK', payload: subreddit });
   };
 };

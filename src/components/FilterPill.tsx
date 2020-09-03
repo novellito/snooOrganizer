@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterToggleUserContent } from '../store/actions';
 import { SNOO_BLUE, PRIMARY } from '../constants/colors';
 
@@ -9,8 +9,11 @@ interface FilterPillProps {
   //   text: string;
   //   style?: object;
   //   subreddit: any;
-  subreddit: string;
-  customClass?: string;
+  // selectionStatus: any;
+  subreddit: any;
+  // key: any;
+  // customClass?: string;
+  // resetSelectionStatus: any;
   //   click: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   //   disabled?: boolean;
 }
@@ -25,7 +28,7 @@ const FilterPillWrapper = styled.div`
   cursor: pointer;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  &.selected {
+  &.deselected {
     color: ${PRIMARY};
     background-color: white;
     border: 1px solid ${PRIMARY};
@@ -35,15 +38,21 @@ const FilterPillWrapper = styled.div`
 `;
 export const FilterPill = (props: FilterPillProps) => {
   const dispatch = useDispatch();
-  const [toggled, setToggle] = useState(false);
+  const userSubreddits = useSelector(({ user }: any) => user.userSubreddits);
+
   const handleClick = (subreddit: string) => {
     dispatch(filterToggleUserContent(subreddit));
-    setToggle(!toggled);
   };
   return (
     <FilterPillWrapper
       onClick={() => handleClick(props.subreddit)}
-      className={toggled ? 'selected' : null}
+      className={
+        userSubreddits.some(
+          (elem) => props.subreddit === elem.subreddit && !elem.isDisplayed
+        )
+          ? 'deselected'
+          : null
+      }
     >
       {props.subreddit}
     </FilterPillWrapper>
