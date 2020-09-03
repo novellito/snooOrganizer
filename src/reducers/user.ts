@@ -1,4 +1,4 @@
-import { UnsaveState } from '../constants/enums';
+import { UnsaveState, FilterChipAll } from '../constants/enums';
 
 const initialState = {
   savedContent: [],
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action: any) => {
         userSubreddits: action.payload
       };
     case 'IDK':
-      if (action.payload === 'select all') {
+      if (action.payload === FilterChipAll.SELECT_ALL) {
         return {
           ...state,
           userSubreddits: state.userSubreddits.map((elem: any) => {
@@ -28,7 +28,7 @@ const reducer = (state = initialState, action: any) => {
             return elem;
           })
         };
-      } else if (action.payload === 'deselect all') {
+      } else if (action.payload === FilterChipAll.DESELECT_ALL) {
         return {
           ...state,
           userSubreddits: state.userSubreddits.map((elem: any) => {

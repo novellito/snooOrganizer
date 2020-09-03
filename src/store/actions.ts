@@ -12,16 +12,14 @@ export const setSavedContent = (savedContent: ISavedContent) => {
 };
 
 export const setUserSubreddits = <ISavedContent extends []>(
-  savedContent: ISavedContent,
-  filterBy = null
+  savedContent: ISavedContent
 ) => {
   const subredditSet = new Set<string>();
   savedContent.forEach((sub: any) => subredditSet.add(sub.subreddit));
   const subredditSetFormatted = [...subredditSet].map((subreddit: any) => ({
     subreddit,
-    isDisplayed: subreddit !== filterBy
+    isDisplayed: true
   }));
-  console.log(subredditSetFormatted);
   return {
     type: 'SET_SUBREDDITS',
     payload: subredditSetFormatted
@@ -96,7 +94,7 @@ export const unsaveContent = (id: string) => {
   };
 };
 
-export const filterToggleUserContent = (subreddit: string) => {
+export const filterUserPostCards = (subreddit: string) => {
   return async (dispatch: Dispatch, getState: any) => {
     const subredditsToToggle = getState().user.savedContent.map(
       (elem: IPostCardProps) => {
@@ -107,6 +105,10 @@ export const filterToggleUserContent = (subreddit: string) => {
       }
     );
     dispatch(setSavedContent(subredditsToToggle));
-    dispatch({ type: 'IDK', payload: subreddit });
+    dispatch(toggleFilterChip(subreddit));
   };
+};
+
+export const toggleFilterChip = (subreddit: string) => {
+  return { type: 'IDK', payload: subreddit };
 };

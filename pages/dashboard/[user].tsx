@@ -25,7 +25,6 @@ const getCommentBody = (comment: string) => {
 
 export const Dashboard: React.FC = () => {
   const savedContent = useSelector(({ user }: any) => user.savedContent);
-  //   const dispatch = useDispatch();
 
   return (
     <DashboardWrapper>

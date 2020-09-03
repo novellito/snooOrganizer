@@ -8,7 +8,8 @@ import {
   AccordionItemPanel
 } from 'react-accessible-accordion';
 import { useSelector, useDispatch } from 'react-redux';
-import { FilterPill } from './FilterPill';
+import { FilterChip } from './FilterChip';
+import { FilterChipAll } from '../constants/enums';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -57,12 +58,7 @@ const AccordionWrapper = styled.section`
 `;
 
 interface AccordionProps {
-  //   bgColor: string;
-  //   text: string;
-  //   style?: object;
   customClass?: string;
-  //   click: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  //   disabled?: boolean;
 }
 
 export const AccordionElem = (props: AccordionProps) => {
@@ -82,7 +78,7 @@ export const AccordionElem = (props: AccordionProps) => {
                 dispatch({ type: 'TOGGLE_ALL', payload: true });
                 dispatch({
                   type: 'IDK',
-                  payload: 'select all'
+                  payload: FilterChipAll.SELECT_ALL
                 });
               }}
             >
@@ -93,14 +89,14 @@ export const AccordionElem = (props: AccordionProps) => {
                 dispatch({ type: 'TOGGLE_ALL' });
                 dispatch({
                   type: 'IDK',
-                  payload: 'deselect all'
+                  payload: FilterChipAll.DESELECT_ALL
                 });
               }}
             >
               Deslect All
             </p>
             {userSubreddits.map((sub) => (
-              <FilterPill subreddit={sub.subreddit} key={sub.subreddit} />
+              <FilterChip subreddit={sub.subreddit} key={sub.subreddit} />
             ))}
           </AccordionItemPanel>
         </AccordionItem>

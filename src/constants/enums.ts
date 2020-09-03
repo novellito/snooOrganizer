@@ -4,3 +4,8 @@ export enum UnsaveState {
   ERROR,
   RESET
 }
+
+export enum FilterChipAll {
+  SELECT_ALL,
+  DESELECT_ALL
+}
