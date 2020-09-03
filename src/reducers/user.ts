@@ -6,12 +6,12 @@ import {
   TOGGLE_ALL,
   SET_USER_UNSAVING
 } from '../store/actionTypes';
+import { IUserState } from '../interfaces/interfaces';
 
-const initialState = {
+const initialState: IUserState = {
   savedContent: [],
   userSubreddits: [],
-  postToUnsave: { id: null, unsaveState: null },
-  selectedSubreddit: null
+  postToUnsave: { id: null, unsaveState: null }
 };
 
 const reducer = (state = initialState, action: any) => {

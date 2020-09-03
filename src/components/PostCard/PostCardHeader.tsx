@@ -37,7 +37,7 @@ export const PostCardHeader = (props: IPostCardProps) => {
   // note we use combo of useState/Effect because we will get the following:
   // Warning: Text content did not match. Server: "x" Client: "y"
   // because we are using SSR
-  const [bGColor, setBGColor] = useState();
+  const [bGColor, setBGColor] = useState<{ backgroundColor: string }>();
 
   useEffect(() => {
     setBGColor({ backgroundColor: getRandomColor() });

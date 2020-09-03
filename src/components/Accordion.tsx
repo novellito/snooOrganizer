@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FilterChip } from './FilterChip';
 import { FilterChipAll } from '../constants/enums';
 import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
+import { IUserState } from '../interfaces/interfaces';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -64,7 +65,9 @@ interface AccordionProps {
 
 export const AccordionElem = (props: AccordionProps) => {
   const dispatch = useDispatch();
-  const userSubreddits = useSelector(({ user }: any) => user.userSubreddits);
+  const userSubreddits = useSelector(
+    ({ user }: { user: IUserState }) => user.userSubreddits
+  );
 
   return (
     <AccordionWrapper {...props} className={props.customClass}>

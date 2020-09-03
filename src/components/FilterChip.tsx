@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterUserPostCards } from '../store/actions';
 import { SNOO_BLUE, PRIMARY } from '../constants/colors';
+import { IUserState } from '../interfaces/interfaces';
 
 interface FilterChipProps {
   subreddit: any;
@@ -27,7 +28,9 @@ const FilterChipWrapper = styled.div`
 `;
 export const FilterChip = (props: FilterChipProps) => {
   const dispatch = useDispatch();
-  const userSubreddits = useSelector(({ user }: any) => user.userSubreddits);
+  const userSubreddits = useSelector(
+    ({ user }: { user: IUserState }) => user.userSubreddits
+  );
   return (
     <FilterChipWrapper
       onClick={() => dispatch(filterUserPostCards(props.subreddit))}

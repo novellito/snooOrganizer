@@ -3,7 +3,6 @@ import ClampLines from 'react-clamp-lines';
 import Moment from 'react-moment';
 import { TEXT_PRIMARY, TEXT_HEADER, SNOO_BLUE } from '../../constants/colors';
 import { IPostCardProps } from '../../interfaces/interfaces';
-import { useSelector } from 'react-redux';
 
 const PostCardContentWrapper = styled.div`
   padding: 16px 16px 0;
@@ -54,8 +53,6 @@ const PostCardContentWrapper = styled.div`
 `;
 
 export const PostCardContent = (props: IPostCardProps) => {
-  const postToUnsave = useSelector(({ user }: any) => user.postToUnsave);
-
   const showSubreddit = props.thumbnailUrl;
   let author = props.author;
   if (props.author.length > 18) {
