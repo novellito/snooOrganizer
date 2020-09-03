@@ -6,9 +6,17 @@ import {
 } from '../interfaces/interfaces';
 import { Dispatch } from 'redux';
 import { UnsaveState } from '../constants/enums';
+import {
+  TOGGLE_FILTER_CHIP,
+  SET_USER_UNSAVING,
+  SET_SAVED_CONTENT,
+  SET_SUBREDDITS,
+  LOGOUT,
+  LOGIN
+} from './actionTypes';
 
 export const setSavedContent = (savedContent: ISavedContent) => {
-  return { type: 'SET_SAVED_CONTENT', payload: savedContent };
+  return { type: SET_SAVED_CONTENT, payload: savedContent };
 };
 
 export const setUserSubreddits = <ISavedContent extends []>(
@@ -21,15 +29,15 @@ export const setUserSubreddits = <ISavedContent extends []>(
     isDisplayed: true
   }));
   return {
-    type: 'SET_SUBREDDITS',
+    type: SET_SUBREDDITS,
     payload: subredditSetFormatted
   };
 };
 
-const setUserLoggedOut = () => ({ type: 'LOGOUT' });
-const setUserLoggedIn = () => ({ type: 'LOGIN' });
+const setUserLoggedOut = () => ({ type: LOGOUT });
+const setUserLoggedIn = () => ({ type: LOGIN });
 const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
-  type: 'SET_USER_UNSAVING',
+  type: SET_USER_UNSAVING,
   payload: { id, unsaveState }
 });
 
@@ -110,5 +118,5 @@ export const filterUserPostCards = (subreddit: string) => {
 };
 
 export const toggleFilterChip = (subreddit: string) => {
-  return { type: 'IDK', payload: subreddit };
+  return { type: TOGGLE_FILTER_CHIP, payload: subreddit };
 };

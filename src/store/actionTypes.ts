@@ -1,0 +1,7 @@
+export const TOGGLE_ALL = 'TOGGLE_ALL';
+export const TOGGLE_FILTER_CHIP = 'TOGGLE_FILTER_CHIP';
+export const SET_SAVED_CONTENT = 'SET_SAVED_CONTENT';
+export const SET_SUBREDDITS = 'SET_SUBREDDITS';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const SET_USER_UNSAVING = 'SET_USER_UNSAVING';

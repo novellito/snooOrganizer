@@ -10,6 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { FilterChip } from './FilterChip';
 import { FilterChipAll } from '../constants/enums';
+import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -75,9 +76,9 @@ export const AccordionElem = (props: AccordionProps) => {
           <AccordionItemPanel>
             <p
               onClick={() => {
-                dispatch({ type: 'TOGGLE_ALL', payload: true });
+                dispatch({ type: TOGGLE_ALL, payload: true });
                 dispatch({
-                  type: 'IDK',
+                  type: TOGGLE_FILTER_CHIP,
                   payload: FilterChipAll.SELECT_ALL
                 });
               }}
@@ -86,9 +87,9 @@ export const AccordionElem = (props: AccordionProps) => {
             </p>
             <p
               onClick={() => {
-                dispatch({ type: 'TOGGLE_ALL' });
+                dispatch({ type: TOGGLE_ALL });
                 dispatch({
-                  type: 'IDK',
+                  type: TOGGLE_FILTER_CHIP,
                   payload: FilterChipAll.DESELECT_ALL
                 });
               }}

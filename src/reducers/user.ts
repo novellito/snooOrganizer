@@ -1,4 +1,11 @@
 import { UnsaveState, FilterChipAll } from '../constants/enums';
+import {
+  SET_SAVED_CONTENT,
+  SET_SUBREDDITS,
+  TOGGLE_FILTER_CHIP,
+  TOGGLE_ALL,
+  SET_USER_UNSAVING
+} from '../store/actionTypes';
 
 const initialState = {
   savedContent: [],
@@ -9,17 +16,17 @@ const initialState = {
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case 'SET_SAVED_CONTENT':
+    case SET_SAVED_CONTENT:
       return {
         ...state,
         savedContent: action.payload
       };
-    case 'SET_SUBREDDITS':
+    case SET_SUBREDDITS:
       return {
         ...state,
         userSubreddits: action.payload
       };
-    case 'IDK':
+    case TOGGLE_FILTER_CHIP:
       if (action.payload === FilterChipAll.SELECT_ALL) {
         return {
           ...state,
@@ -50,7 +57,7 @@ const reducer = (state = initialState, action: any) => {
           userSubreddits: clonedArray
         };
       }
-    case 'TOGGLE_ALL':
+    case TOGGLE_ALL:
       return {
         ...state,
         savedContent: state.savedContent.map((elem: any) => {
@@ -58,7 +65,7 @@ const reducer = (state = initialState, action: any) => {
           return elem;
         })
       };
-    case 'SET_USER_UNSAVING':
+    case SET_USER_UNSAVING:
       if (
         action.payload.unsaveState === UnsaveState.SUCCESS ||
         action.payload.unsaveState === UnsaveState.RESET
