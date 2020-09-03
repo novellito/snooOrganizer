@@ -50,7 +50,7 @@ export function getAuthUrl({
 
 export const LandingPage = () => {
   const [state, setUrlState] = useState('');
-  const [authWindow, setAuthWindow] = useState();
+  const [authWindow, setAuthWindow] = useState<any>();
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
