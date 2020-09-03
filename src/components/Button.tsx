@@ -48,14 +48,6 @@ const ButtonWrapper = styled.button`
     transition: opacity 0.3s, transform;
   }
 
-  /*
-  leaving this for future reference that you can 
-  pass styles like this and use tempalte literals
-   ${({ bgColor }) =>
-     bgColor &&
-     `
-    color: ${bgColorMap[bgColor]}
-  `} */
   &.inverse {
     background-color: inherit;
     color: ${(props: ButtonProps) => bgColorMap[props.bgColor]};
@@ -69,6 +61,13 @@ const ButtonWrapper = styled.button`
   ${(props) => ({ ...props.style })}
 `;
 
+/*
+  leaving this for future reference that you can 
+  pass styles like this and use tempalte literals
+   ${({bgColor}) =>bgColor &&`
+    color: ${bgColorMap[bgColor]}`}
+  */
+
 interface ButtonProps {
   bgColor: string;
   text: string;
@@ -78,7 +77,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button: React.FC<ButtonProps> = (props) => {
   return (
     <ButtonWrapper
       onClick={props.click}

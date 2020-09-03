@@ -21,7 +21,7 @@ const PostCardActionWrapper = styled.div`
   }
 `;
 
-export const PostCardAction = (props: IPostCardProps) => {
+export const PostCardAction: React.FC<IPostCardProps> = (props) => {
   const [unsaveOpts, toggleUnsaveOpts] = useState(false);
   const { unsaveState } = useSelector(
     ({ user }: { user: IUserState }) => user.postToUnsave

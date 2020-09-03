@@ -33,7 +33,7 @@ const PostCardHeaderWrapper = styled.div`
   }
 `;
 
-export const PostCardHeader = (props: IPostCardProps) => {
+export const PostCardHeader: React.FC<IPostCardProps> = (props) => {
   // note we use combo of useState/Effect because we will get the following:
   // Warning: Text content did not match. Server: "x" Client: "y"
   // because we are using SSR

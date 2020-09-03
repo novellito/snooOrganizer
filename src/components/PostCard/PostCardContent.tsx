@@ -52,7 +52,7 @@ const PostCardContentWrapper = styled.div`
   }
 `;
 
-export const PostCardContent = (props: IPostCardProps) => {
+export const PostCardContent: React.FC<IPostCardProps> = (props) => {
   const showSubreddit = props.thumbnailUrl;
   let author = props.author;
   if (props.author.length > 18) {

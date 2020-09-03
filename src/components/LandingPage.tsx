@@ -48,7 +48,7 @@ export function getAuthUrl({
       `.replace(/\s/g, '');
 }
 
-export const LandingPage = () => {
+export const LandingPage: React.FC = () => {
   const [state, setUrlState] = useState('');
   const [authWindow, setAuthWindow] = useState<any>();
   const [isLoading, setLoading] = useState(false);

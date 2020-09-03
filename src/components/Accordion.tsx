@@ -63,7 +63,7 @@ interface AccordionProps {
   customClass?: string;
 }
 
-export const AccordionElem = (props: AccordionProps) => {
+export const AccordionElem: React.FC<AccordionProps> = (props) => {
   const dispatch = useDispatch();
   const userSubreddits = useSelector(
     ({ user }: { user: IUserState }) => user.userSubreddits

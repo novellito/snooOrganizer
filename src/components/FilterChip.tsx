@@ -5,7 +5,7 @@ import { SNOO_BLUE, PRIMARY } from '../constants/colors';
 import { IUserState } from '../interfaces/interfaces';
 
 interface FilterChipProps {
-  subreddit: any;
+  subreddit: string;
 }
 const FilterChipWrapper = styled.div`
   display: inline-block;
@@ -26,7 +26,7 @@ const FilterChipWrapper = styled.div`
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
   }
 `;
-export const FilterChip = (props: FilterChipProps) => {
+export const FilterChip: React.FC<FilterChipProps> = (props) => {
   const dispatch = useDispatch();
   const userSubreddits = useSelector(
     ({ user }: { user: IUserState }) => user.userSubreddits
