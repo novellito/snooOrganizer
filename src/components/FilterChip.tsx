@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterUserPostCards } from '../store/actions';
 import { SNOO_BLUE, PRIMARY } from '../constants/colors';
-import { IUserState } from '../interfaces/interfaces';
+import { IDashboardState } from '../interfaces/interfaces';
 
 interface FilterChipProps {
   subreddit: string;
@@ -29,7 +29,7 @@ const FilterChipWrapper = styled.div`
 export const FilterChip: React.FC<FilterChipProps> = (props) => {
   const dispatch = useDispatch();
   const userSubreddits = useSelector(
-    ({ user }: { user: IUserState }) => user.userSubreddits
+    ({ dashboard }: { dashboard: IDashboardState }) => dashboard.userSubreddits
   );
   return (
     <FilterChipWrapper

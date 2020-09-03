@@ -21,7 +21,7 @@ export interface IPostCardProps {
   isDisplayed: boolean;
 }
 
-export interface IUserState {
+export interface IDashboardState {
   savedContent: IPostCardProps[];
   userSubreddits: Array<{ isDisplayed: boolean; subreddit: string }>;
   postToUnsave: { id: null | string; unsaveState: UnsaveState };

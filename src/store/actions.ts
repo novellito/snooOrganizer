@@ -35,7 +35,10 @@ export const setUserSubreddits = <ISavedContent extends []>(
 };
 
 const setUserLoggedOut = () => ({ type: LOGOUT });
-const setUserLoggedIn = () => ({ type: LOGIN });
+const setUserLoggedIn = (username: string) => ({
+  type: LOGIN,
+  payload: username
+});
 const setUserUnsaving = (id: string | null, unsaveState: UnsaveState) => ({
   type: SET_USER_UNSAVING,
   payload: { id, unsaveState }
@@ -49,7 +52,7 @@ export const login = (code: string): any => {
       localStorage.setItem('accessToken', data.content.accessToken);
       dispatch(setSavedContent(data.content.postCardData));
       dispatch(setUserSubreddits(data.content.postCardData));
-      dispatch(setUserLoggedIn());
+      dispatch(setUserLoggedIn(data.content.username));
       return data.content;
     } catch (err) {
       return err;
@@ -65,7 +68,7 @@ export const fetchUserContent = (): any => {
       console.log('data from fetching! ', data);
       dispatch(setSavedContent(data.content.postCardData));
       dispatch(setUserSubreddits(data.content.postCardData));
-      dispatch(setUserLoggedIn());
+      dispatch(setUserLoggedIn(data.content.username));
       return data.content;
     } catch (err) {
       return err;

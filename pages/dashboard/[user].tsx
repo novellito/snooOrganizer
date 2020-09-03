@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { withAuth } from '../../src/components/AuthHoc';
 import PostCard from '../../src/components/PostCard/PostCard';
 import styled from 'styled-components';
@@ -23,15 +22,13 @@ const getCommentBody = (comment: string) => {
     ?.textContent;
 };
 
-export const Dashboard: React.FC = () => {
-  const savedContent = useSelector(({ user }: any) => user.savedContent);
-
+export const Dashboard: React.FC<any> = (props) => {
   return (
     <DashboardWrapper>
-      welcome to dashboard
+      <h1>Welcome {props.username}</h1>
       <AccordionElem />
       <FlipMove className="cards">
-        {savedContent.map(
+        {props.savedContent.map(
           (elem: any) =>
             elem.isDisplayed && (
               <PostCard

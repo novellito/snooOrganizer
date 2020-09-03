@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Button from '../Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { IPostCardProps, IUserState } from '../../interfaces/interfaces';
+import { IPostCardProps, IDashboardState } from '../../interfaces/interfaces';
 import { useState } from 'react';
 import { unsaveContent } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +24,7 @@ const PostCardActionWrapper = styled.div`
 export const PostCardAction: React.FC<IPostCardProps> = (props) => {
   const [unsaveOpts, toggleUnsaveOpts] = useState(false);
   const { unsaveState } = useSelector(
-    ({ user }: { user: IUserState }) => user.postToUnsave
+    ({ dashboard }: { dashboard: IDashboardState }) => dashboard.postToUnsave
   );
   const dispatch = useDispatch();
 

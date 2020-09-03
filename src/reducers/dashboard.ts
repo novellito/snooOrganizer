@@ -6,9 +6,9 @@ import {
   TOGGLE_ALL,
   SET_USER_UNSAVING
 } from '../store/actionTypes';
-import { IUserState } from '../interfaces/interfaces';
+import { IDashboardState } from '../interfaces/interfaces';
 
-const initialState: IUserState = {
+const initialState: IDashboardState = {
   savedContent: [],
   userSubreddits: [],
   postToUnsave: { id: null, unsaveState: null }

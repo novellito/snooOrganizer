@@ -11,7 +11,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FilterChip } from './FilterChip';
 import { FilterChipAll } from '../constants/enums';
 import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
-import { IUserState } from '../interfaces/interfaces';
+import { IDashboardState } from '../interfaces/interfaces';
+import Button from './Button';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -66,7 +67,7 @@ interface AccordionProps {
 export const AccordionElem: React.FC<AccordionProps> = (props) => {
   const dispatch = useDispatch();
   const userSubreddits = useSelector(
-    ({ user }: { user: IUserState }) => user.userSubreddits
+    ({ dashboard }: { dashboard: IDashboardState }) => dashboard.userSubreddits
   );
 
   return (
@@ -77,28 +78,30 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
             <AccordionItemButton>Filter By Subreddits</AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
-            <p
-              onClick={() => {
+            Select:
+            <Button
+              click={() => {
                 dispatch({ type: TOGGLE_ALL, payload: true });
                 dispatch({
                   type: TOGGLE_FILTER_CHIP,
                   payload: FilterChipAll.SELECT_ALL
                 });
               }}
-            >
-              Select All
-            </p>
-            <p
-              onClick={() => {
+              text="All"
+              bgColor="primary"
+            ></Button>
+            <Button
+              click={() => {
                 dispatch({ type: TOGGLE_ALL });
                 dispatch({
                   type: TOGGLE_FILTER_CHIP,
                   payload: FilterChipAll.DESELECT_ALL
                 });
               }}
-            >
-              Deslect All
-            </p>
+              text="None"
+              bgColor="primary"
+            ></Button>
+            <div></div>
             {userSubreddits.map((sub) => (
               <FilterChip subreddit={sub.subreddit} key={sub.subreddit} />
             ))}

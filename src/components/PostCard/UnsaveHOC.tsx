@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
-import { IPostCardProps, IUserState } from '../../interfaces/interfaces';
+import { IPostCardProps, IDashboardState } from '../../interfaces/interfaces';
 import { UnsaveState } from '../../constants/enums';
 
 export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
   const Wrapper = forwardRef((props: any, ref: any) => {
     const { unsaveState, id } = useSelector(
-      ({ user }: { user: IUserState }) => user.postToUnsave
+      ({ dashboard }: { dashboard: IDashboardState }) => dashboard.postToUnsave
     );
 
     // TODO: add a loading spinner & save err image to header
