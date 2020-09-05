@@ -44,7 +44,7 @@ export default {
         })
       );
     } catch (err) {
-      return HttpRes.serverError('Access forbidden', err.statusCode);
+      return HttpRes.serverError('Access forbidden', err.statusCode || 500);
     }
   },
   unsaveContent: (contentId: string, accessToken: string) => {

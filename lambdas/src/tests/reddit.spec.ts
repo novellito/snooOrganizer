@@ -1,5 +1,6 @@
 import Reddit, { clientCredsAndUserAgent } from '../reddit';
 import Snoowrap from 'snoowrap';
+import * as utils from '../../utils/utils';
 
 let mock;
 beforeEach(() => {
@@ -30,9 +31,11 @@ describe('getSavedContent()', () => {
     jest.spyOn(Snoowrap.prototype as any, 'getMe').mockResolvedValue(
       Promise.resolve({
         name: 'dbossez',
-        getSavedContent: () => {}
+        getSavedContent: () => []
       })
     );
+    jest.spyOn(utils, 'extractRelevantProps').mockReturnValue(() => []);
+
     const response = await Reddit.getSavedContent('abc123');
     const { content } = JSON.parse(response.body);
 
