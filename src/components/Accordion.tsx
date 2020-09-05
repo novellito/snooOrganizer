@@ -48,6 +48,13 @@ const AccordionWrapper = styled.section`
   .accordion__panel {
     padding: 0 24px 24px;
     animation: fadein 0.35s ease-in;
+    text-align: left;
+    .select-all-none {
+      margin: 0px 5px 15px;
+      button {
+        margin: 0 5px;
+      }
+    }
   }
 
   @keyframes fadein {
@@ -78,30 +85,33 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
             <AccordionItemButton>Filter By Subreddits</AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
-            Select:
-            <Button
-              click={() => {
-                dispatch({ type: TOGGLE_ALL, payload: true });
-                dispatch({
-                  type: TOGGLE_FILTER_CHIP,
-                  payload: FilterChipAll.SELECT_ALL
-                });
-              }}
-              text="All"
-              bgColor="primary"
-            ></Button>
-            <Button
-              click={() => {
-                dispatch({ type: TOGGLE_ALL });
-                dispatch({
-                  type: TOGGLE_FILTER_CHIP,
-                  payload: FilterChipAll.DESELECT_ALL
-                });
-              }}
-              text="None"
-              bgColor="primary"
-            ></Button>
-            <div></div>
+            <div className="select-all-none">
+              Select:
+              <Button
+                click={() => {
+                  dispatch({ type: TOGGLE_ALL, payload: true });
+                  dispatch({
+                    type: TOGGLE_FILTER_CHIP,
+                    payload: FilterChipAll.SELECT_ALL
+                  });
+                }}
+                text="All"
+                bgColor="primary"
+                style={{ height: '30px', fontSize: '1em' }}
+              ></Button>
+              <Button
+                click={() => {
+                  dispatch({ type: TOGGLE_ALL });
+                  dispatch({
+                    type: TOGGLE_FILTER_CHIP,
+                    payload: FilterChipAll.DESELECT_ALL
+                  });
+                }}
+                text="None"
+                bgColor="secondary"
+                style={{ height: '30px', fontSize: '1em' }}
+              ></Button>
+            </div>
             {userSubreddits.map((sub) => (
               <FilterChip subreddit={sub.subreddit} key={sub.subreddit} />
             ))}
