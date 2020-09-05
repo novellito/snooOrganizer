@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Authenticate, { getAuthUrl } from '../src/components/LandingPage';
+import LandingPage, { getAuthUrl } from '../src/components/LandingPage';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { rootReducer } from '../src/store/store';
