@@ -47,4 +47,4 @@ export const FilterChip: React.FC<FilterChipProps> = (props) => {
   );
 };
 
-export default FilterChipWrapper;
+export default FilterChip;
