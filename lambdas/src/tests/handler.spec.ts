@@ -2,9 +2,9 @@ import Handler from '../../handler';
 import Reddit from '../reddit';
 jest.mock('../reddit');
 
-describe('getUserSavedContent()', () => {
-  it('should return the users saved content', async () => {
-    const accessToken = '123';
+describe('loginAndGetSavedContent()', () => {
+  it('should login the user return the users saved content', async () => {
+    const accessToken = 'code123';
     jest
       .spyOn(Reddit, 'getAccessToken')
       .mockReturnValue(Promise.resolve(accessToken));
@@ -16,13 +16,33 @@ describe('getUserSavedContent()', () => {
       })
     );
 
-    await Handler.getUserSavedContent(
+    await Handler.loginAndGetSavedContent(
       { body: '{"code":"code123"}' } as any,
       'foo' as any,
       () => {}
     );
-
     expect(Reddit.getAccessToken).toHaveBeenCalledWith('code123');
+    expect(Reddit.getSavedContent).toHaveBeenCalledWith(accessToken);
+  });
+});
+
+describe('getUserSavedContent()', () => {
+  it('should return the users saved content', async () => {
+    const accessToken = 'code123';
+
+    jest.spyOn(Reddit, 'getSavedContent').mockReturnValue(
+      Promise.resolve({
+        statusCode: 200,
+        body: 'nice'
+      })
+    );
+
+    await Handler.getUserSavedContent(
+      { body: '{"accessToken":"code123"}' } as any,
+      'foo' as any,
+      () => {}
+    );
+
     expect(Reddit.getSavedContent).toHaveBeenCalledWith(accessToken);
   });
 });
