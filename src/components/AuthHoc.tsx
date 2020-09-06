@@ -13,6 +13,10 @@ export const withAuth = (C: React.FC) => {
     const savedContent = useSelector(
       ({ dashboard }: { dashboard: IDashboardState }) => dashboard.savedContent
     );
+    const userSubreddits = useSelector(
+      ({ dashboard }: { dashboard: IDashboardState }) =>
+        dashboard.userSubreddits
+    );
 
     useEffect(() => {
       const fetchContent = async () => {
@@ -28,7 +32,12 @@ export const withAuth = (C: React.FC) => {
     return (
       <>
         {isLoggedIn && (
-          <C {...props} username={username} savedContent={savedContent} />
+          <C
+            {...props}
+            username={username}
+            savedContent={savedContent}
+            userSubreddits={userSubreddits}
+          />
         )}
       </>
     );

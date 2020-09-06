@@ -42,17 +42,14 @@ const reducer = (state = initialState, action: any) => {
           })
         };
       } else {
-        var clonedArray = JSON.parse(JSON.stringify(state.userSubreddits));
-
-        var foundIndex = state.userSubreddits.findIndex(
-          (x) => x.subreddit == action.payload
-        );
-        clonedArray[foundIndex].isDisplayed = !state.userSubreddits[foundIndex]
-          .isDisplayed;
-
         return {
           ...state,
-          userSubreddits: clonedArray
+          userSubreddits: state.userSubreddits.map((elem: any) => {
+            if (elem.subreddit === action.payload) {
+              return { ...elem, isDisplayed: !elem.isDisplayed };
+            }
+            return elem;
+          })
         };
       }
     case TOGGLE_ALL:

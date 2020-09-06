@@ -24,45 +24,7 @@ const getCommentBody = (comment: string) => {
     ?.textContent;
 };
 const areEqual = (prevProps, nextProps) => {
-  console.log(prevProps.userSubreddits, nextProps.userSubreddits);
-  const allPrevSavedContentTrue =
-    prevProps.savedContent.every((elem) => elem.isDisplayed) &&
-    prevProps.savedContent.length > 0;
-  const allNextSavedContentTrue =
-    nextProps.savedContent.every((elem) => elem.isDisplayed) &&
-    nextProps.savedContent.length > 0;
-
-  const allPrevSubredditsTrue =
-    prevProps.userSubreddits.every((elem) => elem.isDisplayed === false) &&
-    prevProps.userSubreddits.length > 0;
-
-  const allNextSubredditsTrue =
-    nextProps.userSubreddits.every((elem) => elem.isDisplayed === false) &&
-    nextProps.userSubreddits.length > 0;
-  // console.log('subs', allPrevSubredditsTrue, allNextSubredditsTrue);
-
-  // const allPrevSubredditsTrue2 =
-  //   prevProps.userSubreddits.every((elem) => elem.isDisplayed === true) &&
-  //   prevProps.userSubreddits.length > 0;
-
-  // const allNextSubredditsTrue2 =
-  //   nextProps.userSubreddits.every((elem) => elem.isDisplayed === true) &&
-  //   nextProps.userSubreddits.length > 0;
-  // console.log('subs2', allPrevSubredditsTrue2, allNextSubredditsTrue2);
-  console.log(
-    deepEqual(prevProps.userSubreddits, nextProps.userSubreddits, true)
-  );
-  // console.log(deepEqual([], []));
-
-  if (
-    allPrevSavedContentTrue === allNextSavedContentTrue &&
-    allPrevSubredditsTrue === allNextSubredditsTrue &&
-    deepEqual(prevProps.userSubreddits, nextProps.userSubreddits, true)
-    // allPrevSubredditsTrue2 === allNextSubredditsTrue2
-  ) {
-    return true;
-  }
-  return false;
+  return deepEqual(prevProps, nextProps, true);
 };
 
 export const Dashboard: React.FC<any> = React.memo((props) => {
