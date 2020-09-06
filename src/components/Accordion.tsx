@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TEXT_PRIMARY, TEXT_HEADER } from '../constants/colors';
+import { TEXT_HEADER } from '../constants/colors';
 import {
   Accordion,
   AccordionItem,
@@ -7,11 +7,10 @@ import {
   AccordionItemButton,
   AccordionItemPanel
 } from 'react-accessible-accordion';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FilterChip } from './FilterChip';
 import { FilterChipAll } from '../constants/enums';
 import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
-import { IDashboardState } from '../interfaces/interfaces';
 import Button from './Button';
 
 const AccordionWrapper = styled.section`

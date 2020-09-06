@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { filterUserPostCards } from '../store/actions';
 import { SNOO_BLUE, PRIMARY } from '../constants/colors';
 import deepEqual from 'deep-equal';
+import React from 'react';
 
 interface FilterChipProps {
   subreddit: string;
@@ -27,13 +28,14 @@ const FilterChipWrapper = styled.div`
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
   }
 `;
+
 const areEqual = (prevProps, nextProps) => {
   return deepEqual(
     prevProps.userSubreddits.filter(
       (elem) => elem.subreddit === prevProps.subreddit
     ),
     nextProps.userSubreddits.filter(
-      (elem) => elem.subreddit === prevProps.subreddit
+      (elem) => elem.subreddit === nextProps.subreddit
     ),
     true
   );

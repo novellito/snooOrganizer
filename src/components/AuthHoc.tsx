@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { fetchUserContent } from '../../src/store/actions';
 import { IDashboardState } from '../interfaces/interfaces';
 
-export const withAuth = (C: React.FC) => {
+export const withAuth = (C: React.FC<any>) => {
   const Wrapper = (props: any) => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(({ login }: any) => login.isLoggedIn);
@@ -13,10 +13,7 @@ export const withAuth = (C: React.FC) => {
     const savedContent = useSelector(
       ({ dashboard }: { dashboard: IDashboardState }) => dashboard.savedContent
     );
-    const userSubreddits: Array<{
-      isDisplayed: boolean;
-      subreddit: string;
-    }> = useSelector(
+    const userSubreddits = useSelector(
       ({ dashboard }: { dashboard: IDashboardState }) =>
         dashboard.userSubreddits
     );
