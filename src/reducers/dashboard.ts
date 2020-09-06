@@ -31,16 +31,14 @@ const reducer = (state = initialState, action: any) => {
         return {
           ...state,
           userSubreddits: state.userSubreddits.map((elem: any) => {
-            elem.isDisplayed = true;
-            return elem;
+            return { ...elem, isDisplayed: true };
           })
         };
       } else if (action.payload === FilterChipAll.DESELECT_ALL) {
         return {
           ...state,
           userSubreddits: state.userSubreddits.map((elem: any) => {
-            elem.isDisplayed = false;
-            return elem;
+            return { ...elem, isDisplayed: false };
           })
         };
       } else {
@@ -61,8 +59,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         savedContent: state.savedContent.map((elem: any) => {
-          elem.isDisplayed = action.payload ? true : false;
-          return elem;
+          return { ...elem, isDisplayed: action.payload ? true : false };
         })
       };
     case SET_USER_UNSAVING:
