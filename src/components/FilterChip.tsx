@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterUserPostCards } from '../store/actions';
 import { SNOO_BLUE, PRIMARY } from '../constants/colors';
-import { IDashboardState } from '../interfaces/interfaces';
+import deepEqual from 'deep-equal';
 
 interface FilterChipProps {
   subreddit: string;
+  userSubreddits: Array<{ isDisplayed: boolean; subreddit: string }>;
 }
 const FilterChipWrapper = styled.div`
   display: inline-block;
@@ -26,16 +27,26 @@ const FilterChipWrapper = styled.div`
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
   }
 `;
-export const FilterChip: React.FC<FilterChipProps> = (props) => {
-  const dispatch = useDispatch();
-  const userSubreddits = useSelector(
-    ({ dashboard }: { dashboard: IDashboardState }) => dashboard.userSubreddits
+const areEqual = (prevProps, nextProps) => {
+  return deepEqual(
+    prevProps.userSubreddits.filter(
+      (elem) => elem.subreddit === prevProps.subreddit
+    ),
+    nextProps.userSubreddits.filter(
+      (elem) => elem.subreddit === prevProps.subreddit
+    ),
+    true
   );
+};
+
+export const FilterChip: React.FC<FilterChipProps> = React.memo((props) => {
+  const dispatch = useDispatch();
+
   return (
     <FilterChipWrapper
       onClick={() => dispatch(filterUserPostCards(props.subreddit))}
       className={
-        userSubreddits.some(
+        props.userSubreddits.some(
           (elem) => props.subreddit === elem.subreddit && !elem.isDisplayed
         )
           ? 'deselected'
@@ -45,6 +56,6 @@ export const FilterChip: React.FC<FilterChipProps> = (props) => {
       {props.subreddit}
     </FilterChipWrapper>
   );
-};
+}, areEqual);
 
 export default FilterChip;

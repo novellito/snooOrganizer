@@ -5,6 +5,14 @@ import FlipMove from 'react-flip-move';
 import AccordionElem from '../../src/components/Accordion';
 import React from 'react';
 import deepEqual from 'deep-equal';
+import { ISavedContent } from '../../src/interfaces/interfaces';
+
+interface DashboardProps {
+  subreddit: string;
+  userSubreddits: Array<{ isDisplayed: boolean; subreddit: string }>;
+  username: string;
+  savedContent: Array<ISavedContent>;
+}
 
 const DashboardWrapper = styled.section`
   .cards {
@@ -27,7 +35,7 @@ const areEqual = (prevProps, nextProps) => {
   return deepEqual(prevProps, nextProps, true);
 };
 
-export const Dashboard: React.FC<any> = React.memo((props) => {
+export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
   return (
     <DashboardWrapper>
       <h1>Welcome {props.username}</h1>

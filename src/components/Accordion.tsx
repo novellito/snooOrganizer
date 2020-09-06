@@ -69,14 +69,11 @@ const AccordionWrapper = styled.section`
 
 interface AccordionProps {
   customClass?: string;
+  userSubreddits: Array<{ isDisplayed: boolean; subreddit: string }>;
 }
 
 export const AccordionElem: React.FC<AccordionProps> = (props) => {
   const dispatch = useDispatch();
-  const userSubreddits = useSelector(
-    ({ dashboard }: { dashboard: IDashboardState }) => dashboard.userSubreddits
-  );
-
   return (
     <AccordionWrapper {...props} className={props.customClass}>
       <Accordion allowZeroExpanded preExpanded={['subreddit-filter-accordion']}>
@@ -112,8 +109,12 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
                 style={{ height: '30px', fontSize: '1em' }}
               ></Button>
             </div>
-            {userSubreddits.map((sub) => (
-              <FilterChip subreddit={sub.subreddit} key={sub.subreddit} />
+            {props.userSubreddits.map((sub) => (
+              <FilterChip
+                subreddit={sub.subreddit}
+                key={sub.subreddit}
+                {...props}
+              />
             ))}
           </AccordionItemPanel>
         </AccordionItem>

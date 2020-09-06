@@ -13,7 +13,10 @@ export const withAuth = (C: React.FC) => {
     const savedContent = useSelector(
       ({ dashboard }: { dashboard: IDashboardState }) => dashboard.savedContent
     );
-    const userSubreddits = useSelector(
+    const userSubreddits: Array<{
+      isDisplayed: boolean;
+      subreddit: string;
+    }> = useSelector(
       ({ dashboard }: { dashboard: IDashboardState }) =>
         dashboard.userSubreddits
     );
