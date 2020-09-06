@@ -3,6 +3,7 @@ import PostCard from '../../src/components/PostCard/PostCard';
 import styled from 'styled-components';
 import FlipMove from 'react-flip-move';
 import AccordionElem from '../../src/components/Accordion';
+import React from 'react';
 
 const DashboardWrapper = styled.section`
   .cards {
@@ -21,8 +22,22 @@ const getCommentBody = (comment: string) => {
   return new DOMParser().parseFromString(comment, 'text/xml').firstChild
     ?.textContent;
 };
+const areEqual = (prevProps, nextProps) => {
+  const allPrevTrue =
+    prevProps.savedContent.every((elem) => elem.isDisplayed) &&
+    prevProps.savedContent.length > 0;
+  const allNextTrue =
+    nextProps.savedContent.every((elem) => elem.isDisplayed) &&
+    nextProps.savedContent.length > 0;
+  console.log(allPrevTrue, allNextTrue);
 
-export const Dashboard: React.FC<any> = (props) => {
+  if (allPrevTrue === allNextTrue) {
+    return true;
+  }
+  return false;
+};
+
+export const Dashboard: React.FC<any> = React.memo((props) => {
   return (
     <DashboardWrapper>
       <h1>Welcome {props.username}</h1>
@@ -47,6 +62,6 @@ export const Dashboard: React.FC<any> = (props) => {
       </FlipMove>
     </DashboardWrapper>
   );
-};
+}, areEqual);
 
 export default withAuth(Dashboard);
