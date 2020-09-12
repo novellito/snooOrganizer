@@ -13,6 +13,7 @@ import { FilterChipAll } from '../constants/enums';
 import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
 import Button from './Button';
 import { ISavedContent } from '../interfaces/interfaces';
+import InputField from './InputField';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -81,9 +82,10 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
       <Accordion allowZeroExpanded preExpanded={['subreddit-filter-accordion']}>
         <AccordionItem uuid="subreddit-filter-accordion">
           <AccordionItemHeading>
-            <AccordionItemButton>Filter By Subreddits</AccordionItemButton>
+            <AccordionItemButton>Filters</AccordionItemButton>
           </AccordionItemHeading>
           <AccordionItemPanel>
+            <InputField filterList={(e) => props.filterList(e)} />
             <div className="select-all-none">
               Select:
               <Button
@@ -118,7 +120,6 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
                 {...props}
               />
             ))}
-            <input type="text" onChange={(e) => props.filterList(e)} />
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>
