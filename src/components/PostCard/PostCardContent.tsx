@@ -33,6 +33,7 @@ const PostCardContentWrapper = styled.div`
 
   .clamp-lines {
     p {
+      word-wrap: break-word;
       font-family: 'Open Sans', sans-serif; /* for text body */
       color: ${TEXT_PRIMARY};
       font-size: 1.1em;
