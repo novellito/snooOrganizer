@@ -12,7 +12,8 @@ jest.mock('react-redux', () => ({
 describe('FilterChip test suite', () => {
   it('should render the FilterChip', () => {
     const props = {
-      subreddit: 'r/webdev'
+      subreddit: 'r/webdev',
+      userSubreddits: [{ isDisplayed: true, subreddit: 'r/webdev' }]
     };
 
     const { getByText } = render(<FilterChip {...props} />);

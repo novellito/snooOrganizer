@@ -11,7 +11,13 @@ jest.mock('react-redux', () => ({
 
 describe('Accordion test suite', () => {
   it('should render the Accordion', () => {
-    const { getByText } = render(<Accordion />);
+    const props = {
+      subreddit: 'r/webdev',
+      userSubreddits: [{ isDisplayed: true, subreddit: 'r/webdev' }],
+      filterList: () => jest.fn(),
+      savedContent: []
+    };
+    const { getByText } = render(<Accordion {...props} />);
     const SelectAllBtn = getByText('All');
     const SelectNoneBtn = getByText('None');
     const Chip = getByText('r/webdev');
