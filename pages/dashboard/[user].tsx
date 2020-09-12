@@ -3,10 +3,11 @@ import PostCard from '../../src/components/PostCard/PostCard';
 import styled from 'styled-components';
 import FlipMove from 'react-flip-move';
 import AccordionElem from '../../src/components/Accordion';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import deepEqual from 'deep-equal';
 import { ISavedContent } from '../../src/interfaces/interfaces';
 import SearchResults from 'react-filter-search';
+import debounce from 'lodash.debounce';
 
 interface DashboardProps {
   subreddit: string;
@@ -38,13 +39,19 @@ const areEqual = (prevProps, nextProps) => {
 
 export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
   const [searchInput, setSearchInput] = useState('');
+
+  const debouncedSearch = useCallback(
+    debounce((searchQuery) => setSearchInput(searchQuery), 500),
+    []
+  );
+
   return (
     <DashboardWrapper>
       <h1>Welcome {props.username}</h1>
       <AccordionElem
         userSubreddits={props.userSubreddits}
         savedContent={props.savedContent}
-        filterList={(e) => setSearchInput(e.target.value)}
+        filterList={(e) => debouncedSearch(e.target.value)}
       />
       <SearchResults
         value={searchInput}
