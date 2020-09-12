@@ -12,6 +12,7 @@ import { FilterChip } from './FilterChip';
 import { FilterChipAll } from '../constants/enums';
 import { TOGGLE_ALL, TOGGLE_FILTER_CHIP } from '../store/actionTypes';
 import Button from './Button';
+import { ISavedContent } from '../interfaces/interfaces';
 
 const AccordionWrapper = styled.section`
   margin-bottom: 20px;
@@ -69,6 +70,8 @@ const AccordionWrapper = styled.section`
 interface AccordionProps {
   customClass?: string;
   userSubreddits: Array<{ isDisplayed: boolean; subreddit: string }>;
+  savedContent: Array<ISavedContent>;
+  filterList: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const AccordionElem: React.FC<AccordionProps> = (props) => {
@@ -115,6 +118,7 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
                 {...props}
               />
             ))}
+            <input type="text" onChange={(e) => props.filterList(e)} />
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>
