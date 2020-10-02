@@ -19,11 +19,6 @@ export const Index = () => {
       </Head>
       <Hello>Hello World!</Hello>
       <LandingPage />
-      <Link href="/counter">
-        <button>
-          <FontAwesomeIcon icon={faThumbsUp} /> Go to counter
-        </button>
-      </Link>
     </>
   );
 };
