@@ -10,7 +10,6 @@ const PostCardLoaderWrapper = styled.div`
   box-shadow: 0 0 0.8rem 0.1rem rgba(15, 72, 179, 0.06),
     0 20px 30px -10px rgba(15, 72, 179, 0.2);
   transform-origin: left center;
-
   .header {
     height: 190px;
     border-top-left-radius: inherit;

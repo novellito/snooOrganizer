@@ -12,8 +12,7 @@ import { AuthURLParams } from '../types/types';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { login } from '../store/actions';
-import PostCardLoader from './Loaders/PostCardLoader';
-import AccordionLoader from './Loaders/AccordionLoader';
+import DashboardLoader from './Loaders/DashboardLoader';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -118,9 +117,8 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div>
-      {/* {isLoading ? <Loader loaderType={'circle'} /> : <></>} */}
-      <PostCardLoader />
-      <AccordionLoader />
+      {isLoading ? <DashboardLoader /> : <></>}
+      <DashboardLoader />
       <Button
         click={() => generateAuthWindow()}
         text="Login"
