@@ -13,7 +13,7 @@ export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
 
     const loadingHeader =
       unsaveState === UnsaveState.UNSAVING ? (
-        <ContentLoader backgroundColor={SNOO_BLUE}>
+        <ContentLoader backgroundColor={SNOO_BLUE} uniqueKey="unsave-loader">
           <circle cx="50%" cy="50%" r="50" />
         </ContentLoader>
       ) : (

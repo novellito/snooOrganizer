@@ -46,12 +46,12 @@ export const PostCardLoader = (props) => {
   return (
     <PostCardLoaderWrapper {...props}>
       <div className="header" style={bGColor}>
-        <ContentLoader backgroundColor={SNOO_BLUE}>
+        <ContentLoader backgroundColor={SNOO_BLUE} uniqueKey="icon-loader">
           <circle cx="50%" cy="50%" r="50" />
         </ContentLoader>
       </div>
       <div className="content">
-        <ContentLoader backgroundColor={SNOO_BLUE}>
+        <ContentLoader backgroundColor={SNOO_BLUE} uniqueKey="content-loader">
           <rect x="0" y="5" {...rectangleRadius} width="140" height="25" />
           <rect x="250" y="5" {...rectangleRadius} width="50" height="15" />
           <rect x="0" y="50" {...rectangleRadius} width="200" height="20" />
@@ -60,7 +60,7 @@ export const PostCardLoader = (props) => {
         </ContentLoader>
       </div>
       <div className="action">
-        <ContentLoader backgroundColor={SNOO_BLUE}>
+        <ContentLoader backgroundColor={SNOO_BLUE} uniqueKey="action-loader">
           <rect x="0" y="0" {...rectangleRadius} width="30" height="20" />
           <rect x="230" y="0" {...rectangleRadius} width="70" height="20" />
         </ContentLoader>

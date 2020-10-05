@@ -88,10 +88,14 @@ export const AccordionLoader = (props) => {
           <AccordionItemPanel>
             <div className="select-all-none">
               Select:
-              <ContentLoader backgroundColor={PRIMARY} width="70">
+              <ContentLoader
+                backgroundColor={PRIMARY}
+                width="70"
+                uniqueKey="btn1"
+              >
                 <rect x="5" y="0" width="60" height="30" {...rectangleRadius} />
               </ContentLoader>
-              <ContentLoader backgroundColor={DANGER}>
+              <ContentLoader backgroundColor={DANGER} uniqueKey="btn2">
                 <rect
                   x="10"
                   y="0"
@@ -101,7 +105,11 @@ export const AccordionLoader = (props) => {
                 />
               </ContentLoader>
             </div>
-            <ContentLoader backgroundColor={SNOO_BLUE} width="600">
+            <ContentLoader
+              backgroundColor={SNOO_BLUE}
+              width="600"
+              uniqueKey="chips"
+            >
               <rect x="5" y="0" width="60" height="25" rx="15" ry="15" />
               <rect x="80" y="0" width="60" height="25" rx="15" ry="15" />
               <rect x="155" y="0" width="60" height="25" rx="15" ry="15" />
