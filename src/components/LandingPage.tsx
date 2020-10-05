@@ -1,5 +1,5 @@
 // import styled from 'styled-components';
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Button from './Button';
 import btoa from 'btoa';
 import {
@@ -12,6 +12,7 @@ import { AuthURLParams } from '../types/types';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { login } from '../store/actions';
+import PostCardLoader from './Loaders/PostCardLoader';
 
 // const AuthenticateWrapper = styled.button`
 //   color: teal;
@@ -116,8 +117,8 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div>
-      {isLoading ? <h1>isLoading</h1> : <></>}
-      {/* <Button click={() => {}} text="Login" bgColor="primary"></Button> */}
+      {/* {isLoading ? <Loader loaderType={'circle'} /> : <></>} */}
+      <PostCardLoader />
       <Button
         click={() => generateAuthWindow()}
         text="Login"
