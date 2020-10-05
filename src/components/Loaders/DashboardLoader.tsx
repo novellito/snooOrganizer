@@ -4,7 +4,7 @@ import PostCardLoader from './PostCardLoader';
 
 const numCardsToLoad = 12;
 
-const DashboardLoaderWrapper = styled.section`
+const DashboardLoaderWrapper = styled.div`
   .cards {
     display: grid;
     align-items: center;

@@ -1,4 +1,4 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import React, { useEffect, useState, useCallback } from 'react';
 import Button from './Button';
 import btoa from 'btoa';
@@ -14,10 +14,10 @@ import Router from 'next/router';
 import { login } from '../store/actions';
 import DashboardLoader from './Loaders/DashboardLoader';
 
-// const AuthenticateWrapper = styled.button`
-//   color: teal;
-//   font-size: 2em;
-// `;
+const LandingPageWrapper = styled.section`
+  /* color: teal;
+  font-size: 2em; */
+`;
 
 export function getAuthUrl({
   clientId,
@@ -116,7 +116,7 @@ export const LandingPage: React.FC = () => {
   useGlobalMessage(closeAuthWindowOnSuccess);
 
   return (
-    <div>
+    <LandingPageWrapper>
       {isLoading ? <DashboardLoader /> : <></>}
       <DashboardLoader />
       <Button
@@ -124,7 +124,7 @@ export const LandingPage: React.FC = () => {
         text="Login"
         bgColor="primary"
       ></Button>
-    </div>
+    </LandingPageWrapper>
   );
 };
 

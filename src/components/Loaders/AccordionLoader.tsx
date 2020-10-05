@@ -95,7 +95,11 @@ export const AccordionLoader = (props) => {
               >
                 <rect x="5" y="0" width="60" height="30" {...rectangleRadius} />
               </ContentLoader>
-              <ContentLoader backgroundColor={DANGER} uniqueKey="btn2">
+              <ContentLoader
+                backgroundColor={DANGER}
+                width="70"
+                uniqueKey="btn2"
+              >
                 <rect
                   x="10"
                   y="0"
@@ -107,15 +111,13 @@ export const AccordionLoader = (props) => {
             </div>
             <ContentLoader
               backgroundColor={SNOO_BLUE}
-              width="600"
+              width="350"
               uniqueKey="chips"
             >
               <rect x="5" y="0" width="60" height="25" rx="15" ry="15" />
               <rect x="80" y="0" width="60" height="25" rx="15" ry="15" />
               <rect x="155" y="0" width="60" height="25" rx="15" ry="15" />
-              <rect x="230" y="0" width="90" height="25" rx="15" ry="15" />
-              <rect x="340" y="0" width="60" height="25" rx="15" ry="15" />
-              <rect x="420" y="0" width="110" height="25" rx="15" ry="15" />
+              <rect x="230" y="0" width="80" height="25" rx="15" ry="15" />
             </ContentLoader>
           </AccordionItemPanel>
         </AccordionItem>
