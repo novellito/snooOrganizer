@@ -2,6 +2,8 @@ import React, { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 import { IPostCardProps, IDashboardState } from '../../interfaces/interfaces';
 import { UnsaveState } from '../../constants/enums';
+import { SNOO_BLUE } from '../../constants/colors';
+import ContentLoader from 'react-content-loader';
 
 export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
   const Wrapper = forwardRef((props: any, ref: any) => {
@@ -9,9 +11,14 @@ export const withUnsave = (C: React.ComponentType<IPostCardProps>) => {
       ({ dashboard }: { dashboard: IDashboardState }) => dashboard.postToUnsave
     );
 
-    // TODO: add a loading spinner & save err image to header
     const loadingHeader =
-      unsaveState === UnsaveState.UNSAVING ? 'LOADER' : 'ERROR';
+      unsaveState === UnsaveState.UNSAVING ? (
+        <ContentLoader backgroundColor={SNOO_BLUE}>
+          <circle cx="50%" cy="50%" r="50" />
+        </ContentLoader>
+      ) : (
+        'ERROR'
+      );
     const loadingContent =
       unsaveState === UnsaveState.UNSAVING ? (
         <b>Unsaving...</b>
