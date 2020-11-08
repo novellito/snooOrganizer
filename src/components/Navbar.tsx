@@ -49,6 +49,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
   const handleLogout = () => {
     Router.push('/');
     dispatch(setUserLoggedOut());
+    localStorage.removeItem('accessToken');
   };
 
   return (
