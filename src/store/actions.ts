@@ -12,7 +12,8 @@ import {
   SET_SAVED_CONTENT,
   SET_SUBREDDITS,
   LOGOUT,
-  LOGIN
+  LOGIN,
+  RESET_DASHBOARD_STATE
 } from './actionTypes';
 
 export const setSavedContent = (savedContent: ISavedContent) => {
@@ -35,6 +36,7 @@ export const setUserSubreddits = <ISavedContent extends []>(
 };
 
 export const setUserLoggedOut = () => ({ type: LOGOUT });
+export const resetDashboardState = () => ({ type: RESET_DASHBOARD_STATE });
 const setUserLoggedIn = (username: string) => ({
   type: LOGIN,
   payload: username

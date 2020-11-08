@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { PRIMARY, SECONDARY, SUCCESS, DANGER } from '../constants/colors';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoggedOut } from '../store/actions';
+import { resetDashboardState, setUserLoggedOut } from '../store/actions';
 import { useRouter } from 'next/router';
 const NavbarWrapper = styled.nav`
   height: 50px;
@@ -58,6 +58,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
   const handleLogout = () => {
     router.push('/');
     dispatch(setUserLoggedOut());
+    dispatch(resetDashboardState());
     localStorage.removeItem('accessToken');
   };
 

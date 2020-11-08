@@ -5,3 +5,4 @@ export const SET_SUBREDDITS = 'SET_SUBREDDITS';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_USER_UNSAVING = 'SET_USER_UNSAVING';
+export const RESET_DASHBOARD_STATE = 'RESET_DASHBOARD_STATE'

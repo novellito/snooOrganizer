@@ -4,7 +4,8 @@ import {
   SET_SUBREDDITS,
   TOGGLE_FILTER_CHIP,
   TOGGLE_ALL,
-  SET_USER_UNSAVING
+  SET_USER_UNSAVING,
+  RESET_DASHBOARD_STATE
 } from '../store/actionTypes';
 import { IDashboardState } from '../interfaces/interfaces';
 
@@ -73,6 +74,8 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         postToUnsave: action.payload
       };
+    case RESET_DASHBOARD_STATE:
+      return initialState
 
     default:
       return state;
