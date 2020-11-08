@@ -34,7 +34,7 @@ export const setUserSubreddits = <ISavedContent extends []>(
   };
 };
 
-const setUserLoggedOut = () => ({ type: LOGOUT });
+export const setUserLoggedOut = () => ({ type: LOGOUT });
 const setUserLoggedIn = (username: string) => ({
   type: LOGIN,
   payload: username

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { PRIMARY, SECONDARY, SUCCESS, DANGER } from '../constants/colors';
 import Link from 'next/link';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLoggedOut } from '../store/actions';
+import Router from 'next/router';
 const NavbarWrapper = styled.nav`
   height: 50px;
   background-color: #4d4d4d;
@@ -17,36 +19,51 @@ const NavbarWrapper = styled.nav`
       cursor: pointer;
     }
   }
-
-  .nav-links {
+  ul {
+    display: flex;
     margin-left: auto;
-    font-size: 1.2em;
-  }
+    list-style: none;
+    height: 100%;
 
-  .nav-links > span {
-    padding: 12px 10px;
-    color: #efefef;
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.3);
+    li.nav-item {
+      padding: 12px 10px;
+      font-size: 1.2em;
+      color: #efefef;
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
     }
   }
 `;
 
 interface NavbarProps {
-  login: () => void;
+  login?: () => void;
+  logout?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
+  const isLoggedIn = useSelector(({ login }: any) => login.isLoggedIn);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    Router.push('/');
+    dispatch(setUserLoggedOut());
+  };
+
   return (
     <NavbarWrapper>
       <Link href="/">
         <span className="nav-title">SnooOrganizer</span>
       </Link>
-
-      <div className="nav-links">
-        <span onClick={() => props.login()}>Sign In</span>
-      </div>
+      <ul>
+        <li
+          className="nav-item"
+          onClick={() => (isLoggedIn ? handleLogout() : props.login())}
+        >
+          {isLoggedIn ? 'Sign Out' : 'Sign In'}
+        </li>
+      </ul>
     </NavbarWrapper>
   );
 };
