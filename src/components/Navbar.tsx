@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { PRIMARY, SECONDARY, SUCCESS, DANGER } from '../constants/colors';
+import { PRIMARY, SECONDARY } from '../constants/colors';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetDashboardState, setUserLoggedOut } from '../store/actions';
 import { useRouter } from 'next/router';
 const NavbarWrapper = styled.nav`
   height: 50px;
-  background-color: #4d4d4d;
+  background-color: ${PRIMARY};
   position: relative;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ const NavbarWrapper = styled.nav`
       color: #efefef;
       &:hover {
         cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: ${SECONDARY};
       }
     }
   }
