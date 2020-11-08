@@ -3,7 +3,7 @@ import { PRIMARY, SECONDARY, SUCCESS, DANGER } from '../constants/colors';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoggedOut } from '../store/actions';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 const NavbarWrapper = styled.nav`
   height: 50px;
   background-color: #4d4d4d;
@@ -25,6 +25,11 @@ const NavbarWrapper = styled.nav`
     list-style: none;
     height: 100%;
 
+    a {
+      text-decoration: none;
+      color: #efefef;
+    }
+
     li.nav-item {
       padding: 12px 10px;
       font-size: 1.2em;
@@ -43,14 +48,21 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
-  const isLoggedIn = useSelector(({ login }: any) => login.isLoggedIn);
+  const { isLoggedIn, username } = useSelector(({ login }: any) => ({
+    isLoggedIn: login.isLoggedIn,
+    username: login.username
+  }));
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleLogout = () => {
-    Router.push('/');
+    router.push('/');
     dispatch(setUserLoggedOut());
     localStorage.removeItem('accessToken');
   };
+
+  const isDashboardBtnDisplayed =
+    isLoggedIn && !router.pathname.includes('dashboard');
 
   return (
     <NavbarWrapper>
@@ -58,6 +70,12 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
         <span className="nav-title">SnooOrganizer</span>
       </Link>
       <ul>
+        {isDashboardBtnDisplayed ? (
+          <li className="nav-item">
+            <Link href={`/dashboard/${username}`}>Dashboard</Link>
+          </li>
+        ) : null}
+
         <li
           className="nav-item"
           onClick={() => (isLoggedIn ? handleLogout() : props.login())}
