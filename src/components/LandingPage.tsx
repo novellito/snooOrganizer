@@ -118,8 +118,8 @@ export const LandingPage: React.FC = () => {
 
   return (
     <LandingPageWrapper>
+      <Navbar login={() => generateAuthWindow()} />
       {isLoading ? <DashboardLoader /> : <></>}
-      {/* <DashboardLoader /> */}
       <Button
         click={() => generateAuthWindow()}
         text="Login"

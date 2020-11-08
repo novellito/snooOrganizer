@@ -10,7 +10,6 @@ export const Index = () => {
         <title>Next.js boilerplate</title>
         <meta name="description" content="a nextjs starter boilerplate" />
       </Head>
-      <Navbar></Navbar>
       <LandingPage />
     </>
   );

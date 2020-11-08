@@ -8,6 +8,7 @@ import deepEqual from 'deep-equal';
 import { ISavedContent } from '../../src/interfaces/interfaces';
 import SearchResults from 'react-filter-search';
 import debounce from 'lodash.debounce';
+import Navbar from '../../src/components/Navbar';
 
 interface DashboardProps {
   subreddit: string;
@@ -47,6 +48,7 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
 
   return (
     <DashboardWrapper>
+      <Navbar />
       <h1>Welcome {props.username}</h1>
       <AccordionElem
         userSubreddits={props.userSubreddits}
