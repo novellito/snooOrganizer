@@ -11,6 +11,8 @@ config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatic
 const GlobalStyle = createGlobalStyle`
  * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   html {
     height: 100%;

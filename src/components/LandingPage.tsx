@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { login } from '../store/actions';
 import DashboardLoader from './Loaders/DashboardLoader';
+import Navbar from './Navbar';
 
 const LandingPageWrapper = styled.section`
   /* color: teal;
@@ -118,7 +119,7 @@ export const LandingPage: React.FC = () => {
   return (
     <LandingPageWrapper>
       {isLoading ? <DashboardLoader /> : <></>}
-      <DashboardLoader />
+      {/* <DashboardLoader /> */}
       <Button
         click={() => generateAuthWindow()}
         text="Login"
