@@ -17,8 +17,8 @@ import InputField from './InputField';
 
 const AccordionWrapper = styled.section`
   position: fixed;
-  width: 80%;
-  left: 10%;
+  width: 90%;
+  left: 5%;
   z-index: 5;
   background-color: white;
   margin-bottom: 20px;
@@ -63,6 +63,10 @@ const AccordionWrapper = styled.section`
     }
   }
 
+  .chip-container {
+    max-height: 75px;
+    overflow-y: auto;
+  }
   @keyframes fadein {
     0% {
       opacity: 0;
@@ -118,13 +122,15 @@ export const AccordionElem: React.FC<AccordionProps> = (props) => {
                 style={{ height: '30px', fontSize: '1em' }}
               ></Button>
             </div>
-            {props.userSubreddits.map((sub) => (
-              <FilterChip
-                subreddit={sub.subreddit}
-                key={sub.subreddit}
-                {...props}
-              />
-            ))}
+            <div className="chip-container">
+              {props.userSubreddits.map((sub) => (
+                <FilterChip
+                  subreddit={sub.subreddit}
+                  key={sub.subreddit}
+                  {...props}
+                />
+              ))}
+            </div>
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>
