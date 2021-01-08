@@ -13,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { setUserSubreddits } from '../../src/store/actions';
 import { POST_INC_BY } from '../../src/constants/constants';
+import ScrollTop from '../../src/components/ScrollTop';
 
 interface DashboardProps {
   subreddit: string;
@@ -129,6 +130,7 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
           );
         }}
       />
+      <ScrollTop />
     </DashboardWrapper>
   );
 }, areEqual);
