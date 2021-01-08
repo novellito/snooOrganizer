@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { setUserSubreddits } from '../../src/store/actions';
 import { POST_INC_BY } from '../../src/constants/constants';
 import ScrollTop from '../../src/components/ScrollTop';
+import Sticky from 'react-sticky-el';
 
 interface DashboardProps {
   subreddit: string;
@@ -85,13 +86,15 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
       <section className="welcome">
         <h1>Welcome {props.username}</h1>
       </section>
-      <div className="accordion-container">
-        <AccordionElem
-          userSubreddits={props.userSubreddits}
-          savedContent={currDisplayed}
-          filterList={(e) => debouncedSearch(e.target.value)}
-        />
-      </div>
+      <Sticky stickyStyle={{ zIndex: 5 }}>
+        <div className="accordion-container">
+          <AccordionElem
+            userSubreddits={props.userSubreddits}
+            savedContent={currDisplayed}
+            filterList={(e) => debouncedSearch(e.target.value)}
+          />
+        </div>
+      </Sticky>
       <SearchResults
         value={searchInput}
         data={currDisplayed}
