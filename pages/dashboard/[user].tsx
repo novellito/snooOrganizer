@@ -32,9 +32,6 @@ const DashboardWrapper = styled.section`
     grid-row-gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
   }
-  .accordion-container {
-    height: 300px;
-  }
   .welcome {
     display: flex;
     align-items: center;
@@ -85,13 +82,11 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
         <h1>Welcome {props.username}</h1>
       </section>
       <Sticky stickyStyle={{ zIndex: 5 }}>
-        <div className="accordion-container">
-          <AccordionElem
-            userSubreddits={props.userSubreddits}
-            savedContent={currDisplayed}
-            filterList={(e) => debouncedSearch(e.target.value)}
-          />
-        </div>
+        <AccordionElem
+          userSubreddits={props.userSubreddits}
+          savedContent={currDisplayed}
+          filterList={(e) => debouncedSearch(e.target.value)}
+        />
       </Sticky>
       <SearchResults
         value={searchInput}
