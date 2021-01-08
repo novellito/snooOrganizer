@@ -20,8 +20,8 @@ export const setSavedContent = (savedContent: ISavedContent) => {
   return { type: SET_SAVED_CONTENT, payload: savedContent };
 };
 
-export const setUserSubreddits = <ISavedContent extends []>(
-  savedContent: ISavedContent
+export const setUserSubreddits =(
+  savedContent: ISavedContent[]
 ) => {
   const subredditSet = new Set<string>();
   savedContent.forEach((sub: any) => subredditSet.add(sub.subreddit));
@@ -53,7 +53,6 @@ export const login = (code: string): any => {
       console.log('data from action ', data);
       localStorage.setItem('accessToken', data.content.accessToken);
       dispatch(setSavedContent(data.content.postCardData));
-      dispatch(setUserSubreddits(data.content.postCardData));
       dispatch(setUserLoggedIn(data.content.username));
       return data.content;
     } catch (err) {
@@ -69,7 +68,6 @@ export const fetchUserContent = (): any => {
       const { data } = await axios.post('/api/userContent', { accessToken });
       console.log('data from fetching! ', data);
       dispatch(setSavedContent(data.content.postCardData));
-      dispatch(setUserSubreddits(data.content.postCardData));
       dispatch(setUserLoggedIn(data.content.username));
       return data.content;
     } catch (err) {
