@@ -30,6 +30,18 @@ const DashboardWrapper = styled.section`
     grid-row-gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
   }
+  .accordion-container {
+    height: 300px;
+  }
+  .welcome {
+    display: flex;
+    align-items: center;
+    height: 85px;
+    justify-content: center;
+    h1 {
+      font-size: 1.7em;
+    }
+  }
 `;
 
 const getCommentBody = (comment: string) => {
@@ -46,6 +58,7 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState('');
   const [displayCount, setDisplayCount] = useState(POST_INC_BY);
+  const [hasMore, setHasMore] = useState(true);
   useEffect(() => {
     dispatch(setUserSubreddits(props.savedContent.slice(0, displayCount)));
   }, [displayCount]);
@@ -57,58 +70,64 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
 
   const loadMorePosts = () => {
     if (displayCount + POST_INC_BY > props.savedContent.length) {
-    } else {
-      setTimeout(() => {
-        const currCount = displayCount + POST_INC_BY;
-        setDisplayCount(currCount);
-      }, 1000);
+      setHasMore(false);
     }
+    // setTimeout(() => {
+    setDisplayCount(displayCount + POST_INC_BY);
+    // }, 500);
   };
 
   return (
-    <DashboardWrapper>
+    <DashboardWrapper id="dashboard-wrapper">
       <Navbar />
-      <h1>Welcome {props.username}</h1>
-
-      <InfiniteScroll
-        dataLength={props.savedContent.slice(0, displayCount).length}
-        next={() => loadMorePosts()}
-        hasMore={true}
-        loader={<h4>Loading...</h4>}
-      >
+      <section className="welcome">
+        <h1>Welcome {props.username}</h1>
+      </section>
+      <div className="accordion-container">
         <AccordionElem
           userSubreddits={props.userSubreddits}
           savedContent={props.savedContent.slice(0, displayCount)}
           filterList={(e) => debouncedSearch(e.target.value)}
         />
-
-        <SearchResults
-          value={searchInput}
-          data={props.savedContent.slice(0, displayCount)}
-          renderResults={(results) => {
-            return (
-              <FlipMove className="cards">
-                {results.map(
-                  (elem: any) =>
-                    elem.isDisplayed && (
-                      <PostCard
-                        key={elem.postId}
-                        url={elem.url}
-                        thumbnailUrl={elem.thumbnailUrl}
-                        postTitle={elem.postTitle}
-                        subreddit={elem.subreddit}
-                        postId={elem.postId}
-                        author={elem.author}
-                        createdTime={elem.createdTime}
-                        commentBody={getCommentBody(elem.commentBody)}
-                      ></PostCard>
-                    )
-                )}
+      </div>
+      <SearchResults
+        value={searchInput}
+        data={props.savedContent.slice(0, displayCount)}
+        renderResults={(results) => {
+          return (
+            <>
+              <FlipMove>
+                <InfiniteScroll
+                  className="cards"
+                  dataLength={props.savedContent.slice(0, displayCount).length}
+                  next={() => loadMorePosts()}
+                  hasMore={hasMore}
+                  endMessage={<></>}
+                  loader={<h4>Loading...</h4>}
+                  style={{ overflow: 'hidden', height: 'auto' }}
+                >
+                  {results.map(
+                    (elem: any) =>
+                      elem.isDisplayed && (
+                        <PostCard
+                          key={elem.postId}
+                          url={elem.url}
+                          thumbnailUrl={elem.thumbnailUrl}
+                          postTitle={elem.postTitle}
+                          subreddit={elem.subreddit}
+                          postId={elem.postId}
+                          author={elem.author}
+                          createdTime={elem.createdTime}
+                          commentBody={getCommentBody(elem.commentBody)}
+                        ></PostCard>
+                      )
+                  )}
+                </InfiniteScroll>
               </FlipMove>
-            );
-          }}
-        />
-      </InfiniteScroll>
+            </>
+          );
+        }}
+      />
     </DashboardWrapper>
   );
 }, areEqual);

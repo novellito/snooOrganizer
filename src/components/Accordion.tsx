@@ -16,6 +16,11 @@ import { ISavedContent } from '../interfaces/interfaces';
 import InputField from './InputField';
 
 const AccordionWrapper = styled.section`
+  position: fixed;
+  width: 80%;
+  left: 10%;
+  z-index: 5;
+  background-color: white;
   margin-bottom: 20px;
   border-radius: 0.4rem;
   box-shadow: 0 0 0.8rem 0.1rem rgba(15, 72, 179, 0.06),
