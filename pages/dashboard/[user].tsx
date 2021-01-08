@@ -59,6 +59,7 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
   const [searchInput, setSearchInput] = useState('');
   const [displayCount, setDisplayCount] = useState(POST_INC_BY);
   const [hasMore, setHasMore] = useState(true);
+  const currDisplayed = props.savedContent.slice(0, displayCount);
   useEffect(() => {
     dispatch(setUserSubreddits(props.savedContent.slice(0, displayCount)));
   }, [displayCount]);
@@ -86,20 +87,20 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
       <div className="accordion-container">
         <AccordionElem
           userSubreddits={props.userSubreddits}
-          savedContent={props.savedContent.slice(0, displayCount)}
+          savedContent={currDisplayed}
           filterList={(e) => debouncedSearch(e.target.value)}
         />
       </div>
       <SearchResults
         value={searchInput}
-        data={props.savedContent.slice(0, displayCount)}
+        data={currDisplayed}
         renderResults={(results) => {
           return (
             <>
               <FlipMove>
                 <InfiniteScroll
                   className="cards"
-                  dataLength={props.savedContent.slice(0, displayCount).length}
+                  dataLength={currDisplayed.length}
                   next={() => loadMorePosts()}
                   hasMore={hasMore}
                   endMessage={<></>}
