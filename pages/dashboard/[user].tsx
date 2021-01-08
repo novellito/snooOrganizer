@@ -75,9 +75,7 @@ export const Dashboard: React.FC<DashboardProps> = React.memo((props) => {
     if (displayCount + POST_INC_BY > props.savedContent.length) {
       setHasMore(false);
     }
-    // setTimeout(() => {
     setDisplayCount(displayCount + POST_INC_BY);
-    // }, 500);
   };
 
   return (
