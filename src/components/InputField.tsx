@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TEXT_PRIMARY, SNOO_MINT } from '../constants/colors';
 
-const inputWidth = '320px';
+const inputWidth = '100%';
 
 const InputFieldWrapper = styled.div`
   margin: 10px 0 20px 5px;
