@@ -11,7 +11,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Rubik:wght@400;500&display=swap"
             rel="stylesheet"
           />
-          <title>Organize Reddit saved posts & comments</title>
         </Head>
         <body>
           <Main />

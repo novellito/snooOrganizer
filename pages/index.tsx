@@ -7,7 +7,7 @@ export const Index = () => {
   return (
     <>
       <Head>
-        <title>Next.js boilerplate</title>
+        <title>Organize Reddit saved posts & comments</title>
         <meta name="description" content="a nextjs starter boilerplate" />
       </Head>
       <LandingPage />
