@@ -3,8 +3,13 @@ import { Provider } from 'react-redux';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { AppProps } from 'next/app';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { SNOO_BLUE } from '../src/constants/colors';
+import React from 'react';
+import { lightTheme, darkTheme } from '../src/components/Theme';
+import { useDarkMode } from '../src/hooks/useDarkMode';
+import { GlobalStyles } from '../src/components/GlobalStyles';
+import ThemeToggler from '../src/components/ThemeToggler';
 
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
@@ -30,11 +35,22 @@ interface AppPropsWithRedux extends AppProps {
 }
 
 function MyApp({ Component, pageProps, reduxStore }: AppPropsWithRedux) {
+  const [theme, themeToggler, mountedComponent] = useDarkMode();
+
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  if (!mountedComponent) return <div />;
+
   return (
-    <Provider store={reduxStore}>
-      <Component {...pageProps} />
-      <GlobalStyle />
-    </Provider>
+    <ThemeProvider theme={themeMode}>
+      <>
+        <ThemeToggler toggleTheme={themeToggler} />
+        <GlobalStyles />
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+          <GlobalStyle />
+        </Provider>
+      </>
+    </ThemeProvider>
   );
 }
 
