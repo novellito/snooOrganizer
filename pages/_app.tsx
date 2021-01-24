@@ -6,7 +6,7 @@ import { AppProps } from 'next/app';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { SNOO_BLUE } from '../src/constants/colors';
 import React from 'react';
-import { lightTheme, darkTheme } from '../src/components/Theme';
+import { lightTheme, darkTheme } from '../src/constants/Theme';
 import { useDarkMode } from '../src/hooks/useDarkMode';
 import { GlobalStyles } from '../src/components/GlobalStyles';
 import ThemeToggler from '../src/components/ThemeToggler';

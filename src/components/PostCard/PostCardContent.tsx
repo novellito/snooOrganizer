@@ -25,7 +25,6 @@ const PostCardContentWrapper = styled.div`
   p {
     margin: 0;
     &.header-text {
-      color: ${TEXT_HEADER};
       font-weight: bold;
       font-size: 1.3em;
     }

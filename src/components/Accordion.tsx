@@ -30,7 +30,6 @@ const AccordionWrapper = styled.section`
     padding: 24px;
   }
   .accordion__button {
-    color: ${TEXT_HEADER};
     cursor: pointer;
     outline: none;
 
