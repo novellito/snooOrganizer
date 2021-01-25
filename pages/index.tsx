@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import LandingPage from '../src/components/LandingPage';
 import React from 'react';
-import { Navbar } from '../src/components/Navbar';
 
 export const Index = () => {
   return (

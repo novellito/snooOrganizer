@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { TEXT_HEADER } from '../constants/colors';
 import {
   Accordion,
   AccordionItem,
