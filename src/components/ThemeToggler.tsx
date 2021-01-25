@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SNOO_BLUE } from '../constants/colors';
-import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const ThemeTogglerWrapper = styled.div`
   .themeToggler {
@@ -31,15 +30,15 @@ const ThemeTogglerWrapper = styled.div`
   }
 `;
 
-export const ThemeToggler: React.FC<any> = ({ toggleTheme }) => {
+export const ThemeToggler: React.FC<any> = ({ toggleTheme, theme }) => {
   return (
     <ThemeTogglerWrapper>
       <FontAwesomeIcon
         className="themeToggler"
         onClick={toggleTheme}
         size="7x"
-        color={SNOO_BLUE}
-        icon={faArrowAltCircleUp}
+        color={theme === 'light' ? 'black' : 'white'}
+        icon={theme === 'light' ? faMoon : faSun}
       />
     </ThemeTogglerWrapper>
   );

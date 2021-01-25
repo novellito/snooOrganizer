@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps, reduxStore }: AppPropsWithRedux) {
   return (
     <ThemeProvider theme={themeMode}>
       <>
-        <ThemeToggler toggleTheme={themeToggler} />
+        <ThemeToggler toggleTheme={themeToggler} theme={theme} />
         <GlobalStyles />
         <Provider store={reduxStore}>
           <Component {...pageProps} />
