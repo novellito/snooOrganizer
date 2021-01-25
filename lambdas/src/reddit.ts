@@ -34,6 +34,7 @@ export default {
       const user = await snoowrapObj.getMe();
       const username = user.name;
       const savedContent = await user.getSavedContent();
+      // const savedContent = await user.getSavedContent().fetchAll();
 
       return HttpRes.successResponse(
         JSONStringify({
