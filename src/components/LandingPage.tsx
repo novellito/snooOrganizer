@@ -16,8 +16,8 @@ import DashboardLoader from './Loaders/DashboardLoader';
 import Navbar from './Navbar';
 
 const LandingPageWrapper = styled.section`
-  text-align: center;
   .hero {
+    text-align: center;
     min-height: 400px;
     display: flex;
     justify-content: center;
@@ -131,15 +131,19 @@ export const LandingPage: React.FC = () => {
   return (
     <LandingPageWrapper>
       <Navbar login={() => generateAuthWindow()} />
-      <div className="hero">
-        {isLoading ? <DashboardLoader /> : <></>}
-        <h1>Manage your saved posts on Reddit 🤩</h1>
-        <Button
-          click={() => generateAuthWindow()}
-          text="Login"
-          bgColor="primary"
-        ></Button>
-      </div>
+      <DashboardLoader />
+      {isLoading ? (
+        <DashboardLoader />
+      ) : (
+        <div className="hero">
+          <h1>Manage your saved posts on Reddit 🤩</h1>
+          <Button
+            click={() => generateAuthWindow()}
+            text="Login"
+            bgColor="primary"
+          ></Button>
+        </div>
+      )}
     </LandingPageWrapper>
   );
 };
