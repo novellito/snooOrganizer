@@ -36,3 +36,11 @@ REDIRECT_URI='http://localhost:3000/'
 3. install [serverless](https://www.serverless.com/framework/docs/getting-started/) & in the lambdas directory run `sls offline`
 4. at the root directory run `npm start`
 
+
+## Demo
+
+Infinite scroll, dark theme, filter bar
+![Alt Text](http://g.recordit.co/6Uaf56SIwx.gif)
+
+skeleton loader
+![Alt Text](http://g.recordit.co/I00tlCHA0x.gif)
