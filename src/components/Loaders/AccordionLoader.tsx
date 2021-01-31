@@ -25,7 +25,6 @@ const AccordionLoaderWrapper = styled.div`
     padding: 24px;
   }
   .accordion__button {
-    color: ${TEXT_HEADER};
     cursor: pointer;
     outline: none;
 
