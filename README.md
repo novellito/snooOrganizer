@@ -1,4 +1,4 @@
-# snooOrganizer
+# SnooOrganizer
 
 Manage your saved posts on Reddit 🤩
 
