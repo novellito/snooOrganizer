@@ -28,7 +28,7 @@ you'll need to register a new app with Reddit to get a Client_ID & Client_Secret
 
 ``` 
 CLIENT_ID='your_id'
-CLIENT_SECRET='your_seccret'ii
+CLIENT_SECRET='your_secret'
 REDIRECT_URI='http://localhost:3000/'
 ```
 
